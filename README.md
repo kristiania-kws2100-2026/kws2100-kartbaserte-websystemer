@@ -1,0 +1,603 @@
+# KWS2100 Geographic Information Web Systems
+
+[![Running website](https://img.shields.io/badge/Course-website-green)](https://kristiania-kws2100-2026.github.io/kws2100-kartbaserte-websystemer/)
+
+Welcome to this course in Geographic Information Systems (GIS) for the web. In this course, we will use popular and
+powerful open-source software to explore geographic information systems on the web. The course will
+use [OpenLayers](https://openlayers.org/) as a web framework for information systems and [PostGIS](https://postgis.net/)
+as a geographical information database. We will build web applications with the React framework and use Express to
+create APIs on top of PostGIS. In order to run our databases on the web, we will deploy using Heroku.
+
+## Understanding the course
+
+In this course, we expect you to create working web applications with geographic functionality. During the lectures, you
+will see live coding of how such applications may be constructed and the relevant topics will be explained along the
+way.
+
+The lectures will be recorded and the recordings will be available to students in Panopto in Canvas.
+
+## Lectures
+
+### Lecture 1: A tour of OpenLayers (2026-01-05)
+
+[![Lecture 1 Mentimeter](https://img.shields.io/badge/Lecture_1-mentimenter-yellow)](https://www.menti.com/albtm72cprus)
+
+[![Lecture 1 code](https://img.shields.io/badge/Lecture_1-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/01)
+[![Lecture 1 reference](https://img.shields.io/badge/Lecture_1-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/01)
+[![Lecture 1 exercise](https://img.shields.io/badge/Lecture_1-exercise-pink)](./exercises/EXERCISES.md#exercise-1)
+
+We will create a React application that will display a simple map with a background layer
+from [Open Street Map](https://www.openstreetmap.org/) and a [vector layer](https://github.com/robhop/fylker-og-kommuner/blob/main/Fylker-M.geojson).
+
+During the exercise for the first lecture, we will slow code the exercise together.
+
+### Lecture 2: Interacting with the polygon elements (2026-01-12)
+
+[![Lecture 2 code](https://img.shields.io/badge/Lecture_2-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/02)
+[![Lecture 2 reference](https://img.shields.io/badge/Lecture_2-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/02)
+[![Lecture 2 exercise](https://img.shields.io/badge/Lecture_2-exercise-pink)](./exercises/EXERCISES.md#exercise-2)
+
+In this lecture, we will make sure that the user can interact with kommuner, so clicking a feature on the map should show an overlay to the user
+
+### Lecture 3: Tile layers and map projections (2026-01-19)
+
+[![Lecture 3 code](https://img.shields.io/badge/Lecture_3-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/03)
+[![Lecture 3 reference](https://img.shields.io/badge/Lecture_3-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/03)
+[![Lecture 3 exercise](https://img.shields.io/badge/Lecture_3-exercise-pink)](./exercises/EXERCISES.md#exercise-3)
+
+**"Damn you, Gerhard!"**
+
+We will change the background layers in our map to display aerial photos and change the map projection to polar
+projection. In the process, we will learn that the earth is indeed round.
+
+- Restructure the map layers to vary base layer
+- Use a few [Stadia maps](https://stadiamaps.com/)
+- Add [Norwegian official map](https://kartkatalog.geonorge.no/metadata/topografisk-norgeskart-wmts--cache/8f381180-1a47-4453-bee7-9a3d64843efa) ("Topografisk norgeskart"), introducing some projection strangeness
+- Add [aerial photos of Norway](https://kartkatalog.geonorge.no/metadata/norge-i-bilder-wmts-euref89-utm33/072662f8-41c9-4e9a-a55a-343dee0c3f84) ("Norge i bilder")
+- Add [Arctic Spacial Data Infrastructure](https://arctic-sdi.org/services/topografic-basemap/) polar map, going all in on projections
+
+[//]: # (Perhaps this works now? https://basemap.arctic-sdi.org/mapcache/wmts/?service=wmts&version=1.1.0&request=getcapabilities)
+
+#### Reference:
+
+- [UTM 32V i Store Norske Leksikon](https://snl.no/UTM)
+- [Map Men: Why Every Map is Wrong](https://www.youtube.com/watch?v=jtBV3GgQLg8) (silly, but educational)
+
+### Lecture 4: Git, GitHub, React and TypeScript  (2026-01-26)
+
+[![Lecture 4 code](https://img.shields.io/badge/Lecture_4-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-lecture-04)
+[![Lecture 4 reference](https://img.shields.io/badge/Lecture_4-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/04)
+[![Lecture 4 exercise](https://img.shields.io/badge/Lecture_4-exercise-pink)](./exercises/EXERCISES.md#exercise-4)
+
+In this lecture, we review some of the basics. If you don't yet feel super strong on React, TypeScript, Git or GitHub!
+
+### Lecture 5: Geographical databases  (2026-02-02)
+
+[![Lecture 5 code](https://img.shields.io/badge/Lecture_5-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/05)
+[![Lecture 5 reference](https://img.shields.io/badge/Lecture_5-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/05)
+[![Lecture 5 exercise](https://img.shields.io/badge/Lecture_5-exercise-pink)](./exercises/EXERCISES.md#exercise-5)
+
+In this lecture, we will provide our own datasource by importing datasets from Geonorge into PostGIS and creating a backend with them
+
+- [Administrative enheter - fylker (2023)](https://kartkatalog.geonorge.no/metadata/administrative-enheter-fylker-historiske-data-2023/7284fe8e-fed6-4172-ae56-a7f7c9fd4759)
+- [Statistiske enheter - grunnkretser](https://kartkatalog.geonorge.no/metadata/statistiske-enheter-grunnkretser/51d279f8-e2be-4f5e-9f72-1a53f7535ec1)
+- [Grunnskoler](https://kartkatalog.geonorge.no/metadata/grunnskoler/db4b872f-264d-434c-9574-57232f1e90d2)
+
+### Lecture 6: Deployment to Heroku AND tile vector layers (2026-02-09 - assignment handed out)
+
+[![Lecture 6 code](https://img.shields.io/badge/Lecture_6-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/06)
+[![Lecture 6 reference](https://img.shields.io/badge/Lecture_6-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/06)
+[![Lecture 6 exercise](https://img.shields.io/badge/Lecture_6-exercise-pink)](./exercises/EXERCISES.md#exercise-6)
+
+We will publish a basic React + [Hono](https://hono.dev/) application with TypeScript and Vite to [Heroku](https://heroku.com/) and add a map to the application.
+This lets us deploy with a geographic database
+
+### Lecture 7: Vector tile layers as data AND assignment (2026-02-23)
+
+[![Lecture 7 code](https://img.shields.io/badge/Lecture_7-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/07)
+[![Lecture 7 reference](https://img.shields.io/badge/Lecture_7-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/07)
+[![Class assignment](https://img.shields.io/badge/Lecture_7-exercise-pink)](./exercises/EXERCISES.md#exercise-7)
+
+We will look at how to use the fact that we get data from the database to optimize how much data is sent to the
+client.
+
+- [Administrative enheter - kommuner](https://kartkatalog.geonorge.no/metadata/administrative-enheter-kommuner/041f1e6e-bdbc-4091-b48f-8a5990f3cc5b)
+- [Statistiske enheter - grunnkretser](https://kartkatalog.geonorge.no/metadata/statistiske-enheter-grunnkretser/51d279f8-e2be-4f5e-9f72-1a53f7535ec1)
+- [Matrikkelen - adresse](https://kartkatalog.geonorge.no/metadata/matrikkelen-adresse/f7df7a18-b30f-4745-bd64-d0863812350c)
+
+### Lecture 8: Exploring vector objects (2026-03-02 - assignment due)
+
+[![Lecture 8 code](https://img.shields.io/badge/Lecture_8-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/08)
+[![Lecture 8 reference](https://img.shields.io/badge/Lecture_8-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/08)
+[![Lecture 8 exercise](https://img.shields.io/badge/Lecture_8-exercise-pink)](./exercises/EXERCISES.md#exercise-8)
+
+In the last lecture, we worked with optimizing vector tile maps
+
+In this lecture, we will show how to use vector features as React objects and explore styling a bit more
+
+
+### Lecture 9: Drawing points on the map (2026-03-09)
+
+[![Lecture 9 code](https://img.shields.io/badge/Lecture_9-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/09)
+[![Lecture 9 reference](https://img.shields.io/badge/Lecture_9-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/09)
+[![Lecture 9 exercise](https://img.shields.io/badge/Lecture_9-exercise-pink)](./exercises/EXERCISES.md#exercise-9)
+
+In this lecture, we will start by talking about
+[a real life use case of map applications](https://www.aftenposten.no/norge/i/Jbwj6R/nytt-digitalt-verktoey-skal-revolusjonere-leteaksjoner-dette-vil-redde-mange-liv)
+together will a [relevant news story](https://www.budstikka.no/savnet-kvinne-er-funnet/s/5-55-1920412). We will then
+create a map where we can add out own points by
+[drawing with the mouse](https://openlayers.org/en/latest/examples/draw-features-style.html).
+
+### Exercise:
+
+This week's exercise is to draw objects on a map using OpenLayers `map.addInteraction(new Draw(...))` function.
+Experiment with different type of objects as well. Try and save the objects to `localStorage` and load them at startup.
+
+### Lecture 10: Points that move (2026-03-09 - assignment graded)
+
+[![Lecture 10 Mentimeter](https://img.shields.io/badge/Lecture_10-mentimenter-yellow)](https://www.menti.com/al8mce67e2hf)
+
+[![Lecture 10 code](https://img.shields.io/badge/Lecture_10-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/10)
+[![Lecture 10 reference](https://img.shields.io/badge/Lecture_10-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/10)
+[![Lecture 10 exercise](https://img.shields.io/badge/Lecture_10-exercise-pink)](./exercises/EXERCISES.md#exercise-10)
+
+In this lecture, we will create a map that shows public transit in Norway. As a bonus content, we will touch
+on [Vector Tile Layers](https://openlayers.org/en/latest/examples/mapbox-vector-layer.html)
+with [Mapbox styles](https://mapbox.com).
+
+ENTUR is a public sector agency that provides [APIs for Norwegian public transport](https://developer.entur.org/). Among
+these, there is [an API to fetch vehicle positions](https://developer.entur.org/pages-real-time-intro), using the open
+standard [gtfs-realtime (General Transit Feed Specification)](https://gtfs.org/), which is based on the transport
+protocol [protobuf](https://protobuf.dev/). We will use
+the [protoc - protobuf compiler](https://github.com/protocolbuffers/protobuf/releases) tool with the
+[ts-proto TypeScript library](https://github.com/stephenh/ts-proto) to transform the
+[gtfs-realtime.proto API specification](https://github.com/google/transit/blob/master/gtfs-realtime/proto/gtfs-realtime.proto)
+into TypeScript.
+
+gtfs-realtime provides a fairly low level interface to the vehicle data, and we will need to work to make this into
+something that OpenLayers will be happy to consume.
+
+#### How to read data from ENTUR
+
+<details>
+
+1. Download [`protoc`](https://github.com/protocolbuffers/protobuf/releases) and store it locally (but `.gitignored` - it's pretty big)
+2. `npm install ts-proto` for TypeScript bindings
+3. Download the [gtfs-realtime.proto spec](https://github.com/google/transit/blob/master/gtfs-realtime/proto/gtfs-realtime.proto)
+4. Run `protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=generated/ --ts_proto_opt=esModuleInterop=true ./gtfs-realtime.proto`
+    - Note: ⚠ On Windows, you have to replace `protoc-gen-ts_proto` with `protoc-gen-ts_proto.cmd`, so the full command is
+      `protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto.cmd --ts_proto_out=generated/ --ts_proto_opt=esModuleInterop=true ./gtfs-realtime.proto`
+    - Note: You may want to add a `script` in `package.json` for this
+5. Read the binary data from ENTUR: `const res = await fetch("https://api.entur.io/realtime/v1/gtfs-rt/vehicle-positions")`
+6. Parse the data using the generated spec: `FeedMessage.decode(new Uint8Array(await res.arrayBuffer()))`
+7. Create features using `vehicle.position.longitude` and `vehicle.position.latitude` from `Feedmessage.entity`
+
+Complete code:
+
+```typescript
+const res = await fetch(
+        "https://api.entur.io/realtime/v1/gtfs-rt/vehicle-positions",
+);
+const features = FeedMessage.decode(new Uint8Array(await res.arrayBuffer()))
+  .entity.map((e) => e.vehicle)
+  .filter((e) => !!e)
+  .map((vehicle) => {
+     const position = vehicle?.position!;
+     const { latitude, longitude } = position;
+     // Here you may want to include other properties in the Feature
+     return new Feature({ geometry: new Point([longitude, latitude]) });
+  });
+const vectorSource = new VectorSource({ features })
+```
+
+</details>
+
+### Lecture 11: Review of PostGIS and Heroku (with slow-coding) - (2026-03-16)
+
+[![Lecture 11 code](https://img.shields.io/badge/Lecture_11-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/11)
+[![Lecture 11 reference](https://img.shields.io/badge/Lecture_11-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/11)
+[![Lecture 5 exercise](https://img.shields.io/badge/Lecture_5-exercise-pink)](./exercises/EXERCISES.md#exercise-5)
+[![Lecture 6 exercise](https://img.shields.io/badge/Lecture_6-exercise-pink)](./exercises/EXERCISES.md#exercise-6)
+
+In this lecture, we will review how to get data from PostgreSQL to the OpenLayers. We will also explore some more
+feature of PostGIS, including creating buffers around features in the database.
+
+The exercise will be a repeat of exercise 5 and 6, with slow coding.
+
+
+### Lecture 12: Getting ready for the exam (2026-03-23)
+
+[![Lecture 12 Mentimeter](https://img.shields.io/badge/Lecture_12-mentimenter-yellow)](https://www.menti.com/alksy5khqc66)
+
+[![Lecture 12 code](https://img.shields.io/badge/Lecture_12-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/12)
+[![Lecture 12 reference](https://img.shields.io/badge/Lecture_12-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/12)
+[![Lecture 12 exercise](https://img.shields.io/badge/Lecture_12-exercise-pink)](./exercises/exam-prep.md)
+
+This week's lecture, we will talk a [little about the exam](./exercises/exam-prep.md).
+We start then with a simple map and then discuss how to move forward based on the wishes
+of the audience, so the lecture has no reference code.
+
+For the exercise-time start on the last exercise that you haven't completed.
+
+
+## Reference material
+
+### Creating a React application
+
+This list of commands:
+
+1. Creates a `package.json`-file
+2. Installs [Vite](https://vite.dev) which transforms `index.html` + `.tsx`-files to JavaScript
+3. Installs [TypeScript](https://www.typescriptlang.org/) to check the correctness of your code
+4. Installs [Prettier](https://prettier.io/) to check the coding style of your code
+5. Installs [Husky](https://typicode.github.io/husky/) which runs checks before each login
+
+```shell
+npm init -y
+npm install -D vite
+npm install react react-dom
+npm pkg set scripts.dev=vite
+
+npm install -D typescript
+npm install -D @types/react @types/react-dom
+npx tsc --init --jsx react
+
+npm install -D prettier
+npx prettier --write .
+npm pkg set scripts.test="tsc --noEmit && prettier --check ."
+
+npm install -D husky
+npx husky init
+
+```
+
+#### Minimal `index.html`
+
+```html
+<html lang="en">
+<body>
+<div id="root"></div>
+</body>
+<script src="src/main.tsx" type="module"></script>
+</html>
+```
+
+#### Minimal `src/main.tsx`
+
+```jsx
+import React from "react";
+import { createRoot } from "react-dom/client";
+
+createRoot(document.getElementById("root")).render(<h1>Hello React</h1>);
+```
+
+#### Commiting to Git
+
+1. Create a `.gitignore`-file that excludes `node_modules`, `dist` and `.idea`
+2. Make sure all files are formatted with Prettier
+
+### Creating a OpenLayers map in React
+
+First you need to install the `ol` dependency:
+
+- `npm install ol`
+
+Add the file `src/modules/app/application.tsx`
+
+```tsx
+import React, { useEffect, useRef } from "react";
+import { Map, View } from "ol";
+import TileLayer from "ol/layer/Tile";
+import { OSM } from "ol/source";
+import { useGeographic } from "ol/proj";
+
+// Styling of OpenLayers components like zoom and pan controls
+import "ol/ol.css";
+
+// By calling the "useGeographic" function in OpenLayers, we tell that we want coordinates to be in degrees
+//  instead of meters, which is the default. Without this `center: [10.6, 59.9]` brings us to "null island"
+useGeographic();
+
+// Here we create a Map object. Make sure you `import { Map } from "ol"`. Otherwise, the standard Javascript
+//  map data structure will be used
+const map = new Map({
+  // The map will be centered on a position in longitude (x-coordinate, east) and latitude (y-coordinate, north),
+  //   with a certain zoom level
+  view: new View({ center: [10.8, 59.9], zoom: 13 }),
+  // map tile images will be from the Open Street Map (OSM) tile layer
+  layers: [new TileLayer({ source: new OSM() })],
+});
+
+// A functional React component
+export function Application() {
+  // `useRef` bridges the gap between JavaScript functions that expect DOM objects and React components
+  const mapRef = useRef<HTMLDivElement | null>(null);
+  // When we display the page, we want the OpenLayers map object to target the DOM object refererred to by the
+  // map React component
+  useEffect(() => {
+    map.setTarget(mapRef.current!);
+  }, []);
+
+  // This is the location (in React) where we want the map to be displayed
+  return <div ref={mapRef}></div>;
+}
+```
+
+Update `src/main.tsx` to render `<Application />` from `src/modules/app/application.tsx` instead of `<h1>Hello React</h1>`.
+
+## Deploying your application to the internet
+
+You can either deploy using [GitHub pages](#a-deployment-to-github-pages) or [Heroku](#b-deploying-to-heroku).
+GitHub pages is the simplest option, but it cannot run a database. If you want to include a database, you need
+to use Heroku or a similar service
+
+### A. Deployment to GitHub Pages
+
+#### Minimal `vite.config.ts`
+
+```ts
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  // This has to be equal to the name of your repository
+  // For example, since this repository is https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer,
+  //  `base` has to be `/kws2100-kartbaserte-websystemer`
+  base: "/kws2100-kartbaserte-websystemer",
+});
+
+```
+
+#### Minimal `.github/workflows/publish-to-github-pages.yml`
+
+<details>
+
+```yml
+on:
+  push:
+    # Only deploy when the branch name matches one of these
+    # You probably only need `main`, the others are provided to work with the lectures
+    branches: ["main", "reference/*", "lecture/*"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22.x, cache: "npm" }
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+      - uses: actions/deploy-pages@v4
+
+    permissions:
+       id-token: write # to verify the deployment originates from an appropriate source
+       pages: write # to deploy to Pages
+       contents: read # to check out private repositories
+```
+</details>
+
+### B. Deploying to Heroku
+
+By running on Heroku, you can have a server-side application which accesses a database.
+
+#### Creating a Hono Application
+
+This sets up your application to have a subdirectory for the server which should have node modules installed and be started by Heroku.
+
+This list of commands:
+
+1. Sets up the scripts to build and start the application on Heroku
+2. Creates a directory for the server with a separate `package.json`
+3. Adds dependencies on [Hono](https://hono.dev/) and PostgreSQL to the server
+4. Creates the scripts to develop and run the server
+
+```shell
+npm pkg set scripts.postinstall="cd server && npm install --include=dev"
+npm pkg set scripts.build="vite build"
+npm pkg set scripts.start="cd server && npm start"
+
+npm install -D @types/node
+
+mkdir server
+cd server
+npm init -y
+
+npm install hono @hono/node-server pg
+npm install --save-dev tsx @types/pg
+npm pkg set scripts.dev="tsx --watch server.ts"
+npm pkg set scripts.start="tsx server.ts"
+
+```
+
+**`server/server.ts`**
+
+```typescript
+import { Hono } from "hono";
+import { serve } from "@hono/node-server";
+import { serveStatic } from "@hono/node-server/serve-static";
+
+const app = new Hono();
+// `serveStatic` makes Hono serve the output from `vite build`
+app.use("*", serveStatic({ root: "../dist" }));
+
+// Heroku provides the port that the server should start on as an environment variable
+const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
+serve({ fetch: app.fetch, port });
+```
+
+#### Deploying to Heroku
+
+In order to deploy to Heroku you need to register an account with [Heroku](https://heroku.com). Read through the documentation about [Heroku for GitHub Students](https://www.heroku.com/github-students) so you understand how to avoid cloud bills.
+
+Download the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+
+Now you need to commit your changes. You can then create a Heroku application and push your code to it.
+
+1. `heroku apps:create`
+2. `git push heroku`
+
+## Implementing layer API services with a Hono server and PostGis database
+
+### Starting [PostGIS](https://postgis.net/) with Docker Compose
+
+To use this file, you need to install [Docker Desktop](https://www.docker.com/products/docker-desktop/), which lets you run local versions of all kinds of software on your computer.
+
+```yaml
+services:
+   postgis:
+      container_name: postgis
+      image: postgis/postgis
+      environment:
+         POSTGRES_PASSWORD: "postgres"
+      ports:
+         - "5432:5432"
+```
+
+Start the Postgis server in Docker by running `docker compose up` (or `docker compose up --detach`). You can now connect to Postgis using for example the IntelliJ database view and adding a new PostgreSQL Data Source.
+
+### Importing a dataset into a PostGIS server in docker
+
+[Full example](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/07)
+
+Downloading and importing data into Postgis can be useful scripts to include in your package.json. Here is an example using schools:
+
+1. We want to execute "download" as a command with npm: `npm install download-cli`
+2. Getting schools involves downloading and then importing the data: `npm pkg set scripts.db:schools="npm run db:schools:download && npm run db:schools:import"`
+3. Download the schools from Kartverket: `npm pkg set scripts.db:schools:download="download --extract --out tmp/ https://nedlasting.geonorge.no/geonorge/Befolkning/Grunnskoler/PostGIS/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.zip"` (replace the URL for other data sets)
+4. Install into Postgis using docker: `npm pkg set scripts.db:schools:import="docker exec -i /postgis /usr/bin/psql --user postgres < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql"` (replace file name when downloading another data set)
+5. Import the data using `npm run db:schools` (running the command multiple times will result in an error since the data already exists)
+
+**Here is a complete summary for downloading the schools:**
+
+```shell
+npm install download-cli
+npm pkg set scripts.db:schools="npm run db:schools:download && npm run db:schools:import"
+npm pkg set scripts.db:schools:download="download --extract --out tmp/ https://nedlasting.geonorge.no/geonorge/Befolkning/Grunnskoler/PostGIS/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.zip"
+npm pkg set scripts.db:schools:import="docker exec -i /postgis /usr/bin/psql --user postgres < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql"
+
+```
+
+### Creating a PostGIS API in Hono
+
+**`vite.config.ts`**
+
+To use an API in Hono from the Vite development server, you need to update `vite.config.ts`.
+This forwards `http://localhost:5173/api/*` to `http://localhost:3000/api/*` so making an API
+call to Vite will forward this to Hono:
+
+```typescript
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  server: {
+    proxy: {
+      // Configures the Vite development server to forward `http://localhost:5173/api/*` to `http://localhost:3000/api/*`
+      "/api": "http://localhost:3000",
+    },
+  },
+});
+```
+
+**`server/server.ts`**
+
+```typescript
+import { Hono } from "hono";
+import { serve } from "@hono/node-server";
+import pg from "pg";
+import { serveStatic } from "@hono/node-server/serve-static";
+
+// When you run `heroku addons:create heroku-postgresql` (below),
+// Heroku will provide `DATABASE_URL` as an envionment variable.
+// If this doesn't exist, we assume we're running on localhost with docker-compose
+const connectionString = process.env.DATABASE_URL;
+const postgresql = connectionString
+        ? new pg.Pool({ connectionString, ssl: { rejectUnauthorized: false } })
+        // If you choose a diffent password in `docker-compose.yaml` you must update here as well
+        : new pg.Pool({ user: "postgres", password: "postgres" });
+
+const app = new Hono();
+
+// Configures what Hono should respond with when you fetch http://localhost:3000/api/skoler
+app.get("/api/skoler", async (c) => {
+  // queries the data imported from Geonorge. 4326 is the Coordinate Reference System (CRS) for latitude and longitude
+  const result = await postgresql.query(
+    "select organisasjonsnummer, skolenavn, st_transform(posisjon, 4326)::json as geometry from grunnskole",
+  );
+  // Returns the result as a standardized GeoJSON `FeatureCollection`
+  return c.json({
+    type: "FeatureCollection",
+    // tells the client that we're using latitude and longitude. This must match the `st_transform` in the query
+    crs: { type: "name", properties: { name: "ESPG:4326" } },
+    features: result.rows.map(
+      // Returns GeoJSON features where each feature has the geometry from the SQL
+      //  and includes all additional columns in the query as properties
+      ({ geometry: { coordinates, type }, ...properties }) => ({
+        type: "Feature",
+        geometry: { type, coordinates },
+        properties,
+      }),
+    ),
+  });
+});
+app.use("*", serveStatic({ root: "../dist" }));
+
+// Start on the port specified by the environment (when running on Heroku) or port 3000 by default
+const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
+serve({ fetch: app.fetch, port });
+```
+
+**Explaination: What does this `...properties` do?**
+
+<details>
+
+The example contains the following bit of mystical code:
+
+```typescript
+result.rows.map(
+  ({ geometry: { coordinates, type }, ...properties }) => ({
+    type: "Feature",
+    geometry: { type, coordinates },
+    properties
+  })
+);
+```
+
+This is the same as the following:
+
+```typescript
+result.rows.map(row => {
+  const geometry = row.geometry;
+  const coordinates = geometry.coordinates;
+  const type = geometry.type;
+  
+  const properties = Object.create(row);
+  delete properties.geometry;
+  
+  const result = {
+    type: "Feature",
+    geometry: { type: type, coordinates: coordinates},
+    properties: properties
+  };
+  return result;
+});
+```
+
+This is advanced JavaScript syntax that can look confusing at first, but that reduces the visual and conceptual clutter when you have become familiar with it.
+
+</details>
+
+#### Setup database on Heroku
+
+The steps above imports the data from geonorge into the database on your workstation. But to access it when running on Heroku,
+you must also create a Postgresql database on Heroku and import the data there.
+
+1. `heroku addons:create heroku-postgresql`
+2. Wait for the database to be created
+3. `npm pkg set scripts.db:heroku:postgis="echo 'create extension postgis' | psql $DATABASE_URL"`
+4. `npm pkg set scripts.db:schools:heroku="npm run db:schools:download && psql $DATABASE_URL < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql"`
+5. `npm pkg set scripts.db:heroku="npm run db:heroku:postgis && npm run db:schools:heroku"`
+6. `heroku run "npm run db:heroku"`
