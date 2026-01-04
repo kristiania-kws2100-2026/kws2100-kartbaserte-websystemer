@@ -18,3 +18,4 @@ jobs:
 
 permissions:
   id-token: write
+  pages: write
