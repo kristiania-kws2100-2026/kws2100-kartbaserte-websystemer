@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Feature, Map, MapBrowserEvent, View } from "ol";
+import { Feature, Map, MapBrowserEvent, Overlay, View } from "ol";
 import { OSM } from "ol/source.js";
 import TileLayer from "ol/layer/Tile.js";
 import { useGeographic } from "ol/proj.js";
@@ -31,6 +31,10 @@ function activeFylkeStyle(feature: FeatureLike) {
   });
 }
 
+const vgsSource = new VectorSource({
+  url: `${import.meta.env.BASE_URL}/geojson/vgs.geojson`,
+  format: new GeoJSON(),
+});
 const map = new Map({
   layers: [
     new TileLayer({ source: new OSM() }),
@@ -41,10 +45,7 @@ const map = new Map({
       }),
     }),
     new VectorLayer({
-      source: new VectorSource({
-        url: `${import.meta.env.BASE_URL}/geojson/vgs.geojson`,
-        format: new GeoJSON(),
-      }),
+      source: vgsSource,
       style: new Style({
         image: new Circle({
           radius: 6,
@@ -59,15 +60,26 @@ const map = new Map({
     zoom: 9,
   }),
 });
+const overlay = new Overlay({});
 
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
+  const overlayRef = useRef<HTMLDivElement | null>(null);
 
   const [activeFylke, setActiveFylke] = useState<Feature>();
+  const [selectedSchools, setSelectedSchools] = useState<FeatureLike[]>([]);
 
   function handlePointerMove(e: MapBrowserEvent) {
     const features = fylkeSource.getFeaturesAtCoordinate(e.coordinate);
     setActiveFylke(features.length > 0 ? features[0] : undefined);
+  }
+
+  function handleClick(e: MapBrowserEvent) {
+    const features = map.getFeaturesAtPixel(e.pixel, {
+      layerFilter: (l) => l.getSource() === vgsSource,
+    });
+    setSelectedSchools(features);
+    overlay.setPosition(features.length > 0 ? e.coordinate : undefined);
   }
 
   useEffect(() => {
@@ -78,11 +90,17 @@ export function Application() {
   useEffect(() => {
     map.setTarget(mapRef.current!);
     map.on("pointermove", handlePointerMove);
+    map.on("click", handleClick);
+    map.addOverlay(overlay);
+    overlay.setElement(overlayRef.current!);
   }, []);
   return (
     <>
       <h1>Videregående skoler i Norge</h1>
       <div ref={mapRef} />
+      <div ref={overlayRef}>
+        Overlay: ({selectedSchools.length} valgte skoler)
+      </div>
     </>
   );
 }
