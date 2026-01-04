@@ -7,3 +7,22 @@
   display: grid;
   grid-template-rows: auto 1fr;
 }
+
+.ol-overlay-container {
+  background-color: white;
+  padding: 0.25em;
+  border-radius: 8px;
+  margin-top: -1.2rem;
+
+  &::before {
+    content: "";
+    border-width: 0.8rem 0.4rem 0 0.4rem;
+    border-style: solid;
+    border-color: transparent;
+    border-top-color: white;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 100%);
+  }
+}

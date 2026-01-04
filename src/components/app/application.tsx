@@ -11,6 +11,7 @@ import VectorSource from "ol/source/Vector.js";
 import { GeoJSON } from "ol/format.js";
 import { Circle, Fill, Stroke, Style, Text } from "ol/style.js";
 import type { FeatureLike } from "ol/Feature.js";
+import { Point } from "ol/geom.js";
 
 useGeographic();
 
@@ -60,7 +61,9 @@ const map = new Map({
     zoom: 9,
   }),
 });
-const overlay = new Overlay({});
+const overlay = new Overlay({
+  positioning: "bottom-center",
+});
 
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
@@ -79,7 +82,11 @@ export function Application() {
       layerFilter: (l) => l.getSource() === vgsSource,
     });
     setSelectedSchools(features);
-    overlay.setPosition(features.length > 0 ? e.coordinate : undefined);
+    overlay.setPosition(
+      features.length > 0
+        ? (features[0]!.getGeometry() as Point).getCoordinates()
+        : undefined,
+    );
   }
 
   useEffect(() => {
@@ -99,7 +106,9 @@ export function Application() {
       <h1>Videregående skoler i Norge</h1>
       <div ref={mapRef} />
       <div ref={overlayRef}>
-        Overlay: ({selectedSchools.length} valgte skoler)
+        {selectedSchools.length === 1
+          ? selectedSchools[0]!.getProperties()["skolenavn"]
+          : `${selectedSchools.length} valgte skoler`}
       </div>
     </>
   );
