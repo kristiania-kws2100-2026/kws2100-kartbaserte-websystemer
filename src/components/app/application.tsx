@@ -21,6 +21,12 @@ const map = new Map({
         format: new GeoJSON(),
       }),
     }),
+    new VectorLayer({
+      source: new VectorSource({
+        url: `${import.meta.env.BASE_URL}/geojson/vgs.geojson`,
+        format: new GeoJSON(),
+      }),
+    }),
   ],
   view: new View({
     center: [11, 60],
