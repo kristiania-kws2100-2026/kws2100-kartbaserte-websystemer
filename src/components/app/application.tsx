@@ -4,6 +4,9 @@ import { OSM } from "ol/source.js";
 import TileLayer from "ol/layer/Tile.js";
 import { useGeographic } from "ol/proj.js";
 
+import "ol/ol.css";
+import "./application.css";
+
 useGeographic();
 
 const map = new Map({
@@ -22,7 +25,7 @@ export function Application() {
   return (
     <>
       <h1>Hello OpenLayers</h1>
-      <div ref={mapRef}>Here is the map</div>
+      <div ref={mapRef} />
     </>
   );
 }
