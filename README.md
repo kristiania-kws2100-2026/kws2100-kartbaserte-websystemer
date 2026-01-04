@@ -27,7 +27,9 @@ The lectures will be recorded and the recordings will be available to students i
 [![Lecture 1 exercise](https://img.shields.io/badge/Lecture_1-exercise-pink)](./exercises/EXERCISES.md#exercise-1)
 
 We will create a React application that will display a simple map with a background layer
-from [Open Street Map](https://www.openstreetmap.org/) and a [vector layer](https://github.com/robhop/fylker-og-kommuner/blob/main/Fylker-M.geojson).
+from [Open Street Map](https://www.openstreetmap.org/) and a [vector layer](https://github.com/robhop/fylker-og-kommuner/blob/main/Fylker-M.geojson). The reference branch documents how
+to style polygon and point features, how to deploy to GitHub Pages and how to implement
+OpenLayers handler for hover and click.
 
 During the exercise for the first lecture, we will slow code the exercise together.
 
@@ -56,14 +58,12 @@ projection. In the process, we will learn that the earth is indeed round.
 - Add [aerial photos of Norway](https://kartkatalog.geonorge.no/metadata/norge-i-bilder-wmts-euref89-utm33/072662f8-41c9-4e9a-a55a-343dee0c3f84) ("Norge i bilder")
 - Add [Arctic Spacial Data Infrastructure](https://arctic-sdi.org/services/topografic-basemap/) polar map, going all in on projections
 
-[//]: # (Perhaps this works now? https://basemap.arctic-sdi.org/mapcache/wmts/?service=wmts&version=1.1.0&request=getcapabilities)
-
 #### Reference:
 
 - [UTM 32V i Store Norske Leksikon](https://snl.no/UTM)
 - [Map Men: Why Every Map is Wrong](https://www.youtube.com/watch?v=jtBV3GgQLg8) (silly, but educational)
 
-### Lecture 4: Git, GitHub, React and TypeScript  (2026-01-26)
+### Lecture 4: Git, GitHub, React and TypeScript (2026-01-26)
 
 [![Lecture 4 code](https://img.shields.io/badge/Lecture_4-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-lecture-04)
 [![Lecture 4 reference](https://img.shields.io/badge/Lecture_4-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/04)
@@ -71,7 +71,7 @@ projection. In the process, we will learn that the earth is indeed round.
 
 In this lecture, we review some of the basics. If you don't yet feel super strong on React, TypeScript, Git or GitHub!
 
-### Lecture 5: Geographical databases  (2026-02-02)
+### Lecture 5: Geographical databases (2026-02-02)
 
 [![Lecture 5 code](https://img.shields.io/badge/Lecture_5-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/05)
 [![Lecture 5 reference](https://img.shields.io/badge/Lecture_5-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/05)
@@ -92,7 +92,7 @@ In this lecture, we will provide our own datasource by importing datasets from G
 We will publish a basic React + [Hono](https://hono.dev/) application with TypeScript and Vite to [Heroku](https://heroku.com/) and add a map to the application.
 This lets us deploy with a geographic database
 
-### Lecture 7: Vector tile layers as data AND assignment (2026-02-23)
+### Lecture 7: Vector tile layers as data (2026-02-23 assignment due this week)
 
 [![Lecture 7 code](https://img.shields.io/badge/Lecture_7-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/07)
 [![Lecture 7 reference](https://img.shields.io/badge/Lecture_7-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/07)
@@ -105,7 +105,7 @@ client.
 - [Statistiske enheter - grunnkretser](https://kartkatalog.geonorge.no/metadata/statistiske-enheter-grunnkretser/51d279f8-e2be-4f5e-9f72-1a53f7535ec1)
 - [Matrikkelen - adresse](https://kartkatalog.geonorge.no/metadata/matrikkelen-adresse/f7df7a18-b30f-4745-bd64-d0863812350c)
 
-### Lecture 8: Exploring vector objects (2026-03-02 - assignment due)
+### Lecture 8: Exploring vector objects
 
 [![Lecture 8 code](https://img.shields.io/badge/Lecture_8-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/08)
 [![Lecture 8 reference](https://img.shields.io/badge/Lecture_8-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/08)
@@ -115,8 +115,7 @@ In the last lecture, we worked with optimizing vector tile maps
 
 In this lecture, we will show how to use vector features as React objects and explore styling a bit more
 
-
-### Lecture 9: Drawing points on the map (2026-03-09)
+### Lecture 9: Drawing points on the map (2026-03-09 - assignment graded)
 
 [![Lecture 9 code](https://img.shields.io/badge/Lecture_9-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/09)
 [![Lecture 9 reference](https://img.shields.io/badge/Lecture_9-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/09)
@@ -133,7 +132,7 @@ create a map where we can add out own points by
 This week's exercise is to draw objects on a map using OpenLayers `map.addInteraction(new Draw(...))` function.
 Experiment with different type of objects as well. Try and save the objects to `localStorage` and load them at startup.
 
-### Lecture 10: Points that move (2026-03-09 - assignment graded)
+### Lecture 10: Points that move (2026-03-09)
 
 [![Lecture 10 Mentimeter](https://img.shields.io/badge/Lecture_10-mentimenter-yellow)](https://www.menti.com/al8mce67e2hf)
 
@@ -165,9 +164,9 @@ something that OpenLayers will be happy to consume.
 2. `npm install ts-proto` for TypeScript bindings
 3. Download the [gtfs-realtime.proto spec](https://github.com/google/transit/blob/master/gtfs-realtime/proto/gtfs-realtime.proto)
 4. Run `protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=generated/ --ts_proto_opt=esModuleInterop=true ./gtfs-realtime.proto`
-    - Note: ⚠ On Windows, you have to replace `protoc-gen-ts_proto` with `protoc-gen-ts_proto.cmd`, so the full command is
-      `protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto.cmd --ts_proto_out=generated/ --ts_proto_opt=esModuleInterop=true ./gtfs-realtime.proto`
-    - Note: You may want to add a `script` in `package.json` for this
+   - Note: ⚠ On Windows, you have to replace `protoc-gen-ts_proto` with `protoc-gen-ts_proto.cmd`, so the full command is
+     `protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto.cmd --ts_proto_out=generated/ --ts_proto_opt=esModuleInterop=true ./gtfs-realtime.proto`
+   - Note: You may want to add a `script` in `package.json` for this
 5. Read the binary data from ENTUR: `const res = await fetch("https://api.entur.io/realtime/v1/gtfs-rt/vehicle-positions")`
 6. Parse the data using the generated spec: `FeedMessage.decode(new Uint8Array(await res.arrayBuffer()))`
 7. Create features using `vehicle.position.longitude` and `vehicle.position.latitude` from `Feedmessage.entity`
@@ -176,18 +175,18 @@ Complete code:
 
 ```typescript
 const res = await fetch(
-        "https://api.entur.io/realtime/v1/gtfs-rt/vehicle-positions",
+  "https://api.entur.io/realtime/v1/gtfs-rt/vehicle-positions",
 );
 const features = FeedMessage.decode(new Uint8Array(await res.arrayBuffer()))
   .entity.map((e) => e.vehicle)
   .filter((e) => !!e)
   .map((vehicle) => {
-     const position = vehicle?.position!;
-     const { latitude, longitude } = position;
-     // Here you may want to include other properties in the Feature
-     return new Feature({ geometry: new Point([longitude, latitude]) });
+    const position = vehicle?.position!;
+    const { latitude, longitude } = position;
+    // Here you may want to include other properties in the Feature
+    return new Feature({ geometry: new Point([longitude, latitude]) });
   });
-const vectorSource = new VectorSource({ features })
+const vectorSource = new VectorSource({ features });
 ```
 
 </details>
@@ -204,7 +203,6 @@ feature of PostGIS, including creating buffers around features in the database.
 
 The exercise will be a repeat of exercise 5 and 6, with slow coding.
 
-
 ### Lecture 12: Getting ready for the exam (2026-03-23)
 
 [![Lecture 12 Mentimeter](https://img.shields.io/badge/Lecture_12-mentimenter-yellow)](https://www.menti.com/alksy5khqc66)
@@ -218,7 +216,6 @@ We start then with a simple map and then discuss how to move forward based on th
 of the audience, so the lecture has no reference code.
 
 For the exercise-time start on the last exercise that you haven't completed.
-
 
 ## Reference material
 
@@ -234,6 +231,7 @@ This list of commands:
 
 ```shell
 npm init -y
+npm pkg set type=module
 npm install -D vite
 npm install react react-dom
 npm pkg set scripts.dev=vite
@@ -255,16 +253,18 @@ npx husky init
 
 ```html
 <html lang="en">
-<body>
-<div id="root"></div>
-</body>
-<script src="src/main.tsx" type="module"></script>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="src/main.tsx" type="module"></script>
 </html>
 ```
 
 #### Minimal `src/main.tsx`
 
-```jsx
+(Notice that the file has a small syntax error on purpose to make sure you're awake)
+
+```tsx
 import React from "react";
 import { createRoot } from "react-dom/client";
 
@@ -282,7 +282,7 @@ First you need to install the `ol` dependency:
 
 - `npm install ol`
 
-Add the file `src/modules/app/application.tsx`
+Add the file `src/components/app/application.tsx`
 
 ```tsx
 import React, { useEffect, useRef } from "react";
@@ -344,10 +344,15 @@ export default defineConfig({
   //  `base` has to be `/kws2100-kartbaserte-websystemer`
   base: "/kws2100-kartbaserte-websystemer",
 });
-
 ```
 
 #### Minimal `.github/workflows/publish-to-github-pages.yml`
+
+For this to work, you have to set up your GitHub repository to support GitHub Pages from Actions:
+
+1. Go to your repository on GitHub.com
+2. Go to Settings > Code and Automation > Pages
+3. Make sure Build and deployment > Source is set to GitHub Actions
 
 <details>
 
@@ -374,10 +379,13 @@ jobs:
       - uses: actions/deploy-pages@v4
 
     permissions:
-       id-token: write # to verify the deployment originates from an appropriate source
-       pages: write # to deploy to Pages
-       contents: read # to check out private repositories
+      id-token: write # to verify the deployment originates from an appropriate source
+      pages: write # to deploy to Pages
+      contents: read # to check out private repositories
 ```
+
+When you have deployed, you can set your GitHub pages site to be the Website for your repository by clicking the ⚙️ icon on your repository home page.
+
 </details>
 
 ### B. Deploying to Heroku
@@ -448,13 +456,13 @@ To use this file, you need to install [Docker Desktop](https://www.docker.com/pr
 
 ```yaml
 services:
-   postgis:
-      container_name: postgis
-      image: postgis/postgis
-      environment:
-         POSTGRES_PASSWORD: "postgres"
-      ports:
-         - "5432:5432"
+  postgis:
+    container_name: postgis
+    image: postgis/postgis
+    environment:
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "5432:5432"
 ```
 
 Start the Postgis server in Docker by running `docker compose up` (or `docker compose up --detach`). You can now connect to Postgis using for example the IntelliJ database view and adding a new PostgreSQL Data Source.
@@ -515,9 +523,9 @@ import { serveStatic } from "@hono/node-server/serve-static";
 // If this doesn't exist, we assume we're running on localhost with docker-compose
 const connectionString = process.env.DATABASE_URL;
 const postgresql = connectionString
-        ? new pg.Pool({ connectionString, ssl: { rejectUnauthorized: false } })
-        // If you choose a diffent password in `docker-compose.yaml` you must update here as well
-        : new pg.Pool({ user: "postgres", password: "postgres" });
+  ? new pg.Pool({ connectionString, ssl: { rejectUnauthorized: false } })
+  : // If you choose a diffent password in `docker-compose.yaml` you must update here as well
+    new pg.Pool({ user: "postgres", password: "postgres" });
 
 const app = new Hono();
 
@@ -557,30 +565,28 @@ serve({ fetch: app.fetch, port });
 The example contains the following bit of mystical code:
 
 ```typescript
-result.rows.map(
-  ({ geometry: { coordinates, type }, ...properties }) => ({
-    type: "Feature",
-    geometry: { type, coordinates },
-    properties
-  })
-);
+result.rows.map(({ geometry: { coordinates, type }, ...properties }) => ({
+  type: "Feature",
+  geometry: { type, coordinates },
+  properties,
+}));
 ```
 
 This is the same as the following:
 
 ```typescript
-result.rows.map(row => {
+result.rows.map((row) => {
   const geometry = row.geometry;
   const coordinates = geometry.coordinates;
   const type = geometry.type;
-  
+
   const properties = Object.create(row);
   delete properties.geometry;
-  
+
   const result = {
     type: "Feature",
-    geometry: { type: type, coordinates: coordinates},
-    properties: properties
+    geometry: { type: type, coordinates: coordinates },
+    properties: properties,
   };
   return result;
 });
