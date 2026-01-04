@@ -9,6 +9,7 @@ import "./application.css";
 import VectorLayer from "ol/layer/Vector.js";
 import VectorSource from "ol/source/Vector.js";
 import { GeoJSON } from "ol/format.js";
+import { Stroke, Style, Circle, Fill } from "ol/style.js";
 
 useGeographic();
 
@@ -20,11 +21,21 @@ const map = new Map({
         url: `${import.meta.env.BASE_URL}/geojson/fylker.geojson`,
         format: new GeoJSON(),
       }),
+      style: new Style({
+        stroke: new Stroke({ color: "black", width: 3 }),
+      }),
     }),
     new VectorLayer({
       source: new VectorSource({
         url: `${import.meta.env.BASE_URL}/geojson/vgs.geojson`,
         format: new GeoJSON(),
+      }),
+      style: new Style({
+        image: new Circle({
+          radius: 6,
+          stroke: new Stroke({ color: "black" }),
+          fill: new Fill({ color: "red" }),
+        }),
       }),
     }),
   ],
