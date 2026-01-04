@@ -16,13 +16,12 @@
 
   &::before {
     content: "";
-    border-width: 0.8rem 0.4rem 0 0.4rem;
     border-style: solid;
-    border-color: transparent;
-    border-top-color: white;
     position: absolute;
-    bottom: 0;
+    border-width: 0.8em 0.5em 0 0.5em;
+    border-color: white transparent transparent transparent;
+    top: 100%;
     left: 50%;
-    transform: translate(-50%, 100%);
+    transform: translateX(-50%);
   }
 }

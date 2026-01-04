@@ -19,19 +19,6 @@ const fylkeSource = new VectorSource({
   url: `${import.meta.env.BASE_URL}/geojson/fylker.geojson`,
   format: new GeoJSON(),
 });
-
-function activeFylkeStyle(feature: FeatureLike) {
-  const fylkesnavn = feature.getProperties()["fylkesnavn"];
-  return new Style({
-    stroke: new Stroke({ color: "black", width: 3 }),
-    text: new Text({
-      text: fylkesnavn,
-      stroke: new Stroke({ color: "white", width: 2 }),
-      font: "bold 24px serif",
-    }),
-  });
-}
-
 const vgsSource = new VectorSource({
   url: `${import.meta.env.BASE_URL}/geojson/vgs.geojson`,
   format: new GeoJSON(),
@@ -94,12 +81,24 @@ export function Application() {
     return () => activeFylke?.setStyle(undefined);
   }, [activeFylke]);
 
+  function activeFylkeStyle(feature: FeatureLike): Style {
+    const fylkesnavn = feature.getProperties()["fylkesnavn"];
+    return new Style({
+      stroke: new Stroke({ color: "black", width: 3 }),
+      text: new Text({
+        text: fylkesnavn,
+        stroke: new Stroke({ color: "white", width: 2 }),
+        font: "bold 24px serif",
+      }),
+    });
+  }
+
   useEffect(() => {
     map.setTarget(mapRef.current!);
     map.on("pointermove", handlePointerMove);
+    overlay.setElement(overlayRef.current!);
     map.on("click", handleClick);
     map.addOverlay(overlay);
-    overlay.setElement(overlayRef.current!);
   }, []);
   return (
     <>
