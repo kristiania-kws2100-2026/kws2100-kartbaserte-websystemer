@@ -6,14 +6,25 @@ import { useGeographic } from "ol/proj.js";
 
 import "ol/ol.css";
 import "./application.css";
+import VectorLayer from "ol/layer/Vector.js";
+import VectorSource from "ol/source/Vector.js";
+import { GeoJSON } from "ol/format.js";
 
 useGeographic();
 
 const map = new Map({
-  layers: [new TileLayer({ source: new OSM() })],
+  layers: [
+    new TileLayer({ source: new OSM() }),
+    new VectorLayer({
+      source: new VectorSource({
+        url: `${import.meta.env.BASE_URL}/geojson/fylker.geojson`,
+        format: new GeoJSON(),
+      }),
+    }),
+  ],
   view: new View({
     center: [11, 60],
-    zoom: 10,
+    zoom: 9,
   }),
 });
 
