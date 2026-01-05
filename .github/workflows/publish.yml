@@ -1,0 +1,19 @@
+on:
+  push:
+    branches:
+      - main
+      - lecture/*
+      - reference/*
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
+        with: { node-version: 22.x, cache: "npm" }
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: "./dist" }
+      - uses: actions/deploy-pages@v4
