@@ -8,6 +8,7 @@ import { GeoJSON } from "ol/format.js";
 import { useGeographic } from "ol/proj.js";
 
 import "ol/ol.css";
+import { Circle, Fill, Stroke, Style } from "ol/style.js";
 
 useGeographic();
 
@@ -21,11 +22,24 @@ const map = new Map({
         url: "/kws2100-kartbaserte-websystemer/geojson/fylker.geojson",
         format: new GeoJSON(),
       }),
+      style: new Style({
+        stroke: new Stroke({
+          color: "black",
+          width: 1,
+        }),
+      }),
     }),
     new VectorLayer({
       source: new VectorSource({
         url: "/kws2100-kartbaserte-websystemer/geojson/vgs.geojson",
         format: new GeoJSON(),
+      }),
+      style: new Style({
+        image: new Circle({
+          radius: 5,
+          fill: new Fill({ color: "red" }),
+          stroke: new Stroke({ color: "black", width: 2 }),
+        }),
       }),
     }),
   ],
