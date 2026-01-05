@@ -17,3 +17,8 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with: { path: "./dist" }
       - uses: actions/deploy-pages@v4
+
+permissions:
+  id-token: write
+  pages: write
+  contents: read
