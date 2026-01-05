@@ -22,6 +22,12 @@ const map = new Map({
         format: new GeoJSON(),
       }),
     }),
+    new VectorLayer({
+      source: new VectorSource({
+        url: "/kws2100-kartbaserte-websystemer/geojson/vgs.geojson",
+        format: new GeoJSON(),
+      }),
+    }),
   ],
   view: new View({
     center: [11, 60],
