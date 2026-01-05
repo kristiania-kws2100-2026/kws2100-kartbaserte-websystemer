@@ -16,7 +16,7 @@ const map = new Map({
     }),
     new VectorLayer({
       source: new VectorSource({
-        url: "/geojson/fylker.geojson",
+        url: "/kws2100-kartbaserte-websystemer/geojson/fylker.geojson",
         format: new GeoJSON(),
       }),
     }),
