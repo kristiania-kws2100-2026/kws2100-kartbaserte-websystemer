@@ -5,6 +5,9 @@ import { OSM } from "ol/source.js";
 import VectorLayer from "ol/layer/Vector.js";
 import VectorSource from "ol/source/Vector.js";
 import { GeoJSON } from "ol/format.js";
+import { useGeographic } from "ol/proj.js";
+
+useGeographic();
 
 const map = new Map({
   layers: [
@@ -19,7 +22,7 @@ const map = new Map({
     }),
   ],
   view: new View({
-    center: [11, 70],
+    center: [11, 60],
     zoom: 8,
   }),
 });
