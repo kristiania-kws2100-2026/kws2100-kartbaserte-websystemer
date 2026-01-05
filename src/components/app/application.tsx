@@ -7,6 +7,8 @@ import VectorSource from "ol/source/Vector.js";
 import { GeoJSON } from "ol/format.js";
 import { useGeographic } from "ol/proj.js";
 
+import "ol/ol.css";
+
 useGeographic();
 
 const map = new Map({
@@ -37,7 +39,7 @@ export function Application() {
   return (
     <>
       <h1>Hello Map Application in it's own file</h1>
-      <div ref={mapRef}>Here is the map</div>
+      <div ref={mapRef}></div>
     </>
   );
 }
