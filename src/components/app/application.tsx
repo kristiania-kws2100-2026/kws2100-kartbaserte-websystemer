@@ -1,4 +1,4 @@
-import React, { type ReactNode, useState } from "react";
+import React, { type ReactNode, useContext, useState } from "react";
 
 function ProductCategoryRow({ category }: { category: ReactNode }) {
   return (
@@ -37,6 +37,8 @@ function ProductTable({
   const rows: ReactNode[] = [];
   let lastCategory: ReactNode = null;
 
+  const { language } = useContext(LanguageContext);
+
   products.forEach((product) => {
     if (product.name.toLowerCase().indexOf(filterText.toLowerCase()) === -1)
       return;
@@ -58,7 +60,7 @@ function ProductTable({
       <thead>
         <tr>
           <th>Name</th>
-          <th>Price</th>
+          <th>{language === "no" ? "Pris" : "Price"}</th>
         </tr>
       </thead>
       <tbody>{rows}</tbody>
@@ -77,7 +79,7 @@ function SearchBar({
   onFilterTextChange: (value: string) => void;
   onInStockOnlyChange: (value: boolean) => void;
 }) {
-  const language = navigator.language;
+  const { language } = useContext(LanguageContext);
   const searchPlaceholder = language === "no" ? "Søk..." : "Search...";
   const inStockOnlyLabel =
     language === "no"
@@ -133,6 +135,14 @@ const PRODUCTS = [
   { category: "Vegetables", price: "$1", stocked: true, name: "Peas" },
 ];
 
+const LanguageContext = React.createContext({
+  language: navigator.language,
+});
+
 export default function App() {
-  return <FilterableProductTable products={PRODUCTS} />;
+  return (
+    <LanguageContext.Provider value={{ language: navigator.language }}>
+      <FilterableProductTable products={PRODUCTS} />
+    </LanguageContext.Provider>
+  );
 }
