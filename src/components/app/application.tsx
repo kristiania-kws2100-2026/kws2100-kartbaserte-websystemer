@@ -83,8 +83,8 @@ function SearchBar({
   onFilterTextChange: (value: string) => void;
   onInStockOnlyChange: (value: boolean) => void;
 }) {
-  const { language } = useContext(LanguageContext);
-  const searchPlaceholder = language === "no" ? "Søk..." : "Search...";
+  const { language, applicationTexts } = useContext(LanguageContext);
+  const searchPlaceholder = applicationTexts.searchPlaceholder;
   const inStockOnlyLabel =
     language === "no"
       ? "Bare vis tilgjengelige varer"
