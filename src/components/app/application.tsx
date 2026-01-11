@@ -3,6 +3,7 @@ import {
   LanguageContext,
   LanguageContextProvider,
 } from "./languageContextProvider.js";
+import { type Product } from "./products.js";
 
 function ProductCategoryRow({ category }: { category: ReactNode }) {
   return (
@@ -11,8 +12,6 @@ function ProductCategoryRow({ category }: { category: ReactNode }) {
     </tr>
   );
 }
-
-type Product = (typeof PRODUCTS)[number];
 
 function ProductRow({ product }: { product: Product }) {
   const name = product.stocked ? (
@@ -128,7 +127,7 @@ function FilterableProductTable({ products }: { products: Product[] }) {
   );
 }
 
-const PRODUCTS = [
+const PRODUCTS: Product[] = [
   { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
   { category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit" },
   { category: "Fruits", price: "$2", stocked: false, name: "Passionfruit" },
