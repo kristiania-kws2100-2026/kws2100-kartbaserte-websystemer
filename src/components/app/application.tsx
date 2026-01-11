@@ -77,11 +77,18 @@ function SearchBar({
   onFilterTextChange: (value: string) => void;
   onInStockOnlyChange: (value: boolean) => void;
 }) {
+  const language = navigator.language;
+  const searchPlaceholder = language === "no" ? "Søk..." : "Search...";
+  const inStockOnlyLabel =
+    language === "no"
+      ? "Bare vis tilgjengelige varer"
+      : "Only show available items";
   return (
     <form>
+      <h1>{language}</h1>
       <input
         type="text"
-        placeholder="Search..."
+        placeholder={searchPlaceholder}
         value={filterText}
         onChange={(e) => onFilterTextChange(e.target.value)}
       />
@@ -91,7 +98,7 @@ function SearchBar({
           checked={inStockOnly}
           onChange={(e) => onInStockOnlyChange(e.target.checked)}
         />{" "}
-        Only show products in stock
+        {inStockOnlyLabel}
       </label>
     </form>
   );
