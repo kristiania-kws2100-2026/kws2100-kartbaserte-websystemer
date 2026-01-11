@@ -41,7 +41,10 @@ function ProductTable({
   const rows: ReactNode[] = [];
   let lastCategory: ReactNode = null;
 
-  const { language } = useContext(LanguageContext);
+  const {
+    language,
+    applicationTexts: { nameHeader, priceHeader },
+  } = useContext(LanguageContext);
 
   products.forEach((product) => {
     if (product.name.toLowerCase().indexOf(filterText.toLowerCase()) === -1)
@@ -63,8 +66,8 @@ function ProductTable({
     <table>
       <thead>
         <tr>
-          <th>Name</th>
-          <th>{language === "no" ? "Pris" : "Price"}</th>
+          <th>{nameHeader}</th>
+          <th>{priceHeader}</th>
         </tr>
       </thead>
       <tbody>{rows}</tbody>
@@ -83,12 +86,10 @@ function SearchBar({
   onFilterTextChange: (value: string) => void;
   onInStockOnlyChange: (value: boolean) => void;
 }) {
-  const { language, applicationTexts } = useContext(LanguageContext);
-  const searchPlaceholder = applicationTexts.searchPlaceholder;
-  const inStockOnlyLabel =
-    language === "no"
-      ? "Bare vis tilgjengelige varer"
-      : "Only show available items";
+  const {
+    language,
+    applicationTexts: { searchPlaceholder, inStockOnlyLabel },
+  } = useContext(LanguageContext);
   return (
     <form>
       <h1>{language}</h1>
