@@ -1,4 +1,4 @@
-import React, { type ReactNode, useContext, useState } from "react";
+import React, { type ReactNode, useContext, useEffect, useState } from "react";
 
 function ProductCategoryRow({ category }: { category: ReactNode }) {
   return (
@@ -140,8 +140,14 @@ const LanguageContext = React.createContext({
 });
 
 export default function App() {
+  const [language, setLanguage] = useState(navigator.language);
+  useEffect(() => {
+    window.addEventListener("languagechange", () =>
+      setLanguage(navigator.language),
+    );
+  }, []);
   return (
-    <LanguageContext.Provider value={{ language: navigator.language }}>
+    <LanguageContext.Provider value={{ language }}>
       <FilterableProductTable products={PRODUCTS} />
     </LanguageContext.Provider>
   );
