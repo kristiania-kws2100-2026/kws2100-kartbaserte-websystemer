@@ -22,3 +22,11 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+      - uses: actions/deploy-pages@v4
+
+    permissions:
+      id-token: write
+      pages: write
