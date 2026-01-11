@@ -56,7 +56,7 @@ import { createRoot } from "react-dom/client";
 createRoot(document.getElementById("root")!).render(<h1>Hello React</h1>);
 ```
 
-NB: In order to use `import "./pplication.css"`, you need to have the following in your `global.d.ts`:
+NB: In order to use `import "./application.css"`, you need to have the following in your `global.d.ts`:
 
 ```ts
 declare module "*.css" {}
