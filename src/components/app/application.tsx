@@ -3,12 +3,13 @@ import {
   LanguageContext,
   LanguageContextProvider,
 } from "./languageContextProvider.js";
-import { type Product } from "./products.js";
+import { type Product, type ProductCategory } from "./products.js";
 
-function ProductCategoryRow({ category }: { category: ReactNode }) {
+function ProductCategoryRow({ category }: { category: ProductCategory }) {
+  const { applicationTexts } = useContext(LanguageContext);
   return (
     <tr>
-      <th colSpan={2}>{category}</th>
+      <th colSpan={2}>{applicationTexts.productCategories[category]}</th>
     </tr>
   );
 }

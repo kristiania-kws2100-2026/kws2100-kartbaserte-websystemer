@@ -1,6 +1,8 @@
 import React, { type ReactNode, useEffect, useMemo, useState } from "react";
+import type { ProductCategory } from "./products.js";
 
 export interface ApplicationTexts {
+  productCategories: Record<ProductCategory, string>;
   searchPlaceholder: string;
   inStockOnlyLabel: string;
   nameHeader: string;
@@ -12,6 +14,10 @@ const english: ApplicationTexts = {
   searchPlaceholder: "Search...",
   nameHeader: "Name",
   priceHeader: "Price",
+  productCategories: {
+    fruits: "Fruits",
+    vegetables: "Vegetables",
+  },
 };
 
 const norwegian: ApplicationTexts = {
@@ -19,6 +25,10 @@ const norwegian: ApplicationTexts = {
   searchPlaceholder: "Søk...",
   nameHeader: "Navn",
   priceHeader: "Pris",
+  productCategories: {
+    fruits: "Frukt",
+    vegetables: "Grønnsaker",
+  },
 };
 
 export const LanguageContext = React.createContext<{
