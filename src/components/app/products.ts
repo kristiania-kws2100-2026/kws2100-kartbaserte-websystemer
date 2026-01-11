@@ -1,5 +1,7 @@
+export type ProductCategory = "fruits" | "vegetables";
+
 export interface Product {
-  category: string;
+  category: ProductCategory;
   price: string;
   stocked: boolean;
   name: string;
