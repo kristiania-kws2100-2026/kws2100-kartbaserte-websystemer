@@ -33,19 +33,27 @@ OpenLayers handler for hover and click.
 
 During the exercise for the first lecture, we will slow code the exercise together.
 
-### Lecture 2: Interacting with the polygon elements (2026-01-12)
+### Lecture 2: Git, GitHub, React and TypeScript (2026-01-12)
 
-[![Lecture 2 code](https://img.shields.io/badge/Lecture_2-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/02)
-[![Lecture 2 reference](https://img.shields.io/badge/Lecture_2-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/02)
-[![Lecture 2 exercise](https://img.shields.io/badge/Lecture_2-exercise-pink)](./exercises/EXERCISES.md#exercise-2)
+[![Lecture 4 code](https://img.shields.io/badge/Lecture_4-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-lecture-04)
+[![Lecture 4 reference](https://img.shields.io/badge/Lecture_4-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/04)
+[![Lecture 4 exercise](https://img.shields.io/badge/Lecture_4-exercise-pink)](./exercises/EXERCISES.md#exercise-2)
 
-In this lecture, we will make sure that the user can interact with kommuner, so clicking a feature on the map should show an overlay to the user
+In this lecture, we review some of the basics. If you don't yet feel super strong on React, TypeScript, Git or GitHub you will get the chance to catch up today!
 
-### Lecture 3: Tile layers and map projections (2026-01-19)
+### Lecture 3: Interacting with the polygon elements (2026-01-19)
 
 [![Lecture 3 code](https://img.shields.io/badge/Lecture_3-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/03)
 [![Lecture 3 reference](https://img.shields.io/badge/Lecture_3-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/03)
 [![Lecture 3 exercise](https://img.shields.io/badge/Lecture_3-exercise-pink)](./exercises/EXERCISES.md#exercise-3)
+
+In this lecture, we will make sure that the user can interact with kommuner, so clicking a feature on the map should show an overlay to the user
+
+### Lecture 4: Tile layers and map projections (2026-01-26)
+
+[![Lecture 4 code](https://img.shields.io/badge/Lecture_4-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/04)
+[![Lecture 4 reference](https://img.shields.io/badge/Lecture_4-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/04)
+[![Lecture 4 exercise](https://img.shields.io/badge/Lecture_4-exercise-pink)](./exercises/EXERCISES.md#exercise-4)
 
 **"Damn you, Gerhard!"**
 
@@ -62,14 +70,6 @@ projection. In the process, we will learn that the earth is indeed round.
 
 - [UTM 32V i Store Norske Leksikon](https://snl.no/UTM)
 - [Map Men: Why Every Map is Wrong](https://www.youtube.com/watch?v=jtBV3GgQLg8) (silly, but educational)
-
-### Lecture 4: Git, GitHub, React and TypeScript (2026-01-26)
-
-[![Lecture 4 code](https://img.shields.io/badge/Lecture_4-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-lecture-04)
-[![Lecture 4 reference](https://img.shields.io/badge/Lecture_4-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/04)
-[![Lecture 4 exercise](https://img.shields.io/badge/Lecture_4-exercise-pink)](./exercises/EXERCISES.md#exercise-4)
-
-In this lecture, we review some of the basics. If you don't yet feel super strong on React, TypeScript, Git or GitHub!
 
 ### Lecture 5: Geographical databases (2026-02-02)
 
