@@ -1,4 +1,8 @@
-import React, { type ReactNode, useContext, useEffect, useState } from "react";
+import React, { type ReactNode, useContext, useState } from "react";
+import {
+  LanguageContext,
+  LanguageContextProvider,
+} from "./languageContextProvider.js";
 
 function ProductCategoryRow({ category }: { category: ReactNode }) {
   return (
@@ -135,20 +139,10 @@ const PRODUCTS = [
   { category: "Vegetables", price: "$1", stocked: true, name: "Peas" },
 ];
 
-const LanguageContext = React.createContext({
-  language: navigator.language,
-});
-
 export default function App() {
-  const [language, setLanguage] = useState(navigator.language);
-  useEffect(() => {
-    window.addEventListener("languagechange", () =>
-      setLanguage(navigator.language),
-    );
-  }, []);
   return (
-    <LanguageContext.Provider value={{ language }}>
+    <LanguageContextProvider>
       <FilterableProductTable products={PRODUCTS} />
-    </LanguageContext.Provider>
+    </LanguageContextProvider>
   );
 }
