@@ -98,7 +98,8 @@ In the exercise, we will follow the official [Thinking in React](https://react.d
    createRoot(document.getElementById("root")).render(<h1>Hello World</h1>);
    ```
 
-8. Commit and push the code
+8. Add `.idea` and `node_modules` to `.gitignore`
+9. Commit and push the code
 
 ### Start collaboration
 
@@ -173,7 +174,7 @@ Your project should now be deployed and available on the web.
 
 ### Do some React development
 
-Follow the official [Thinking in React](https://react.dev/learn/thinking-in-react) tutorial, and add TypeScript, GitHub and code reviews.
+Follow the official [Thinking in React](https://react.dev/learn/thinking-in-react) tutorial until you have completed "Step 3: Find the minimal but complete representation of the UI state". When you are done, you can continue this exercise to add TypeScript, GitHub and code reviews.
 
 1. You can copy the code from "Step 2: Build a static version in React" into a file named `App.jsx`, but add the React import line to the top:
    - `import React from "react"`
@@ -195,7 +196,7 @@ Follow the official [Thinking in React](https://react.dev/learn/thinking-in-reac
 2. Right-click the `main` branch in the Git Windows and select "New branch from main..."
 3. Enter a branch name
 4. Install TypeScript: `npm i -D typescript`
-5. Setup TypeScript's `tsconfig.json`-file: `npx tsc --init --jsx react`
+5. Setup TypeScript's `tsconfig.json`-file: `npx tsc --init`
 6. Format `tsconfig.json`-file: `npx prettier --write tsconfig.json`
 7. Add TypeScript checking to the `npm test`: `npm pkg set scripts.test="tsc --noEmit && prettier --check ."`
 8. Rename `src/App.jsx` to `src/App.tsx`
@@ -250,7 +251,7 @@ You now get a lot of errors when you run `npm test`. Here is how to fix them:
 ### Develop a feature on a branch
 
 1. Create a new branch (as in the last step)
-2. Develop the [FilterableProductTable](https://react.dev/learn/thinking-in-react#step-3-find-the-minimal-but-complete-representation-of-ui-state) feature in the React tutorial
+2. Develop the [FilterableProductTable](https://react.dev/learn/thinking-in-react#step-3-find-the-minimal-but-complete-representation-of-ui-state) feature in the React tutorial (Step 4)
 3. Commit and push as normal
 4. Create a pull request, do a code review and merge the pull request
 
@@ -279,5 +280,7 @@ function SearchBar(/* ... parameter definition ... */) {
   );
 }
 ```
+
+You can see more information in the [reference implementation](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/02) of lecture 2.
 
 </details>

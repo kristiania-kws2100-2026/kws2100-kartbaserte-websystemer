@@ -105,7 +105,7 @@ client.
 - [Statistiske enheter - grunnkretser](https://kartkatalog.geonorge.no/metadata/statistiske-enheter-grunnkretser/51d279f8-e2be-4f5e-9f72-1a53f7535ec1)
 - [Matrikkelen - adresse](https://kartkatalog.geonorge.no/metadata/matrikkelen-adresse/f7df7a18-b30f-4745-bd64-d0863812350c)
 
-### Lecture 8: Exploring vector objects
+### Lecture 8: Exploring vector objects (2026-03-02)
 
 [![Lecture 8 code](https://img.shields.io/badge/Lecture_8-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/08)
 [![Lecture 8 reference](https://img.shields.io/badge/Lecture_8-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/08)
@@ -132,7 +132,7 @@ create a map where we can add out own points by
 This week's exercise is to draw objects on a map using OpenLayers `map.addInteraction(new Draw(...))` function.
 Experiment with different type of objects as well. Try and save the objects to `localStorage` and load them at startup.
 
-### Lecture 10: Points that move (2026-03-09)
+### Lecture 10: Points that move (2026-03-16)
 
 [![Lecture 10 Mentimeter](https://img.shields.io/badge/Lecture_10-mentimenter-yellow)](https://www.menti.com/al8mce67e2hf)
 
@@ -191,7 +191,7 @@ const vectorSource = new VectorSource({ features });
 
 </details>
 
-### Lecture 11: Review of PostGIS and Heroku (with slow-coding) - (2026-03-16)
+### Lecture 11: Review of PostGIS and Heroku (with slow-coding) - (2026-03-23)
 
 [![Lecture 11 code](https://img.shields.io/badge/Lecture_11-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/11)
 [![Lecture 11 reference](https://img.shields.io/badge/Lecture_11-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/11)
@@ -203,7 +203,7 @@ feature of PostGIS, including creating buffers around features in the database.
 
 The exercise will be a repeat of exercise 5 and 6, with slow coding.
 
-### Lecture 12: Getting ready for the exam (2026-03-23)
+### Lecture 12: Getting ready for the exam (2026-04-13)
 
 [![Lecture 12 Mentimeter](https://img.shields.io/badge/Lecture_12-mentimenter-yellow)](https://www.menti.com/alksy5khqc66)
 
@@ -238,7 +238,7 @@ npm pkg set scripts.dev=vite
 
 npm install -D typescript
 npm install -D @types/react @types/react-dom
-npx tsc --init --jsx react
+npx tsc --init
 
 npm install -D prettier
 npx prettier --write .
@@ -607,3 +607,62 @@ you must also create a Postgresql database on Heroku and import the data there.
 4. `npm pkg set scripts.db:schools:heroku="npm run db:schools:download && psql $DATABASE_URL < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql"`
 5. `npm pkg set scripts.db:heroku="npm run db:heroku:postgis && npm run db:schools:heroku"`
 6. `heroku run "npm run db:heroku"`
+
+
+## Tools
+
+### IntellJ shortcuts
+
+<details>
+
+These are some of the most versatile keyboard shortcuts in IntelliJ. There are many more, but learning these 12 will really speed up your code
+
+| Shortcut (Windows)   | Shortcut (Mac)      | Command                                    |
+|----------------------|---------------------|--------------------------------------------|
+| alt-enter            | opt-enter           | Show content action (quick fix)            |
+| ctrl-alt-shift-t     | ctrl-t              | Refactor this (show refactor menu)         |
+| alt-insert           | cmd-n               | New... (add some content)                  |
+| ctrl-w               | opt-up              | Expand selection                           |
+| shift-alt-f10        | ctrl-alt-r          | Run....                                    |
+| shift-alt-f9         | ctrl-alt-d          | Debug....                                  |
+| shift-f10            | ctrl-d              | Rerun last....                             |
+| ctrl-b               | cmd-b               | Navigate to symbol                         |
+| alt-j                | ctrl-g              | Add next match to selection (multi-cursor) |
+| shift-ctrl-backspace | shift-cmd-backspace | Goto last edit location                    |
+| shift, shift         | shift, shift        | Search anywhere                            |
+
+Make yourself familiar with `Refactor this` (ctrl-alt-shift-t / ctrl-t) and use it to learn the shortcut keys for your
+favorite refactorings like Extract method, Rename and Inline.
+
+</details>
+
+### Git commands
+
+<details>
+
+| Command      | Description                              | IntelliJ shortcut                         |
+|--------------|------------------------------------------|-------------------------------------------|
+| `git init`   | Creates a new local git repo in `.git/`  | VCS > Import into version control         |
+| `git add`    | Stage files to include in next commit    | (not needed)                              |
+| `git commit` | Store your local changes in git history  | ctrl-k / cmd-k                            |
+| `git push`   | Upload changes to remote repo (github)   | ctrl-sh-k / cmd-sh-k                      |
+| `git clone`  | Create a local copy from remote (github) | File > New > Project from version control |
+| `git pull`   | Update local copy with others' changes   | ctrl-t / cmd-t                            |
+| `git log`    | View change history                      | View > Tool Windows > Version control     |
+
+</details>
+
+## Software, libraries and resources used in this course:
+
+- [NodeJs](https://nodejs.org)
+- [IntelliJ](https://www.jetbrains.com/idea/)
+- [Vite](https://vitejs.dev/)
+- [React](https://react.dev)
+- [OpenLayers](https://openlayers.org/)
+- [Prettier](https://prettier.io/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Husky](https://typicode.github.io/husky/)
+- [Hono](https://hono.dev/)
+- [Heroku](https://devcenter.heroku.com/)
+- [PostGIS](https://postgis.net/)
+- [Geonorge](https://www.geonorge.no/kartdata/datasett-i-geonorge/)
