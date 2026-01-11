@@ -29,6 +29,20 @@ function ProductRow({ product }: { product: Product }) {
   );
 }
 
+function ProductTableHeader() {
+  const {
+    applicationTexts: { nameHeader, priceHeader },
+  } = useContext(LanguageContext);
+  return (
+    <thead>
+      <tr>
+        <th>{nameHeader}</th>
+        <th>{priceHeader}</th>
+      </tr>
+    </thead>
+  );
+}
+
 function ProductTable({
   products,
   filterText,
@@ -40,10 +54,6 @@ function ProductTable({
 }) {
   const rows: ReactNode[] = [];
   let lastCategory: ReactNode = null;
-
-  const {
-    applicationTexts: { nameHeader, priceHeader },
-  } = useContext(LanguageContext);
 
   products.forEach((product) => {
     if (product.name.toLowerCase().indexOf(filterText.toLowerCase()) === -1)
@@ -63,12 +73,7 @@ function ProductTable({
 
   return (
     <table>
-      <thead>
-        <tr>
-          <th>{nameHeader}</th>
-          <th>{priceHeader}</th>
-        </tr>
-      </thead>
+      <ProductTableHeader />
       <tbody>{rows}</tbody>
     </table>
   );
