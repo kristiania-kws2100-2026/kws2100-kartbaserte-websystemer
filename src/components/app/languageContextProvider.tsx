@@ -17,6 +17,7 @@ const english: ApplicationTexts = {
   productCategories: {
     fruits: "Fruits",
     vegetables: "Vegetables",
+    snacks: "Snacks",
   },
 };
 
@@ -28,6 +29,7 @@ const norwegian: ApplicationTexts = {
   productCategories: {
     fruits: "Frukt",
     vegetables: "Grønnsaker",
+    snacks: "Godsaker",
   },
 };
 

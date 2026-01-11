@@ -1,4 +1,4 @@
-export type ProductCategory = "fruits" | "vegetables";
+export type ProductCategory = "fruits" | "vegetables" | "snacks";
 
 export interface Product {
   category: ProductCategory;
