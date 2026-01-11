@@ -42,7 +42,6 @@ function ProductTable({
   let lastCategory: ReactNode = null;
 
   const {
-    language,
     applicationTexts: { nameHeader, priceHeader },
   } = useContext(LanguageContext);
 
@@ -87,12 +86,10 @@ function SearchBar({
   onInStockOnlyChange: (value: boolean) => void;
 }) {
   const {
-    language,
     applicationTexts: { searchPlaceholder, inStockOnlyLabel },
   } = useContext(LanguageContext);
   return (
     <form>
-      <h1>{language}</h1>
       <input
         type="text"
         placeholder={searchPlaceholder}
