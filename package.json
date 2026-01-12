@@ -1,0 +1,35 @@
+{
+  "name": "kws2100-kartbaserte-websystemer-practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "tsc --noEmit && prettier --check .",
+    "dev": "vite",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/issues"
+  },
+  "homepage": "https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer#readme",
+  "type": "module",
+  "devDependencies": {
+    "@types/react": "^19.2.8",
+    "@types/react-dom": "^19.2.3",
+    "husky": "^9.1.7",
+    "prettier": "^3.7.4",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
+  },
+  "dependencies": {
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  }
+}
