@@ -4,6 +4,9 @@ import TileLayer from "ol/layer/Tile.js";
 import { OSM } from "ol/source.js";
 import { useGeographic } from "ol/proj.js";
 
+import "ol/ol.css";
+import "./application.css";
+
 useGeographic();
 
 const map = new Map({
@@ -15,14 +18,13 @@ export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    /*
-    mapRef.current!.innerText = "Hello JavaScript";
-    mapRef.current!.style.backgroundColor = "lightblue";
-    mapRef.current!.style.height = "100%";
-
-     */
     map.setTarget(mapRef.current!);
   }, []);
 
-  return <div ref={mapRef}>MAP HERE</div>;
+  return (
+    <>
+      <h1>My map application</h1>
+      <div ref={mapRef}></div>
+    </>
+  );
 }
