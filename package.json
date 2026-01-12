@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "vite build",
     "test": "tsc --noEmit && prettier --check .",
     "dev": "vite",
     "prepare": "husky"
