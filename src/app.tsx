@@ -26,15 +26,18 @@ function ProductRow({ product }: { product: Product }) {
 function ProductTable({
   products,
   filterText,
+  onlyShowInStock,
 }: {
   products: Product[];
   filterText: string;
+  onlyShowInStock?: boolean;
 }) {
   const rows: ReactNode[] = [];
   let lastCategory: ReactNode = null;
 
   products.forEach((product) => {
     if (product.name.indexOf(filterText) === -1) return;
+    if (onlyShowInStock && !product.stocked) return;
     if (product.category !== lastCategory) {
       rows.push(
         <ProductCategoryRow
@@ -63,9 +66,13 @@ function ProductTable({
 function SearchBar({
   filterText,
   onFilterTextChange,
+  onlyShowInStock,
+  onOnlyShowInStockChange,
 }: {
   filterText: string;
   onFilterTextChange(s: string): void;
+  onlyShowInStock?: boolean;
+  onOnlyShowInStockChange: (value: boolean) => void;
 }) {
   return (
     <form>
@@ -76,18 +83,33 @@ function SearchBar({
         onChange={(e) => onFilterTextChange(e.target.value)}
       />
       <label>
-        <input type="checkbox" /> Only show products in stock
+        <input
+          type="checkbox"
+          checked={onlyShowInStock}
+          onChange={(e) => onOnlyShowInStockChange(e.target.checked)}
+        />{" "}
+        Only show products in stock
       </label>
     </form>
   );
 }
 
 function FilterableProductTable({ products }: { products: Product[] }) {
-  const [filterText, setFilterText] = useState("fruit");
+  const [filterText, setFilterText] = useState("");
+  const [onlyShowInStock, setOnlyShowInStock] = useState(false);
   return (
     <div>
-      <SearchBar filterText={filterText} onFilterTextChange={setFilterText} />
-      <ProductTable products={products} filterText={filterText} />
+      <SearchBar
+        filterText={filterText}
+        onFilterTextChange={setFilterText}
+        onlyShowInStock={onlyShowInStock}
+        onOnlyShowInStockChange={setOnlyShowInStock}
+      />
+      <ProductTable
+        products={products}
+        filterText={filterText}
+        onlyShowInStock={onlyShowInStock}
+      />
     </div>
   );
 }
