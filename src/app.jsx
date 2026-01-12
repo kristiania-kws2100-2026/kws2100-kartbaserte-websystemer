@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 function ProductCategoryRow({ category }) {
   return (
@@ -23,11 +23,12 @@ function ProductRow({ product }) {
   );
 }
 
-function ProductTable({ products }) {
+function ProductTable({ products, filterText }) {
   const rows = [];
   let lastCategory = null;
 
   products.forEach((product) => {
+    if (product.name.indexOf(filterText) === -1) return;
     if (product.category !== lastCategory) {
       rows.push(
         <ProductCategoryRow
@@ -53,10 +54,10 @@ function ProductTable({ products }) {
   );
 }
 
-function SearchBar() {
+function SearchBar({ filter }) {
   return (
     <form>
-      <input type="text" placeholder="Search..." />
+      <input type="text" placeholder="Search..." value={filter} />
       <label>
         <input type="checkbox" /> Only show products in stock
       </label>
@@ -65,10 +66,11 @@ function SearchBar() {
 }
 
 function FilterableProductTable({ products }) {
+  const [filterText, setFilterText] = useState("fruit");
   return (
     <div>
-      <SearchBar />
-      <ProductTable products={products} />
+      <SearchBar filterText={filterText} />
+      <ProductTable products={products} filterText={filterText} />
     </div>
   );
 }
