@@ -287,9 +287,9 @@ Add the file `src/components/app/application.tsx`
 ```tsx
 import React, { useEffect, useRef } from "react";
 import { Map, View } from "ol";
-import TileLayer from "ol/layer/Tile";
-import { OSM } from "ol/source";
-import { useGeographic } from "ol/proj";
+import TileLayer from "ol/layer/Tile.js";
+import { OSM } from "ol/source.js";
+import { useGeographic } from "ol/proj.js";
 
 // Styling of OpenLayers components like zoom and pan controls
 import "ol/ol.css";
