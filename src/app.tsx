@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { type ReactNode, useState } from "react";
 
-function ProductCategoryRow({ category }) {
+function ProductCategoryRow({ category }: { category: string }) {
   return (
     <tr>
-      <th colSpan="2">{category}</th>
+      <th colSpan={2}>{category}</th>
     </tr>
   );
 }
 
-function ProductRow({ product }) {
+function ProductRow({ product }: { product: Product }) {
   const name = product.stocked ? (
     product.name
   ) : (
@@ -23,9 +23,15 @@ function ProductRow({ product }) {
   );
 }
 
-function ProductTable({ products, filterText }) {
-  const rows = [];
-  let lastCategory = null;
+function ProductTable({
+  products,
+  filterText,
+}: {
+  products: Product[];
+  filterText: string;
+}) {
+  const rows: ReactNode[] = [];
+  let lastCategory: ReactNode = null;
 
   products.forEach((product) => {
     if (product.name.indexOf(filterText) === -1) return;
@@ -54,10 +60,10 @@ function ProductTable({ products, filterText }) {
   );
 }
 
-function SearchBar({ filter }) {
+function SearchBar({ filterText }: { filterText: string }) {
   return (
     <form>
-      <input type="text" placeholder="Search..." value={filter} />
+      <input type="text" placeholder="Search..." value={filterText} />
       <label>
         <input type="checkbox" /> Only show products in stock
       </label>
@@ -65,7 +71,7 @@ function SearchBar({ filter }) {
   );
 }
 
-function FilterableProductTable({ products }) {
+function FilterableProductTable({ products }: { products: Product[] }) {
   const [filterText, setFilterText] = useState("fruit");
   return (
     <div>
@@ -83,6 +89,7 @@ const PRODUCTS = [
   { category: "Vegetables", price: "$4", stocked: false, name: "Pumpkin" },
   { category: "Vegetables", price: "$1", stocked: true, name: "Peas" },
 ];
+type Product = (typeof PRODUCTS)[number];
 
 export default function App() {
   return <FilterableProductTable products={PRODUCTS} />;
