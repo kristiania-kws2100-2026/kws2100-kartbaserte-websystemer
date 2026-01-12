@@ -60,10 +60,21 @@ function ProductTable({
   );
 }
 
-function SearchBar({ filterText }: { filterText: string }) {
+function SearchBar({
+  filterText,
+  onFilterTextChange,
+}: {
+  filterText: string;
+  onFilterTextChange(s: string): void;
+}) {
   return (
     <form>
-      <input type="text" placeholder="Search..." value={filterText} />
+      <input
+        type="text"
+        placeholder="Search..."
+        value={filterText}
+        onChange={(e) => onFilterTextChange(e.target.value)}
+      />
       <label>
         <input type="checkbox" /> Only show products in stock
       </label>
@@ -75,7 +86,7 @@ function FilterableProductTable({ products }: { products: Product[] }) {
   const [filterText, setFilterText] = useState("fruit");
   return (
     <div>
-      <SearchBar filterText={filterText} />
+      <SearchBar filterText={filterText} onFilterTextChange={setFilterText} />
       <ProductTable products={products} filterText={filterText} />
     </div>
   );
