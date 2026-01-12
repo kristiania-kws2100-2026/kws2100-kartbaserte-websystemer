@@ -1,4 +1,8 @@
-import React, { type ReactNode, useState } from "react";
+import React, { type ReactNode, useContext, useState } from "react";
+import {
+  LanguageContext,
+  LanguageContextProvider,
+} from "./languageContextProvider.js";
 
 function ProductCategoryRow({ category }: { category: string }) {
   return (
@@ -32,6 +36,7 @@ function ProductTable({
   filterText: string;
   onlyShowInStock?: boolean;
 }) {
+  const { applicationText } = useContext(LanguageContext);
   const rows: ReactNode[] = [];
   let lastCategory: ReactNode = null;
 
@@ -54,8 +59,8 @@ function ProductTable({
     <table>
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Price</th>
+          <th>{applicationText.productTableNameHeader}</th>
+          <th>{applicationText.productTablePriceHeader}</th>
         </tr>
       </thead>
       <tbody>{rows}</tbody>
@@ -74,11 +79,12 @@ function SearchBar({
   onlyShowInStock?: boolean;
   onOnlyShowInStockChange: (value: boolean) => void;
 }) {
+  const { language, applicationText } = useContext(LanguageContext);
   return (
     <form>
       <input
         type="text"
-        placeholder="Search..."
+        placeholder={applicationText.searchInputPlaceholder}
         value={filterText}
         onChange={(e) => onFilterTextChange(e.target.value)}
       />
@@ -88,7 +94,7 @@ function SearchBar({
           checked={onlyShowInStock}
           onChange={(e) => onOnlyShowInStockChange(e.target.checked)}
         />{" "}
-        Only show products in stock
+        {applicationText.onlyShowInStockLabel}
       </label>
     </form>
   );
@@ -125,5 +131,9 @@ const PRODUCTS = [
 type Product = (typeof PRODUCTS)[number];
 
 export default function App() {
-  return <FilterableProductTable products={PRODUCTS} />;
+  return (
+    <LanguageContextProvider>
+      <FilterableProductTable products={PRODUCTS} />
+    </LanguageContextProvider>
+  );
 }
