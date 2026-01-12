@@ -35,9 +35,9 @@ During the exercise for the first lecture, we will slow code the exercise togeth
 
 ### Lecture 2: Git, GitHub, React and TypeScript (2026-01-12)
 
-[![Lecture 4 code](https://img.shields.io/badge/Lecture_4-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-lecture-04)
-[![Lecture 4 reference](https://img.shields.io/badge/Lecture_4-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/04)
-[![Lecture 4 exercise](https://img.shields.io/badge/Lecture_4-exercise-pink)](./exercises/EXERCISES.md#exercise-2)
+[![Lecture 2 code](https://img.shields.io/badge/Lecture_2-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-lecture-02)
+[![Lecture 2 reference](https://img.shields.io/badge/Lecture_2-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/02)
+[![Lecture 2 exercise](https://img.shields.io/badge/Lecture_2-exercise-pink)](./exercises/EXERCISES.md#exercise-2)
 
 In this lecture, we review some of the basics. If you don't yet feel super strong on React, TypeScript, Git or GitHub you will get the chance to catch up today!
 
