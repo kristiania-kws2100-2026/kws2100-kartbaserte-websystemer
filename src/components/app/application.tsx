@@ -18,8 +18,14 @@ const fylkeLayer = new VectorLayer({
     format: new GeoJSON(),
   }),
 });
+const kommuneLayer = new VectorLayer({
+  source: new VectorSource({
+    url: "/kws2100-kartbaserte-websystemer/geojson/kommuner.geojson",
+    format: new GeoJSON(),
+  }),
+});
 const map = new Map({
-  layers: [new TileLayer({ source: new OSM() }), fylkeLayer],
+  layers: [new TileLayer({ source: new OSM() }), kommuneLayer, fylkeLayer],
   view: new View({ center: [11, 59], zoom: 8 }),
 });
 
