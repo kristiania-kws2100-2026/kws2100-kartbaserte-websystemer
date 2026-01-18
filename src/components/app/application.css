@@ -7,3 +7,16 @@
   display: grid;
   grid-template-rows: auto 1fr;
 }
+
+#root > h1 {
+  padding: 0.5rem;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr auto;
+
+  aside {
+    padding: 0.5rem 1rem;
+  }
+}

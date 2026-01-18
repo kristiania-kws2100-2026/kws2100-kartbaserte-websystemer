@@ -47,6 +47,7 @@ export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const [activeFylke, setActiveFylke] = useState<Feature>();
   const [selectedKommune, setSelectedKommune] = useState<Feature>();
+  const [allKommuner, setAllKommuner] = useState<Feature[]>([]);
 
   function handlePointerMove(event: MapBrowserEvent) {
     const fylke = fylkeSource.getFeaturesAtCoordinate(event.coordinate);
@@ -58,6 +59,10 @@ export function Application() {
     setSelectedKommune(kommune.length > 0 ? kommune[0] : undefined);
   }
 
+  function handleKommuneSourceChange() {
+    setAllKommuner(kommuneSource.getFeatures());
+  }
+
   useEffect(() => {
     activeFylke?.setStyle(activeFylkeStyle);
     return () => activeFylke?.setStyle(undefined);
@@ -67,6 +72,8 @@ export function Application() {
     map.setTarget(mapRef.current!);
     map.on("pointermove", handlePointerMove);
     map.on("click", handleClick);
+
+    kommuneSource.on("change", handleKommuneSourceChange);
   }, []);
 
   return (
@@ -76,7 +83,19 @@ export function Application() {
           ? selectedKommune.getProperties()["kommunenavn"]
           : "Administrative regioner i Norge"}
       </h1>
-      <div ref={mapRef}></div>
+      <main>
+        <div ref={mapRef}></div>
+        <aside>
+          <h2>Alle kommuner</h2>
+          <ul>
+            {allKommuner.map((k) => (
+              <li key={k.getProperties()["kommunenummer"]}>
+                {k.getProperties()["kommunenavn"]}
+              </li>
+            ))}
+          </ul>
+        </aside>
+      </main>
     </>
   );
 }
