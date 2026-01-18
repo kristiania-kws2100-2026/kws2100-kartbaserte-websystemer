@@ -9,9 +9,9 @@ import "./application.css";
 import VectorLayer from "ol/layer/Vector.js";
 import VectorSource from "ol/source/Vector.js";
 import { GeoJSON } from "ol/format.js";
-import { round } from "ol/math.js";
 import { Style, Text } from "ol/style.js";
 import type { FeatureLike } from "ol/Feature.js";
+import { getCenter } from "ol/extent.js";
 
 useGeographic();
 
@@ -29,13 +29,13 @@ const kommuneSource = new VectorSource({
 const kommuneLayer = new VectorLayer({
   source: kommuneSource,
 });
+const view = new View({ center: [11, 59], zoom: 8 });
 const map = new Map({
   layers: [new TileLayer({ source: new OSM() }), kommuneLayer, fylkeLayer],
-  view: new View({ center: [11, 59], zoom: 8 }),
+  view,
 });
 
 function activeFylkeStyle(fylke: FeatureLike) {
-  const { geometry, ...properties } = fylke.getProperties();
   return new Style({
     text: new Text({
       text: fylke.getProperties()["fylkesnavn"],
@@ -63,6 +63,12 @@ export function Application() {
     setAllKommuner(kommuneSource.getFeatures());
   }
 
+  function handleClickKommune(kommune: Feature) {
+    view.animate({
+      center: getCenter(kommune.getGeometry()!.getExtent()),
+    });
+  }
+
   useEffect(() => {
     activeFylke?.setStyle(activeFylkeStyle);
     return () => activeFylke?.setStyle(undefined);
@@ -88,11 +94,21 @@ export function Application() {
         <aside>
           <h2>Alle kommuner</h2>
           <ul>
-            {allKommuner.map((k) => (
-              <li key={k.getProperties()["kommunenummer"]}>
-                {k.getProperties()["kommunenavn"]}
-              </li>
-            ))}
+            {allKommuner
+              .sort((a, b) =>
+                a
+                  .getProperties()
+                  [
+                    "kommunenavn"
+                  ].localeCompare(b.getProperties()["kommunenavn"]),
+              )
+              .map((k) => (
+                <li key={k.getProperties()["kommunenummer"]}>
+                  <a href={"#"} onClick={() => handleClickKommune(k)}>
+                    {k.getProperties()["kommunenavn"]}
+                  </a>
+                </li>
+              ))}
           </ul>
         </aside>
       </main>
