@@ -48,7 +48,7 @@ For a solution, check out [the reference code for lecture 1](https://github.com/
 
 ### Developing, verifying and deploying an application with Github
 
-<details open>
+<details>
 
 The goal of this exercise is the following:
 
@@ -282,5 +282,50 @@ function SearchBar(/* ... parameter definition ... */) {
 ```
 
 You can see more information in the [reference implementation](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/02) of lecture 2.
+
+</details>
+
+## Exercise 3
+
+### Polygon elements in the map
+
+## Exercise 3
+### Interact with polygon elements
+
+<details>
+
+### Be prepared:
+
+1. Make sure you have solved [exercise 1](#exercise-1) before your start. You need to have a working React application that displays kommuner on a map
+2. You don't have to have published an application to the Internet with [exercise 2](#exercise-2), but it can be fun to show your work if you can
+
+### Interactions with the map
+
+- When the user hovers on a feature in the map, the feature should be highlighted in the map
+- When the user clicks on a feature in the map, a property of the feature should be displayed in the web page
+- The system should show a list of features in an aside
+- When the user clicks on an item in the list of features, the map should zoom to this feature
+
+Optional (this will probably be the topic for a later lecture)
+
+- The user should be able to focus on their own position
+- The user should be able to toggle display of kommune layer on and off
+- When the user clicks on the map with kommuner on, an overlay should show the name of the clicked feature
+
+## Tips:
+
+- The [reference branch for lecture 3](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/03)
+  contains many tips on how to create the app and implement the features
+- In order to display a map with OpenLayers, you have to create a Map object with a View and at least one layer.
+  The view must have center and zoom
+- You can use `new OSM()` (for Open Street Maps) as your first layer
+- Make sure you call the OpenLayers function `useGeographic()` at the top of your file. Otherwise, positions will be
+  displayed as meters from the equator instead of degrees latitude and longitude
+- If things are working weird, make sure you have `import {Map} from "ol"`, as there is a core JavaScript object that
+  is also called `Map`. Also, avoid calling your React component ~~`Map`~~ (as I once did and struggled with for a
+  long time)
+- To deal with clicks, use `map.on` to add an event handler and use
+  `layer.getSource().getFeaturesAtCoordinate()` to find the clicked feature
+- To zoom to a feature on the map, you can use `view.animate({center: getCenter(feature.getGeometry()!.getExtent())})`
 
 </details>
