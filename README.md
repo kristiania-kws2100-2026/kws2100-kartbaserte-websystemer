@@ -51,6 +51,8 @@ npx prettier --write .
 
 ### Make vite build to the correct location for GitHub pages:
 
+Create a file `vite.config.tx` in the top level project folder.
+
 ```ts
 import { defineConfig } from "vite";
 
