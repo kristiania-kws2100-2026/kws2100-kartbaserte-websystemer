@@ -22,11 +22,12 @@ const fylkeSource = new VectorSource({
 const fylkeLayer = new VectorLayer({
   source: fylkeSource,
 });
+const kommuneSource = new VectorSource({
+  url: "/kws2100-kartbaserte-websystemer/geojson/kommuner.geojson",
+  format: new GeoJSON(),
+});
 const kommuneLayer = new VectorLayer({
-  source: new VectorSource({
-    url: "/kws2100-kartbaserte-websystemer/geojson/kommuner.geojson",
-    format: new GeoJSON(),
-  }),
+  source: kommuneSource,
 });
 const map = new Map({
   layers: [new TileLayer({ source: new OSM() }), kommuneLayer, fylkeLayer],
@@ -45,10 +46,16 @@ function activeFylkeStyle(fylke: FeatureLike) {
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const [activeFylke, setActiveFylke] = useState<Feature>();
+  const [selectedKommune, setSelectedKommune] = useState<Feature>();
 
   function handlePointerMove(event: MapBrowserEvent) {
     const fylke = fylkeSource.getFeaturesAtCoordinate(event.coordinate);
     setActiveFylke(fylke.length > 0 ? fylke[0] : undefined);
+  }
+
+  function handleClick(event: MapBrowserEvent) {
+    const kommune = kommuneSource.getFeaturesAtCoordinate(event.coordinate);
+    setSelectedKommune(kommune.length > 0 ? kommune[0] : undefined);
   }
 
   useEffect(() => {
@@ -59,11 +66,16 @@ export function Application() {
   useEffect(() => {
     map.setTarget(mapRef.current!);
     map.on("pointermove", handlePointerMove);
+    map.on("click", handleClick);
   }, []);
 
   return (
     <>
-      <h1>My map application</h1>
+      <h1>
+        {selectedKommune
+          ? selectedKommune.getProperties()["kommunenavn"]
+          : "Administrative regioner i Norge"}
+      </h1>
       <div ref={mapRef}></div>
     </>
   );
