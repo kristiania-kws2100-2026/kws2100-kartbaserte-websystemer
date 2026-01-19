@@ -22,6 +22,7 @@
   "homepage": "https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer#readme",
   "module": "type",
   "dependencies": {
+    "ol": "^10.7.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3"
   },
