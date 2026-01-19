@@ -43,6 +43,7 @@ const map = new Map({
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const [activeFylke, setActiveFylke] = useState<Feature>();
+  const [alleKommuner, setAlleKommuner] = useState<Feature[]>([]);
 
   function handlePointermove(e: MapBrowserEvent) {
     let fylkeUnderPointer = fylkeSource.getFeaturesAtCoordinate(e.coordinate);
@@ -75,6 +76,9 @@ export function Application() {
     map.setTarget(mapRef.current!);
     map.on("pointermove", handlePointermove);
     map.on("click", handleMapClick);
+    kommuneSource.on("change", () =>
+      setAlleKommuner(kommuneSource.getFeatures()),
+    );
   }, []);
 
   return (
@@ -84,7 +88,20 @@ export function Application() {
           ? selectedKommune.getProperties()["kommunenavn"]
           : "Kart over administrative områder i Norge"}
       </h1>
-      <div ref={mapRef}></div>
+      <main>
+        <div ref={mapRef}></div>
+        <aside>
+          <h2>Alle kommuner</h2>
+
+          <ul>
+            {alleKommuner
+              .map((f) => f.getProperties())
+              .map((k) => (
+                <li>{k["kommunenavn"]}</li>
+              ))}
+          </ul>
+        </aside>
+      </main>
     </>
   );
 }

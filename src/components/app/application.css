@@ -7,3 +7,15 @@
   display: grid;
   grid-template-rows: auto 1fr;
 }
+
+main {
+  display: grid;
+  grid-template-columns: 1fr auto;
+
+  min-height: 0;
+
+  aside {
+    min-height: 0;
+    overflow-y: auto;
+  }
+}
