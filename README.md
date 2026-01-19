@@ -630,7 +630,7 @@ These are some of the most versatile keyboard shortcuts in IntelliJ. There are m
 | Shortcut (Windows)   | Shortcut (Mac)      | Command                                    |
 |----------------------|---------------------|--------------------------------------------|
 | alt-enter            | opt-enter           | Show content action (quick fix)            |
-| ctrl-alt-shift-t     | ctrl-t              | Refactor this (show refactor menu)         |
+| ctrl-alt-shift-t     | ctrl-shift-r        | Refactor this (show refactor menu)         |
 | alt-insert           | cmd-n               | New... (add some content)                  |
 | ctrl-w               | opt-up              | Expand selection                           |
 | shift-alt-f10        | ctrl-alt-r          | Run....                                    |
