@@ -10,6 +10,7 @@ import VectorLayer from "ol/layer/Vector.js";
 import VectorSource from "ol/source/Vector.js";
 import { GeoJSON } from "ol/format.js";
 import { Fill, Stroke, Style, Text } from "ol/style.js";
+import { getCenter } from "ol/extent.js";
 
 useGeographic();
 
@@ -35,10 +36,8 @@ const kommuneLayer = new VectorLayer({ source: kommuneSource });
 
 const layers = [new TileLayer({ source: new OSM() }), fylkeLayer, kommuneLayer];
 
-const map = new Map({
-  layers,
-  view: new View({ zoom: 9, center: [10, 59.5] }),
-});
+const view = new View({ zoom: 9, center: [10, 59.5] });
+const map = new Map({ layers, view });
 
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
@@ -81,6 +80,12 @@ export function Application() {
     );
   }, []);
 
+  function handleClick(kommuneProperties: Record<string, any>) {
+    const { geometry, ...properties } = kommuneProperties;
+    console.log(properties);
+    view.animate({ center: getCenter(geometry.getExtent()) });
+  }
+
   return (
     <>
       <h1>
@@ -96,8 +101,13 @@ export function Application() {
           <ul>
             {alleKommuner
               .map((f) => f.getProperties())
+              .sort((a, b) => a["kommunenavn"].localeCompare(b["kommunenavn"]))
               .map((k) => (
-                <li>{k["kommunenavn"]}</li>
+                <li>
+                  <a href={"#"} onClick={(e) => handleClick(k)}>
+                    {k["kommunenavn"]}
+                  </a>
+                </li>
               ))}
           </ul>
         </aside>
