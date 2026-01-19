@@ -17,7 +17,7 @@ npm pkg set scripts.dev=vite
 npx tsc --init
 npx husky init
 npx prettier --write .
-npm pkg set scripts.test="tsc --noEmit && prettier --write"
+npm pkg set scripts.test="tsc --noEmit && prettier --check ."
 
 ```
 
@@ -203,7 +203,7 @@ const fylkeSource = new VectorSource({
 const fylkeLayer = new VectorLayer({
   source: fylkeSource,
 });
-const layers = [new TileLayer({ source: new OSM() }), kommuneLayer, fylkeLayer];
+const layers = [new TileLayer({ source: new OSM() }), fylkeLayer];
 ```
 
 In the same file, in `function Application()` add a handler for "pointermove":
