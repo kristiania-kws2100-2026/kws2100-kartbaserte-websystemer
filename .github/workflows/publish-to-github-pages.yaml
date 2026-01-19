@@ -1,0 +1,35 @@
+on:
+  push:
+    # Only deploy when the branch name matches one of these
+    # You probably only need `main`, the others are provided to work with the lectures
+    branches: ["main", "reference/*", "lecture/*"]
+
+# Jobs defines one or more actions that GitHub should execute when we push changes
+jobs:
+  # The name "build" is our name for this job. It can be anything you like
+  build:
+    # What operating system should it run on?
+    runs-on: ubuntu-latest
+    # The list of actions to execute in this job
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22.x, cache: "npm" }
+      # "npm ci" is almost the same as "npm install". As `node_modules` is `.gitignore`-d,
+      # this download the dependencies specified in `package.json` during the build process
+      - run: npm ci
+      # runs the script named "build" in `package.json`
+      - run: npm run build
+      # runs the script named "test" in `package.json`
+      - run: npm test
+      # saves the output of build (in `./dist`) for further use
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+      # publishes the uploaded code from the previous steps to GitHub Pages
+      - uses: actions/deploy-pages@v4
+
+    permissions:
+      id-token: write # to verify the deployment originates from an appropriate source
+      pages: write # to deploy to Pages
+      contents: read # to check out private repositories
