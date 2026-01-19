@@ -27,12 +27,11 @@ const fylkeLayer = new VectorLayer({
   }),
 });
 
-const kommuneLayer = new VectorLayer({
-  source: new VectorSource({
-    url: "/kws2100-kartbaserte-websystemer/geojson/kommuner.geojson",
-    format: new GeoJSON(),
-  }),
+const kommuneSource = new VectorSource({
+  url: "/kws2100-kartbaserte-websystemer/geojson/kommuner.geojson",
+  format: new GeoJSON(),
 });
+const kommuneLayer = new VectorLayer({ source: kommuneSource });
 
 const layers = [new TileLayer({ source: new OSM() }), fylkeLayer, kommuneLayer];
 
@@ -64,16 +63,25 @@ export function Application() {
     return () => activeFylke?.setStyle(undefined);
   }, [activeFylke]);
 
+  const [selectedKommune, setSelectedKommune] = useState<Feature>();
+  function handleMapClick(e: MapBrowserEvent) {
+    const clickedKommune = kommuneSource.getFeaturesAtCoordinate(e.coordinate);
+    setSelectedKommune(
+      clickedKommune.length > 0 ? clickedKommune[0] : undefined,
+    );
+  }
+
   useEffect(() => {
     map.setTarget(mapRef.current!);
     map.on("pointermove", handlePointermove);
+    map.on("click", handleMapClick);
   }, []);
 
   return (
     <>
       <h1>
-        {activeFylke
-          ? activeFylke.getProperties()["fylkesnavn"]
+        {selectedKommune
+          ? selectedKommune.getProperties()["kommunenavn"]
           : "Kart over administrative områder i Norge"}
       </h1>
       <div ref={mapRef}></div>
