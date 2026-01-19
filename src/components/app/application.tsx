@@ -26,7 +26,15 @@ const fylkeLayer = new VectorLayer({
     }),
   }),
 });
-const layers = [new TileLayer({ source: new OSM() }), fylkeLayer];
+
+const kommuneLayer = new VectorLayer({
+  source: new VectorSource({
+    url: "/kws2100-kartbaserte-websystemer/geojson/kommuner.geojson",
+    format: new GeoJSON(),
+  }),
+});
+
+const layers = [new TileLayer({ source: new OSM() }), fylkeLayer, kommuneLayer];
 
 const map = new Map({
   layers,
