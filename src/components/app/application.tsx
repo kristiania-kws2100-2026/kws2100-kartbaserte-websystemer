@@ -6,11 +6,22 @@ import { useGeographic } from "ol/proj.js";
 
 import "ol/ol.css";
 import "./application.css";
+import VectorLayer from "ol/layer/Vector.js";
+import VectorSource from "ol/source/Vector.js";
+import { GeoJSON } from "ol/format.js";
 
 useGeographic();
 
+const fylkeLayer = new VectorLayer({
+  source: new VectorSource({
+    url: "/kws2100-kartbaserte-websystemer/geojson/fylker.geojson",
+    format: new GeoJSON(),
+  }),
+});
+const layers = [new TileLayer({ source: new OSM() }), fylkeLayer];
+
 const map = new Map({
-  layers: [new TileLayer({ source: new OSM() })],
+  layers,
   view: new View({ zoom: 9, center: [10, 59.5] }),
 });
 
