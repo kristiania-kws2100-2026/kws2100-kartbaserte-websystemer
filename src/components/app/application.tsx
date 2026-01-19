@@ -4,6 +4,9 @@ import TileLayer from "ol/layer/Tile.js";
 import { OSM } from "ol/source.js";
 import { useGeographic } from "ol/proj.js";
 
+import "ol/ol.css";
+import "./application.css";
+
 useGeographic();
 
 const map = new Map({
@@ -21,7 +24,7 @@ export function Application() {
   return (
     <>
       <h1>Kart over administrative områder i Norge</h1>
-      <div ref={mapRef}>Her er kartet</div>
+      <div ref={mapRef}></div>
     </>
   );
 }
