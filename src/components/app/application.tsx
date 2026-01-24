@@ -13,6 +13,7 @@ import {
   KommuneLayerCheckbox,
   type KommuneProperties,
 } from "../layers/kommuneLayer.js";
+import { BackgroundLayerSelect } from "../layers/backgroundLayers.js";
 
 useGeographic();
 
@@ -54,7 +55,8 @@ function Application() {
             ? selectedKommune.kommunenavn
             : "Kart over administrative områder i Norge"}
         </h1>
-        <div>
+        <nav>
+          <BackgroundLayerSelect />
           <KommuneLayerCheckbox
             map={map}
             setKommuneLayers={setKommuneLayers}
@@ -62,7 +64,7 @@ function Application() {
             setSelectedKommune={setSelectedKommune}
           />
           <FylkeLayerCheckbox setFylkesLayers={setFylkesLayers} map={map} />
-        </div>
+        </nav>
       </header>
       <main>
         <div ref={mapRef}></div>

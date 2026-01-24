@@ -19,3 +19,13 @@ main {
     overflow-y: auto;
   }
 }
+
+header,
+aside {
+  padding: 0.4rem;
+}
+
+header nav {
+  display: flex;
+  gap: 0.2rem;
+}
