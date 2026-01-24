@@ -1,65 +1,20 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Feature, Map, MapBrowserEvent, View } from "ol";
+import { Feature, Map, View } from "ol";
 import TileLayer from "ol/layer/Tile.js";
 import { OSM } from "ol/source.js";
 import { useGeographic } from "ol/proj.js";
 
 import "ol/ol.css";
 import "./application.css";
-import VectorLayer from "ol/layer/Vector.js";
-import VectorSource from "ol/source/Vector.js";
-import { GeoJSON } from "ol/format.js";
 import { getCenter } from "ol/extent.js";
 import { Layer } from "ol/layer.js";
 import { FylkeLayerCheckbox } from "../layers/fylkeLayer.js";
+import { KommuneLayerCheckbox } from "../layers/kommuneLayer.js";
 
 useGeographic();
 
-const kommuneSource = new VectorSource({
-  url: "/kws2100-kartbaserte-websystemer/geojson/kommuner.geojson",
-  format: new GeoJSON(),
-});
-const kommuneLayer = new VectorLayer({ source: kommuneSource });
-
 const view = new View({ zoom: 9, center: [10, 59.5] });
 const map = new Map({ view });
-
-function KommuneLayerCheckbox({
-  map,
-  setKommuneLayers,
-  setAlleKommuner,
-  setSelectedKommune,
-}: {
-  map: Map;
-  setKommuneLayers: (value: Layer[]) => void;
-  setAlleKommuner: (value: Feature[]) => void;
-  setSelectedKommune: (value: Feature | undefined) => void;
-}) {
-  const [checked, setChecked] = useState(true);
-  useEffect(() => setKommuneLayers(checked ? [kommuneLayer] : []), [checked]);
-  useEffect(
-    () => setAlleKommuner(checked ? kommuneSource.getFeatures() : []),
-    [checked],
-  );
-  function handleMapClick(e: MapBrowserEvent) {
-    const clickedKommune = kommuneSource.getFeaturesAtCoordinate(e.coordinate);
-    setSelectedKommune(
-      clickedKommune.length > 0 ? clickedKommune[0] : undefined,
-    );
-  }
-  useEffect(() => {
-    map.on("click", handleMapClick);
-    kommuneSource.on("change", () =>
-      setAlleKommuner(kommuneSource.getFeatures()),
-    );
-  }, []);
-
-  return (
-    <button onClick={() => setChecked((b) => !b)} tabIndex={-1}>
-      <input type={"checkbox"} checked={checked} /> Vis kommuner
-    </button>
-  );
-}
 
 function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
