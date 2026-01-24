@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Feature, Map, MapBrowserEvent, View } from "ol";
 import TileLayer from "ol/layer/Tile.js";
 import { OSM } from "ol/source.js";
@@ -34,15 +34,26 @@ const kommuneSource = new VectorSource({
 });
 const kommuneLayer = new VectorLayer({ source: kommuneSource });
 
-const layers = [new TileLayer({ source: new OSM() }), fylkeLayer, kommuneLayer];
-
 const view = new View({ zoom: 9, center: [10, 59.5] });
-const map = new Map({ layers, view });
+const map = new Map({ view });
 
-export function Application() {
+function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const [activeFylke, setActiveFylke] = useState<Feature>();
   const [alleKommuner, setAlleKommuner] = useState<Feature[]>([]);
+
+  const [showFylkeLayer, setShowFylkeLayer] = useState(true);
+  const [fylkesLayers, setFylkesLayers] = useState([fylkeLayer]);
+  useEffect(
+    () => setFylkesLayers(showFylkeLayer ? [fylkeLayer] : []),
+    [showFylkeLayer],
+  );
+
+  const layers = useMemo(
+    () => [new TileLayer({ source: new OSM() }), ...fylkesLayers, kommuneLayer],
+    [showFylkeLayer],
+  );
+  useEffect(() => map.setLayers(layers), [layers]);
 
   function handlePointermove(e: MapBrowserEvent) {
     let fylkeUnderPointer = fylkeSource.getFeaturesAtCoordinate(e.coordinate);
@@ -81,18 +92,27 @@ export function Application() {
   }, []);
 
   function handleClick(kommuneProperties: Record<string, any>) {
-    const { geometry, ...properties } = kommuneProperties;
-    console.log(properties);
+    const { geometry } = kommuneProperties;
     view.animate({ center: getCenter(geometry.getExtent()) });
   }
 
   return (
     <>
-      <h1>
-        {selectedKommune
-          ? selectedKommune.getProperties()["kommunenavn"]
-          : "Kart over administrative områder i Norge"}
-      </h1>
+      <header>
+        <h1>
+          {selectedKommune
+            ? selectedKommune.getProperties()["kommunenavn"]
+            : "Kart over administrative områder i Norge"}
+        </h1>
+        <div>
+          <button>
+            <input type={"checkbox"} /> Vis kommuner
+          </button>
+          <button onClick={() => setShowFylkeLayer((b) => !b)} tabIndex={-1}>
+            <input type={"checkbox"} checked={showFylkeLayer} /> Vis fylker
+          </button>
+        </div>
+      </header>
       <main>
         <div ref={mapRef}></div>
         <aside>
@@ -115,3 +135,5 @@ export function Application() {
     </>
   );
 }
+
+export default Application;
