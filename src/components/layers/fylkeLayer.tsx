@@ -1,14 +1,13 @@
-import { Map } from "ol";
+import { Feature, Map, type MapBrowserEvent } from "ol";
 import VectorSource from "ol/source/Vector.js";
 import { GeoJSON } from "ol/format.js";
 import VectorLayer from "ol/layer/Vector.js";
 import { Fill, Stroke, Style, Text } from "ol/style.js";
 import { Layer } from "ol/layer.js";
 import React, { useEffect, useState } from "react";
-import { Feature, type MapBrowserEvent } from "ol";
 import type { FeatureLike } from "ol/Feature.js";
 
-export const fylkeSource = new VectorSource({
+const fylkeSource = new VectorSource({
   url: "/kws2100-kartbaserte-websystemer/geojson/fylker.geojson",
   format: new GeoJSON(),
 });
@@ -38,23 +37,19 @@ export function FylkeLayerCheckbox({
   setFylkesLayers(layers: Layer[]): void;
   map: Map;
 }) {
-  const [showFylkeLayer, setShowFylkeLayer] = useState(true);
-  const [activeFylke, setActiveFylke] = useState<Feature>();
+  const [showFylkeLayer, setShowFylkeLayer] = useState(false);
+  const [activeFylkeList, setActiveFylkeList] = useState<Feature[]>([]);
   useEffect(
     () => setFylkesLayers(showFylkeLayer ? [fylkeLayer] : []),
     [showFylkeLayer],
   );
-
   function handlePointermove(e: MapBrowserEvent) {
-    let fylkeUnderPointer = fylkeSource.getFeaturesAtCoordinate(e.coordinate);
-    setActiveFylke(
-      fylkeUnderPointer.length > 0 ? fylkeUnderPointer[0] : undefined,
-    );
+    setActiveFylkeList(fylkeSource.getFeaturesAtCoordinate(e.coordinate));
   }
   useEffect(() => {
-    activeFylke?.setStyle(activeFylkeStyle);
-    return () => activeFylke?.setStyle(undefined);
-  }, [activeFylke]);
+    activeFylkeList.forEach((f) => f.setStyle(activeFylkeStyle));
+    return () => activeFylkeList.forEach((f) => f.setStyle(undefined));
+  }, [activeFylkeList]);
 
   useEffect(() => {
     if (showFylkeLayer) map.on("pointermove", handlePointermove);
