@@ -9,7 +9,10 @@ import "./application.css";
 import { getCenter } from "ol/extent.js";
 import { Layer } from "ol/layer.js";
 import { FylkeLayerCheckbox } from "../layers/fylkeLayer.js";
-import { KommuneLayerCheckbox } from "../layers/kommuneLayer.js";
+import {
+  KommuneLayerCheckbox,
+  type KommuneProperties,
+} from "../layers/kommuneLayer.js";
 
 useGeographic();
 
@@ -18,7 +21,7 @@ const map = new Map({ view });
 
 function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
-  const [alleKommuner, setAlleKommuner] = useState<Feature[]>([]);
+  const [alleKommuner, setAlleKommuner] = useState<KommuneProperties[]>([]);
   const [fylkesLayers, setFylkesLayers] = useState<Layer[]>([]);
   const [kommuneLayers, setKommuneLayers] = useState<Layer[]>([]);
 
@@ -32,7 +35,7 @@ function Application() {
   );
   useEffect(() => map.setLayers(layers), [layers]);
 
-  const [selectedKommune, setSelectedKommune] = useState<Feature>();
+  const [selectedKommune, setSelectedKommune] = useState<KommuneProperties>();
 
   useEffect(() => {
     map.setTarget(mapRef.current!);
@@ -48,7 +51,7 @@ function Application() {
       <header>
         <h1>
           {selectedKommune
-            ? selectedKommune.getProperties()["kommunenavn"]
+            ? selectedKommune.kommunenavn
             : "Kart over administrative områder i Norge"}
         </h1>
         <div>
@@ -68,14 +71,11 @@ function Application() {
             <h2>Alle kommuner</h2>
             <ul>
               {alleKommuner
-                .map((f) => f.getProperties())
-                .sort((a, b) =>
-                  a["kommunenavn"].localeCompare(b["kommunenavn"]),
-                )
+                .sort((a, b) => a.kommunenavn.localeCompare(b.kommunenavn))
                 .map((k) => (
                   <li>
                     <a href={"#"} onClick={() => handleClick(k)}>
-                      {k["kommunenavn"]}
+                      {k.kommunenavn}
                     </a>
                   </li>
                 ))}

@@ -5,7 +5,11 @@ import { Feature, Map, MapBrowserEvent } from "ol";
 import { Layer } from "ol/layer.js";
 import React, { useEffect, useState } from "react";
 
-const kommuneSource = new VectorSource({
+export interface KommuneProperties {
+  kommunenavn: string;
+}
+
+const kommuneSource = new VectorSource<Feature>({
   url: "/kws2100-kartbaserte-websystemer/geojson/kommuner.geojson",
   format: new GeoJSON(),
 });
@@ -19,25 +23,34 @@ export function KommuneLayerCheckbox({
 }: {
   map: Map;
   setKommuneLayers: (value: Layer[]) => void;
-  setAlleKommuner: (value: Feature[]) => void;
-  setSelectedKommune: (value: Feature | undefined) => void;
+  setAlleKommuner: (value: KommuneProperties[]) => void;
+  setSelectedKommune: (value: KommuneProperties | undefined) => void;
 }) {
   const [checked, setChecked] = useState(true);
   useEffect(() => setKommuneLayers(checked ? [kommuneLayer] : []), [checked]);
   useEffect(
-    () => setAlleKommuner(checked ? kommuneSource.getFeatures() : []),
+    () =>
+      setAlleKommuner(
+        checked
+          ? kommuneSource
+              .getFeatures()
+              .map((p) => p.getProperties() as KommuneProperties)
+          : [],
+      ),
     [checked],
   );
   function handleMapClick(e: MapBrowserEvent) {
     const clickedKommune = kommuneSource.getFeaturesAtCoordinate(e.coordinate);
-    setSelectedKommune(
-      clickedKommune.length > 0 ? clickedKommune[0] : undefined,
-    );
+    setSelectedKommune(clickedKommune[0]?.getProperties() as KommuneProperties);
   }
   useEffect(() => {
     map.on("click", handleMapClick);
     kommuneSource.on("change", () =>
-      setAlleKommuner(kommuneSource.getFeatures()),
+      setAlleKommuner(
+        kommuneSource
+          .getFeatures()
+          .map((f) => f.getProperties() as KommuneProperties),
+      ),
     );
   }, []);
 
