@@ -1,7 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Map, View } from "ol";
-import TileLayer from "ol/layer/Tile.js";
-import { OSM } from "ol/source.js";
 import { useGeographic } from "ol/proj.js";
 
 import "ol/ol.css";
@@ -23,16 +21,13 @@ const map = new Map({ view });
 function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const [alleKommuner, setAlleKommuner] = useState<KommuneProperties[]>([]);
+  const [backgroundLayers, setBackgroundLayers] = useState<Layer[]>([]);
   const [fylkesLayers, setFylkesLayers] = useState<Layer[]>([]);
   const [kommuneLayers, setKommuneLayers] = useState<Layer[]>([]);
 
   const layers = useMemo(
-    () => [
-      new TileLayer({ source: new OSM() }),
-      ...fylkesLayers,
-      ...kommuneLayers,
-    ],
-    [fylkesLayers, kommuneLayers],
+    () => [...backgroundLayers, ...fylkesLayers, ...kommuneLayers],
+    [backgroundLayers, fylkesLayers, kommuneLayers],
   );
   useEffect(() => map.setLayers(layers), [layers]);
 
@@ -56,7 +51,7 @@ function Application() {
             : "Kart over administrative områder i Norge"}
         </h1>
         <nav>
-          <BackgroundLayerSelect />
+          <BackgroundLayerSelect setBackgroundLayers={setBackgroundLayers} />
           <KommuneLayerCheckbox
             map={map}
             setKommuneLayers={setKommuneLayers}
