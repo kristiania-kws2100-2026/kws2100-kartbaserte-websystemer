@@ -11,6 +11,7 @@ import VectorSource from "ol/source/Vector.js";
 import { GeoJSON } from "ol/format.js";
 import { Fill, Stroke, Style, Text } from "ol/style.js";
 import { getCenter } from "ol/extent.js";
+import { Layer } from "ol/layer.js";
 
 useGeographic();
 
@@ -37,21 +38,33 @@ const kommuneLayer = new VectorLayer({ source: kommuneSource });
 const view = new View({ zoom: 9, center: [10, 59.5] });
 const map = new Map({ view });
 
+function FylkeLayerCheckbox({
+  setFylkesLayers,
+}: {
+  setFylkesLayers(layers: Layer[]): void;
+}) {
+  const [showFylkeLayer, setShowFylkeLayer] = useState(true);
+  useEffect(
+    () => setFylkesLayers(showFylkeLayer ? [fylkeLayer] : []),
+    [showFylkeLayer],
+  );
+  return (
+    <button onClick={() => setShowFylkeLayer((b) => !b)} tabIndex={-1}>
+      <input type={"checkbox"} checked={showFylkeLayer} /> Vis fylker
+    </button>
+  );
+}
+
 function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const [activeFylke, setActiveFylke] = useState<Feature>();
   const [alleKommuner, setAlleKommuner] = useState<Feature[]>([]);
 
-  const [showFylkeLayer, setShowFylkeLayer] = useState(true);
-  const [fylkesLayers, setFylkesLayers] = useState([fylkeLayer]);
-  useEffect(
-    () => setFylkesLayers(showFylkeLayer ? [fylkeLayer] : []),
-    [showFylkeLayer],
-  );
+  const [fylkesLayers, setFylkesLayers] = useState<Layer[]>([]);
 
   const layers = useMemo(
     () => [new TileLayer({ source: new OSM() }), ...fylkesLayers, kommuneLayer],
-    [showFylkeLayer],
+    [fylkesLayers],
   );
   useEffect(() => map.setLayers(layers), [layers]);
 
@@ -108,9 +121,7 @@ function Application() {
           <button>
             <input type={"checkbox"} /> Vis kommuner
           </button>
-          <button onClick={() => setShowFylkeLayer((b) => !b)} tabIndex={-1}>
-            <input type={"checkbox"} checked={showFylkeLayer} /> Vis fylker
-          </button>
+          <FylkeLayerCheckbox setFylkesLayers={setFylkesLayers} />
         </div>
       </header>
       <main>
@@ -124,7 +135,7 @@ function Application() {
               .sort((a, b) => a["kommunenavn"].localeCompare(b["kommunenavn"]))
               .map((k) => (
                 <li>
-                  <a href={"#"} onClick={(e) => handleClick(k)}>
+                  <a href={"#"} onClick={() => handleClick(k)}>
                     {k["kommunenavn"]}
                   </a>
                 </li>
