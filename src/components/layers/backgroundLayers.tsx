@@ -1,12 +1,29 @@
 import React, { useEffect, useMemo, useState } from "react";
 import type { Layer } from "ol/layer.js";
 import TileLayer from "ol/layer/Tile.js";
-import { OSM, StadiaMaps } from "ol/source.js";
+import { OSM, StadiaMaps, WMTS } from "ol/source.js";
+import { WMTSCapabilities } from "ol/format.js";
+import { optionsFromCapabilities } from "ol/source/WMTS.js";
 
 const osmLayer = new TileLayer({ source: new OSM() });
+const kartverket = new TileLayer({});
+const kartverketUrl =
+  "https://cache.kartverket.no/v1/wmts/1.0.0/WMTSCapabilities.xml";
+fetch(kartverketUrl).then(async (response) => {
+  const parser = new WMTSCapabilities();
+  kartverket.setSource(
+    new WMTS(
+      optionsFromCapabilities(parser.read(await response.text()), {
+        layer: "toporaster",
+        matrixSet: "webmercator",
+      })!,
+    ),
+  );
+});
 
 const LayerOptions = {
   osmLayer: "OpenStreetMap bakgrunnskart",
+  kartverket: "Kartverkets bakgrunnskart",
   stadiaLayer: "Stadia backgrunnskart",
 };
 type LayerName = keyof typeof LayerOptions;
@@ -36,6 +53,7 @@ export function BackgroundLayerSelect({
   const layers = useMemo<Record<LayerName, Layer>>(
     () => ({
       osmLayer,
+      kartverket,
       stadiaLayer,
     }),
     [stadiaLayer],
