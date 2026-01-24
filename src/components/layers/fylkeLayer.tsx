@@ -37,12 +37,9 @@ export function FylkeLayerCheckbox({
   setFylkesLayers(layers: Layer[]): void;
   map: Map;
 }) {
-  const [showFylkeLayer, setShowFylkeLayer] = useState(false);
+  const [checked, setChecked] = useState(false);
   const [activeFylkeList, setActiveFylkeList] = useState<Feature[]>([]);
-  useEffect(
-    () => setFylkesLayers(showFylkeLayer ? [fylkeLayer] : []),
-    [showFylkeLayer],
-  );
+  useEffect(() => setFylkesLayers(checked ? [fylkeLayer] : []), [checked]);
   function handlePointermove(e: MapBrowserEvent) {
     setActiveFylkeList(fylkeSource.getFeaturesAtCoordinate(e.coordinate));
   }
@@ -52,13 +49,13 @@ export function FylkeLayerCheckbox({
   }, [activeFylkeList]);
 
   useEffect(() => {
-    if (showFylkeLayer) map.on("pointermove", handlePointermove);
+    if (checked) map.on("pointermove", handlePointermove);
     else map.un("pointermove", handlePointermove);
-  }, [showFylkeLayer]);
+  }, [checked]);
 
   return (
-    <button onClick={() => setShowFylkeLayer((b) => !b)} tabIndex={-1}>
-      <input type={"checkbox"} checked={showFylkeLayer} /> Vis fylker
+    <button onClick={() => setChecked((b) => !b)} tabIndex={-1}>
+      <input type={"checkbox"} readOnly={true} checked={checked} /> Vis fylker
     </button>
   );
 }

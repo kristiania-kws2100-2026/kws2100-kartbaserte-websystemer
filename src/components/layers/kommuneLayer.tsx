@@ -54,7 +54,7 @@ export function KommuneLayerCheckbox({
 
   return (
     <button onClick={() => setChecked((b) => !b)} tabIndex={-1}>
-      <input type={"checkbox"} checked={checked} /> Vis kommuner
+      <input type={"checkbox"} checked={checked} readOnly={true} /> Vis kommuner
     </button>
   );
 }
