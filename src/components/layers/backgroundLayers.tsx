@@ -6,10 +6,15 @@ import { WMTSCapabilities } from "ol/format.js";
 import { optionsFromCapabilities } from "ol/source/WMTS.js";
 import proj4 from "proj4";
 import { register } from "ol/proj/proj4.js";
+import { useDarkMode } from "../../hooks/useDarkMode.js";
 
 proj4.defs(
   "urn:ogc:def:crs:EPSG::25833",
   "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+);
+proj4.defs(
+  "EPSG:3571",
+  "+proj=laea +lat_0=90 +lon_0=180 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +type=crs",
 );
 register(proj4);
 
@@ -46,8 +51,24 @@ fetch(flyfotoUrl).then(async (response) => {
   );
 });
 
+const arctic = new TileLayer({});
+const arcticUrl = "/kws2100-kartbaserte-websystemer/arctic-sdi.xml";
+fetch(arcticUrl).then(async (response) => {
+  const parser = new WMTSCapabilities();
+  const capabilities = parser.read(await response.text());
+  arctic.setSource(
+    new WMTS(
+      optionsFromCapabilities(capabilities, {
+        layer: "arctic_cascading",
+        matrixSet: "3571",
+      })!,
+    ),
+  );
+});
+
 const LayerOptions = {
   osmLayer: "OpenStreetMap bakgrunnskart",
+  arctic: "Arktisk bakgrunnskart",
   kartverket: "Kartverkets bakgrunnskart",
   flyfoto: "Flyfoto",
   stadiaLayer: "Stadia backgrunnskart",
@@ -59,14 +80,7 @@ export function BackgroundLayerSelect({
 }: {
   setBackgroundLayers: (value: Layer[]) => void;
 }) {
-  const [darkMode, setDarkMode] = useState(false);
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    setDarkMode(mediaQuery.matches);
-    mediaQuery.addEventListener("change", (event) =>
-      setDarkMode(event.matches),
-    );
-  }, []);
+  const darkMode = useDarkMode();
 
   const stadiaLayer = useMemo(() => {
     return new TileLayer({
@@ -79,6 +93,7 @@ export function BackgroundLayerSelect({
   const layers = useMemo<Record<LayerName, Layer>>(
     () => ({
       osmLayer,
+      arctic,
       kartverket,
       flyfoto,
       stadiaLayer,
@@ -87,14 +102,17 @@ export function BackgroundLayerSelect({
   );
 
   const [layerName, setLayerName] =
-    useState<keyof typeof LayerOptions>("flyfoto");
+    useState<keyof typeof LayerOptions>("arctic");
   useEffect(
     () => setBackgroundLayers([layers[layerName]!]),
     [layerName, layers],
   );
 
   return (
-    <select onChange={(e) => setLayerName(e.target.value as LayerName)}>
+    <select
+      onChange={(e) => setLayerName(e.target.value as LayerName)}
+      value={layerName}
+    >
       {Object.entries(LayerOptions).map(([key, label]) => (
         <option key={key} value={key}>
           {label}
