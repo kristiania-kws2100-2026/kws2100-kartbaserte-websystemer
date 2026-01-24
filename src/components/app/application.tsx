@@ -12,11 +12,26 @@ import {
   type KommuneProperties,
 } from "../layers/kommuneLayer.js";
 import { BackgroundLayerSelect } from "../layers/backgroundLayers.js";
+import proj4 from "proj4";
+import { register } from "ol/proj/proj4.js";
+
+proj4.defs(
+  "urn:ogc:def:crs:EPSG::25833",
+  "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+);
+proj4.defs(
+  "EPSG:3571",
+  "+proj=laea +lat_0=90 +lon_0=180 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +type=crs",
+);
+proj4.defs(
+  "EPSG:3575",
+  "+proj=laea +lat_0=90 +lon_0=10 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +type=crs",
+);
+register(proj4);
 
 useGeographic();
 
-const view = new View({ zoom: 9, center: [10, 59.5] });
-const map = new Map({ view });
+const map = new Map();
 
 function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
@@ -30,6 +45,9 @@ function Application() {
     [backgroundLayers, fylkesLayers, kommuneLayers],
   );
   useEffect(() => map.setLayers(layers), [layers]);
+
+  const [view, setView] = useState(new View({ zoom: 6, center: [15, 78] }));
+  useEffect(() => map.setView(view), [view]);
 
   const [selectedKommune, setSelectedKommune] = useState<KommuneProperties>();
 
@@ -51,7 +69,10 @@ function Application() {
             : "Kart over administrative områder i Norge"}
         </h1>
         <nav>
-          <BackgroundLayerSelect setBackgroundLayers={setBackgroundLayers} />
+          <BackgroundLayerSelect
+            setBackgroundLayers={setBackgroundLayers}
+            setView={setView}
+          />
           <KommuneLayerCheckbox
             map={map}
             setKommuneLayers={setKommuneLayers}

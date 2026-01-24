@@ -4,19 +4,8 @@ import TileLayer from "ol/layer/Tile.js";
 import { OSM, StadiaMaps, WMTS } from "ol/source.js";
 import { WMTSCapabilities } from "ol/format.js";
 import { optionsFromCapabilities } from "ol/source/WMTS.js";
-import proj4 from "proj4";
-import { register } from "ol/proj/proj4.js";
 import { useDarkMode } from "../../hooks/useDarkMode.js";
-
-proj4.defs(
-  "urn:ogc:def:crs:EPSG::25833",
-  "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
-);
-proj4.defs(
-  "EPSG:3571",
-  "+proj=laea +lat_0=90 +lon_0=180 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +type=crs",
-);
-register(proj4);
+import { View } from "ol";
 
 const osmLayer = new TileLayer({ source: new OSM() });
 
@@ -60,7 +49,7 @@ fetch(arcticUrl).then(async (response) => {
     new WMTS(
       optionsFromCapabilities(capabilities, {
         layer: "arctic_cascading",
-        matrixSet: "3571",
+        matrixSet: "3575",
       })!,
     ),
   );
@@ -77,8 +66,10 @@ type LayerName = keyof typeof LayerOptions;
 
 export function BackgroundLayerSelect({
   setBackgroundLayers,
+  setView,
 }: {
   setBackgroundLayers: (value: Layer[]) => void;
+  setView: (value: (prevState: View) => View) => void;
 }) {
   const darkMode = useDarkMode();
 
@@ -103,10 +94,22 @@ export function BackgroundLayerSelect({
 
   const [layerName, setLayerName] =
     useState<keyof typeof LayerOptions>("arctic");
-  useEffect(
-    () => setBackgroundLayers([layers[layerName]!]),
-    [layerName, layers],
-  );
+  const layer = useMemo(() => layers[layerName]!, [layerName, layers]);
+
+  useEffect(() => {
+    if (layer.getSource()) {
+      const projection = layer.getSource()!.getProjection()!;
+      setView(
+        (v) =>
+          new View({
+            center: v.getCenter()!,
+            zoom: v.getZoom()!,
+            projection,
+          }),
+      );
+    }
+    setBackgroundLayers([layer]);
+  }, [layer, layer.getSource()]);
 
   return (
     <select
