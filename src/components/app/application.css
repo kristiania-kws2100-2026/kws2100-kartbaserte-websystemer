@@ -2,6 +2,10 @@
   margin: unset;
 }
 
+html {
+  color-scheme: light dark;
+}
+
 #root {
   height: 100dvh;
   display: grid;
