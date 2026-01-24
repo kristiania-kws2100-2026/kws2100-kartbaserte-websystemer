@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Feature, Map, View } from "ol";
+import { Map, View } from "ol";
 import TileLayer from "ol/layer/Tile.js";
 import { OSM } from "ol/source.js";
 import { useGeographic } from "ol/proj.js";
