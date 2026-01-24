@@ -16,7 +16,7 @@ import proj4 from "proj4";
 import { register } from "ol/proj/proj4.js";
 
 proj4.defs(
-  "urn:ogc:def:crs:EPSG::25833",
+  "EPSG:25833",
   "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
 );
 proj4.defs(
@@ -46,7 +46,9 @@ function Application() {
   );
   useEffect(() => map.setLayers(layers), [layers]);
 
-  const [view, setView] = useState(new View({ zoom: 6, center: [15, 78] }));
+  const [view, setView] = useState(
+    new View({ zoom: 8, center: [10.75, 59.9] }),
+  );
   useEffect(() => map.setView(view), [view]);
 
   const [selectedKommune, setSelectedKommune] = useState<KommuneProperties>();

@@ -18,7 +18,7 @@ fetch(kartverketUrl).then(async (response) => {
     new WMTS(
       optionsFromCapabilities(parser.read(await response.text()), {
         layer: "toporaster",
-        matrixSet: "webmercator",
+        matrixSet: "utm33n",
       })!,
     ),
   );
@@ -93,7 +93,7 @@ export function BackgroundLayerSelect({
   );
 
   const [layerName, setLayerName] =
-    useState<keyof typeof LayerOptions>("arctic");
+    useState<keyof typeof LayerOptions>("osmLayer");
   const layer = useMemo(() => layers[layerName]!, [layerName, layers]);
 
   useEffect(() => {
