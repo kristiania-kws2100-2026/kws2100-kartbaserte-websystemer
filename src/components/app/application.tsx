@@ -9,13 +9,9 @@ import "./application.css";
 import VectorLayer from "ol/layer/Vector.js";
 import VectorSource from "ol/source/Vector.js";
 import { GeoJSON } from "ol/format.js";
-import { Stroke, Style, Text } from "ol/style.js";
 import { getCenter } from "ol/extent.js";
 import { Layer } from "ol/layer.js";
-import {
-  FylkesLayerCheckbox,
-  fylkeSource,
-} from "../layer/fylkesLayerCheckbox.js";
+import { FylkesLayerCheckbox } from "../layer/fylkesLayerCheckbox.js";
 
 useGeographic();
 
@@ -30,7 +26,6 @@ const map = new Map({ view });
 
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
-  const [activeFylke, setActiveFylke] = useState<Feature>();
   const [alleKommuner, setAlleKommuner] = useState<Feature[]>([]);
 
   const [fylkesLayers, setFylkesLayers] = useState<Layer[]>([]);
@@ -39,24 +34,6 @@ export function Application() {
     [fylkesLayers],
   );
   useEffect(() => map.setLayers(layers), [layers]);
-  function handlePointermove(e: MapBrowserEvent) {
-    let fylkeUnderPointer = fylkeSource.getFeaturesAtCoordinate(e.coordinate);
-    setActiveFylke(
-      fylkeUnderPointer.length > 0 ? fylkeUnderPointer[0] : undefined,
-    );
-  }
-  useEffect(() => {
-    activeFylke?.setStyle(
-      (feature) =>
-        new Style({
-          stroke: new Stroke({ color: "blue", width: 4 }),
-          text: new Text({
-            text: feature.getProperties()["fylkesnavn"],
-          }),
-        }),
-    );
-    return () => activeFylke?.setStyle(undefined);
-  }, [activeFylke]);
 
   const [selectedKommune, setSelectedKommune] = useState<Feature>();
   function handleMapClick(e: MapBrowserEvent) {
@@ -68,7 +45,6 @@ export function Application() {
 
   useEffect(() => {
     map.setTarget(mapRef.current!);
-    map.on("pointermove", handlePointermove);
     map.on("click", handleMapClick);
     kommuneSource.on("change", () =>
       setAlleKommuner(kommuneSource.getFeatures()),
@@ -90,7 +66,7 @@ export function Application() {
             : "Kart over administrative områder i Norge"}
         </h1>
         <div>
-          <FylkesLayerCheckbox setFylkesLayers={setFylkesLayers} />
+          <FylkesLayerCheckbox setFylkesLayers={setFylkesLayers} map={map} />
         </div>
       </header>
       <main>
