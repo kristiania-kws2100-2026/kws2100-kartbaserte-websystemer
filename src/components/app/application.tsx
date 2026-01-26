@@ -24,14 +24,36 @@ const kommuneLayer = new VectorLayer({ source: kommuneSource });
 const view = new View({ zoom: 9, center: [10, 59.5] });
 const map = new Map({ view });
 
+function KommuneLayerCheckbox({
+  setKommuneLayers,
+}: {
+  setKommuneLayers: (value: Layer[]) => void;
+  map: Map;
+}) {
+  const [checked, setChecked] = useState(true);
+  useEffect(() => {
+    setKommuneLayers(checked ? [kommuneLayer] : []);
+  }, [checked]);
+  return (
+    <button onClick={() => setChecked((b) => !b)} tabIndex={-1}>
+      <input type={"checkbox"} checked={checked} /> Vis kommuner
+    </button>
+  );
+}
+
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const [alleKommuner, setAlleKommuner] = useState<Feature[]>([]);
 
   const [fylkesLayers, setFylkesLayers] = useState<Layer[]>([]);
+  const [kommuneLayers, setKommuneLayers] = useState<Layer[]>([]);
   const layers = useMemo(
-    () => [new TileLayer({ source: new OSM() }), ...fylkesLayers, kommuneLayer],
-    [fylkesLayers],
+    () => [
+      new TileLayer({ source: new OSM() }),
+      ...fylkesLayers,
+      ...kommuneLayers,
+    ],
+    [fylkesLayers, kommuneLayers],
   );
   useEffect(() => map.setLayers(layers), [layers]);
 
@@ -52,8 +74,7 @@ export function Application() {
   }, []);
 
   function handleClick(kommuneProperties: Record<string, any>) {
-    const { geometry, ...properties } = kommuneProperties;
-    console.log(properties);
+    const { geometry } = kommuneProperties;
     view.animate({ center: getCenter(geometry.getExtent()) });
   }
 
@@ -67,6 +88,7 @@ export function Application() {
         </h1>
         <div>
           <FylkesLayerCheckbox setFylkesLayers={setFylkesLayers} map={map} />
+          <KommuneLayerCheckbox setKommuneLayers={setKommuneLayers} map={map} />
         </div>
       </header>
       <main>
