@@ -35,7 +35,7 @@ export function FylkesLayerCheckbox({
   }
 
   const [activeFylke, setActiveFylke] = useState<Feature>();
-  const [showFylkeLayer, setShowFylkeLayer] = useState(true);
+  const [showFylkeLayer, setShowFylkeLayer] = useState(false);
   useEffect(() => {
     setFylkesLayers(showFylkeLayer ? [fylkeLayer] : []);
     if (showFylkeLayer) map.on("pointermove", handlePointermove);

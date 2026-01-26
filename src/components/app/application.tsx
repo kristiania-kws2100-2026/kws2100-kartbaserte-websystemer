@@ -62,22 +62,26 @@ export function Application() {
       </header>
       <main>
         <div ref={mapRef}></div>
-        <aside>
-          <h2>Alle kommuner</h2>
+        {alleKommuner.length > 0 && (
+          <aside>
+            <h2>Alle kommuner</h2>
 
-          <ul>
-            {alleKommuner
-              .map((f) => f.getProperties())
-              .sort((a, b) => a["kommunenavn"].localeCompare(b["kommunenavn"]))
-              .map((k) => (
-                <li>
-                  <a href={"#"} onClick={() => handleClick(k)}>
-                    {k["kommunenavn"]}
-                  </a>
-                </li>
-              ))}
-          </ul>
-        </aside>
+            <ul>
+              {alleKommuner
+                .map((f) => f.getProperties())
+                .sort((a, b) =>
+                  a["kommunenavn"].localeCompare(b["kommunenavn"]),
+                )
+                .map((k) => (
+                  <li>
+                    <a href={"#"} onClick={() => handleClick(k)}>
+                      {k["kommunenavn"]}
+                    </a>
+                  </li>
+                ))}
+            </ul>
+          </aside>
+        )}
       </main>
     </>
   );
