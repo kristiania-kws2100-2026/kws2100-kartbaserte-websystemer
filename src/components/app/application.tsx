@@ -14,7 +14,7 @@ import { BackgroundLayerSelect } from "../layers/backgroundLayerSelect.js";
 
 useGeographic();
 
-const view = new View({ zoom: 9, center: [10, 59.5] });
+const view = new View({ zoom: 5, center: [10, 78], projection: "EPSG:3575" });
 const map = new Map({ view });
 
 export function Application() {

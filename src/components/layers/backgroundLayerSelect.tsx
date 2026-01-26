@@ -11,6 +11,11 @@ proj4.defs(
   "EPSG:25832",
   "+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
 );
+proj4.defs(
+  "EPSG:3575",
+  "+proj=laea +lat_0=90 +lon_0=10 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +type=crs",
+);
+
 register(proj4);
 
 const osmLayer = new TileLayer({ source: new OSM() });
@@ -51,6 +56,19 @@ fetch(
     ),
   );
 });
+const arcticLayer = new TileLayer();
+fetch("/kws2100-kartbaserte-websystemer/arctic-sdi.xml").then(async (res) => {
+  const parser = new WMTSCapabilities();
+  const capabilities = parser.read(await res.text());
+  arcticLayer.setSource(
+    new WMTS(
+      optionsFromCapabilities(capabilities, {
+        layer: "arctic_cascading",
+        matrixSet: "3575",
+      })!,
+    ),
+  );
+});
 
 export function BackgroundLayerSelect({
   setBackgroundLayer,
@@ -67,6 +85,8 @@ export function BackgroundLayerSelect({
       setBackgroundLayer(stadiaLayer);
     } else if (backgroundLayerValue === "osm") {
       setBackgroundLayer(osmLayer);
+    } else if (backgroundLayerValue === "arctic") {
+      setBackgroundLayer(arcticLayer);
     } else if (backgroundLayerValue === "aerial") {
       setBackgroundLayer(aerialLayer);
     } else if (backgroundLayerValue === "kartverket") {
@@ -80,6 +100,7 @@ export function BackgroundLayerSelect({
       onChange={(e) => setBackgroundLayerValue(e.target.value)}
     >
       <option value={"osm"}>OpenStreetMap bakgrunn</option>
+      <option value={"arctic"}>Arktisk bakgrunnskart</option>
       <option value={"stadia"}>Stadia bakgrunnskart</option>
       <option value={"kartverket"}>Kartverket bakgrunnskart</option>
       <option value={"aerial"}>Kartverket flyfoto</option>
