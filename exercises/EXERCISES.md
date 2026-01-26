@@ -371,8 +371,9 @@ Implement a select that lets you pick between OpenStreetMap, Stadia, Ortophoto o
 3. Implement an `<option>` in the select that uses [kartverkets topo background layer](https://kartkatalog.geonorge.no/metadata/topografisk-norgeskart-wmts--cache/8f381180-1a47-4453-bee7-9a3d64843efa)
    (note: this may be slow!). You must load the map definitions using the definition of the map, so you need some extra loading code:
    ```tsx
-   import { optionsFromCapabilities } from "ol/source/WMTS";
-   import { WMTSCapabilities } from "ol/format";
+   import { WMTS } from "ol/source.js";
+   import { optionsFromCapabilities } from "ol/source/WMTS.js";
+   import { WMTSCapabilities } from "ol/format.js";
    const parser = new WMTSCapabilities();
    const kartverketTopoLayer = new TileLayer();
    fetch("https://cache.kartverket.no/v1/wmts/1.0.0/WMTSCapabilities.xml").then(
