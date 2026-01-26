@@ -1,49 +1,25 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Feature, Map, MapBrowserEvent, View } from "ol";
+import { Feature, Map, View } from "ol";
 import TileLayer from "ol/layer/Tile.js";
 import { OSM } from "ol/source.js";
 import { useGeographic } from "ol/proj.js";
 
 import "ol/ol.css";
 import "./application.css";
-import VectorLayer from "ol/layer/Vector.js";
-import VectorSource from "ol/source/Vector.js";
-import { GeoJSON } from "ol/format.js";
 import { getCenter } from "ol/extent.js";
 import { Layer } from "ol/layer.js";
 import { FylkesLayerCheckbox } from "../layer/fylkesLayerCheckbox.js";
+import { KommuneLayerCheckbox } from "../layers/kommuneLayerCheckbox.js";
 
 useGeographic();
-
-const kommuneSource = new VectorSource({
-  url: "/kws2100-kartbaserte-websystemer/geojson/kommuner.geojson",
-  format: new GeoJSON(),
-});
-const kommuneLayer = new VectorLayer({ source: kommuneSource });
 
 const view = new View({ zoom: 9, center: [10, 59.5] });
 const map = new Map({ view });
 
-function KommuneLayerCheckbox({
-  setKommuneLayers,
-}: {
-  setKommuneLayers: (value: Layer[]) => void;
-  map: Map;
-}) {
-  const [checked, setChecked] = useState(true);
-  useEffect(() => {
-    setKommuneLayers(checked ? [kommuneLayer] : []);
-  }, [checked]);
-  return (
-    <button onClick={() => setChecked((b) => !b)} tabIndex={-1}>
-      <input type={"checkbox"} checked={checked} /> Vis kommuner
-    </button>
-  );
-}
-
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const [alleKommuner, setAlleKommuner] = useState<Feature[]>([]);
+  const [selectedKommune, setSelectedKommune] = useState<Feature>();
 
   const [fylkesLayers, setFylkesLayers] = useState<Layer[]>([]);
   const [kommuneLayers, setKommuneLayers] = useState<Layer[]>([]);
@@ -57,20 +33,8 @@ export function Application() {
   );
   useEffect(() => map.setLayers(layers), [layers]);
 
-  const [selectedKommune, setSelectedKommune] = useState<Feature>();
-  function handleMapClick(e: MapBrowserEvent) {
-    const clickedKommune = kommuneSource.getFeaturesAtCoordinate(e.coordinate);
-    setSelectedKommune(
-      clickedKommune.length > 0 ? clickedKommune[0] : undefined,
-    );
-  }
-
   useEffect(() => {
     map.setTarget(mapRef.current!);
-    map.on("click", handleMapClick);
-    kommuneSource.on("change", () =>
-      setAlleKommuner(kommuneSource.getFeatures()),
-    );
   }, []);
 
   function handleClick(kommuneProperties: Record<string, any>) {
@@ -88,7 +52,12 @@ export function Application() {
         </h1>
         <div>
           <FylkesLayerCheckbox setFylkesLayers={setFylkesLayers} map={map} />
-          <KommuneLayerCheckbox setKommuneLayers={setKommuneLayers} map={map} />
+          <KommuneLayerCheckbox
+            setKommuneLayers={setKommuneLayers}
+            map={map}
+            setAlleKommuner={setAlleKommuner}
+            setSelectedKommune={setSelectedKommune}
+          />
         </div>
       </header>
       <main>
