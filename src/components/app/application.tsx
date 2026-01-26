@@ -10,6 +10,7 @@ import { getCenter } from "ol/extent.js";
 import { Layer } from "ol/layer.js";
 import { FylkesLayerCheckbox } from "../layer/fylkesLayerCheckbox.js";
 import { KommuneLayerCheckbox } from "../layers/kommuneLayerCheckbox.js";
+import { BackgroundLayerSelect } from "../layers/backgroundLayerSelect.js";
 
 useGeographic();
 
@@ -23,13 +24,12 @@ export function Application() {
 
   const [fylkesLayers, setFylkesLayers] = useState<Layer[]>([]);
   const [kommuneLayers, setKommuneLayers] = useState<Layer[]>([]);
+  const [backgroundLayer, setBackgroundLayer] = useState<Layer>(
+    new TileLayer({ source: new OSM() }),
+  );
   const layers = useMemo(
-    () => [
-      new TileLayer({ source: new OSM() }),
-      ...fylkesLayers,
-      ...kommuneLayers,
-    ],
-    [fylkesLayers, kommuneLayers],
+    () => [backgroundLayer, ...fylkesLayers, ...kommuneLayers],
+    [backgroundLayer, fylkesLayers, kommuneLayers],
   );
   useEffect(() => map.setLayers(layers), [layers]);
 
@@ -51,6 +51,7 @@ export function Application() {
             : "Kart over administrative områder i Norge"}
         </h1>
         <div>
+          <BackgroundLayerSelect setBackgroundLayer={setBackgroundLayer} />
           <FylkesLayerCheckbox setFylkesLayers={setFylkesLayers} map={map} />
           <KommuneLayerCheckbox
             setKommuneLayers={setKommuneLayers}
