@@ -331,14 +331,14 @@ Optional (this will probably be the topic for a later lecture)
 
 ### Change the background layer of your map
 
-<details open>
+<details>
 
 ### Preparations
 
 1. Create a repository in your GitHub account and clone into IntelliJ
 2. [Create a React Application](../README.md#creating-a-react-application) as described in the reference material
 3. Add a minimal [`index.html`](../README.md#minimal-indexhtml) and [`src/main.tsx`](../README.md#minimal-srcmaintsx) file
-4. Optionally, add [`.vite.config.ts`](../README.md#minimal-viteconfigts) and [`.github/workflows/publish-to-pages.yaml`](../README.md#minimal-githubworkflowspublish-to-github-pagesyml)
+4. Optionally, add [`vite.config.ts`](../README.md#minimal-viteconfigts) and [`.github/workflows/publish-to-pages.yaml`](../README.md#minimal-githubworkflowspublish-to-github-pagesyml)
    to deploy your application to GitHub pages
 5. [Add a basic OpenLayers Map](../README.md#creating-a-openlayers-map-in-react) to your application
 
@@ -433,5 +433,25 @@ be updated when the user changes their settings.
 
 Can you variate the Stadia map theme between for example `alidade_smooth_dark` and `alidade_smooth` based on the
 user's preferences?
+
+</details>
+
+## Exercise 5
+
+### Review what you've learned
+
+<details open>
+
+Use the [reference material](../README.md#reference-material), the [lecture reference branch READMEs](../README.md#lectures) and other exercise to create a complete map application:
+
+- Create a new GitHub repository
+- Create a React application with TypeScript, Prettier and Husky
+- Display a map centered on Oslo (or on your own location)
+- [Publish the map to GitHub pages](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/blob/main/exercises/EXERCISES.md#exercise-2)
+- [Replace the background map with Kartverkets base map](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/04)
+- [Add municipalities to the map](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/03)
+- Add Norwegian primary schools to the map
+- Style the schools so their size reflects the number of students and the color reflects whether the school ownership
+- Display the name of the school when the user hovers over a school
 
 </details>

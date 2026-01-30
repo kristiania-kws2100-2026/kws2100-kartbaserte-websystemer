@@ -71,11 +71,26 @@ projection. In the process, we will learn that the earth is indeed round.
 - [UTM 32V i Store Norske Leksikon](https://snl.no/UTM)
 - [Map Men: Why Every Map is Wrong](https://www.youtube.com/watch?v=jtBV3GgQLg8) (silly, but educational)
 
-### Lecture 5: Geographical databases (2026-02-02)
+### Lecture 5: Review (2026-02-02)
 
-[![Lecture 5 code](https://img.shields.io/badge/Lecture_5-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/05)
-[![Lecture 5 reference](https://img.shields.io/badge/Lecture_5-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/05)
+[![Lecture 5 code](https://img.shields.io/badge/Lecture_5-lecture_code-blue)](https://github.com/kristiania-kws2100-2025/kws2100-kartbaserte-websystemer/tree/lecture/05)
+[![Lecture 5 reference](https://img.shields.io/badge/Lecture_5-reference_code-blue)](https://github.com/kristiania-kws2100-2025/kws2100-kartbaserte-websystemer/tree/reference/05)
 [![Lecture 5 exercise](https://img.shields.io/badge/Lecture_5-exercise-pink)](./exercises/EXERCISES.md#exercise-5)
+
+In this lecture, we will review what we have learned so far:
+
+- Creating a simple map application
+- Deploying the map on the internet
+- Changing the background layer of the map
+- Displaying polygons and points on the map
+- Styling the objects on the map
+- Interacting with objects on the map
+
+### Lecture 6: Geographical databases (2026-02-09 - assignment handed out)
+
+[![Lecture 6 code](https://img.shields.io/badge/Lecture_6-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/06)
+[![Lecture 6 reference](https://img.shields.io/badge/Lecture_6-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/06)
+[![Lecture 6 exercise](https://img.shields.io/badge/Lecture_6-exercise-pink)](./exercises/EXERCISES.md#exercise-6)
 
 In this lecture, we will provide our own datasource by importing datasets from Geonorge into PostGIS and creating a backend with them
 
@@ -83,20 +98,20 @@ In this lecture, we will provide our own datasource by importing datasets from G
 - [Statistiske enheter - grunnkretser](https://kartkatalog.geonorge.no/metadata/statistiske-enheter-grunnkretser/51d279f8-e2be-4f5e-9f72-1a53f7535ec1)
 - [Grunnskoler](https://kartkatalog.geonorge.no/metadata/grunnskoler/db4b872f-264d-434c-9574-57232f1e90d2)
 
-### Lecture 6: Deployment to Heroku AND tile vector layers (2026-02-09 - assignment handed out)
+### Lecture 7: Deployment to Heroku AND tile vector layers (2026-02-23 assignment due this week)
 
-[![Lecture 6 code](https://img.shields.io/badge/Lecture_6-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/06)
-[![Lecture 6 reference](https://img.shields.io/badge/Lecture_6-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/06)
-[![Lecture 6 exercise](https://img.shields.io/badge/Lecture_6-exercise-pink)](./exercises/EXERCISES.md#exercise-6)
+[![Lecture 7 code](https://img.shields.io/badge/Lecture_7-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/07)
+[![Lecture 7 reference](https://img.shields.io/badge/Lecture_7-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/07)
+[![Lecture 7 exercise](https://img.shields.io/badge/Lecture_7-exercise-pink)](./exercises/EXERCISES.md#exercise-7)
 
 We will publish a basic React + [Hono](https://hono.dev/) application with TypeScript and Vite to [Heroku](https://heroku.com/) and add a map to the application.
 This lets us deploy with a geographic database
 
-### Lecture 7: Vector tile layers as data (2026-02-23 assignment due this week)
+### Lecture 8: Vector tile layers as data (2026-03-02)
 
-[![Lecture 7 code](https://img.shields.io/badge/Lecture_7-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/07)
-[![Lecture 7 reference](https://img.shields.io/badge/Lecture_7-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/07)
-[![Class assignment](https://img.shields.io/badge/Lecture_7-exercise-pink)](./exercises/EXERCISES.md#exercise-7)
+[![Lecture 8 code](https://img.shields.io/badge/Lecture_8-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/08)
+[![Lecture 8 reference](https://img.shields.io/badge/Lecture_8-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/08)
+[![Class assignment](https://img.shields.io/badge/Lecture_8-exercise-pink)](./exercises/EXERCISES.md#exercise-8)
 
 We will look at how to use the fact that we get data from the database to optimize how much data is sent to the
 client.
@@ -105,21 +120,23 @@ client.
 - [Statistiske enheter - grunnkretser](https://kartkatalog.geonorge.no/metadata/statistiske-enheter-grunnkretser/51d279f8-e2be-4f5e-9f72-1a53f7535ec1)
 - [Matrikkelen - adresse](https://kartkatalog.geonorge.no/metadata/matrikkelen-adresse/f7df7a18-b30f-4745-bd64-d0863812350c)
 
-### Lecture 8: Exploring vector objects (2026-03-02)
+### Lecture 9: Exploring vector objects (2026-03-09 - assignment graded)
 
-[![Lecture 8 code](https://img.shields.io/badge/Lecture_8-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/08)
-[![Lecture 8 reference](https://img.shields.io/badge/Lecture_8-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/08)
-[![Lecture 8 exercise](https://img.shields.io/badge/Lecture_8-exercise-pink)](./exercises/EXERCISES.md#exercise-8)
+[![Lecture 9 code](https://img.shields.io/badge/Lecture_9-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/09)
+[![Lecture 9 reference](https://img.shields.io/badge/Lecture_9-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/09)
+[![Lecture 9 exercise](https://img.shields.io/badge/Lecture_9-exercise-pink)](./exercises/EXERCISES.md#exercise-8)
 
 In the last lecture, we worked with optimizing vector tile maps
 
 In this lecture, we will show how to use vector features as React objects and explore styling a bit more
 
-### Lecture 9: Drawing points on the map (2026-03-09 - assignment graded)
+### Lecture 10: Drawing points on the map (2026-03-16)
 
-[![Lecture 9 code](https://img.shields.io/badge/Lecture_9-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/09)
-[![Lecture 9 reference](https://img.shields.io/badge/Lecture_9-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/09)
-[![Lecture 9 exercise](https://img.shields.io/badge/Lecture_9-exercise-pink)](./exercises/EXERCISES.md#exercise-9)
+[![Lecture 10 Mentimeter](https://img.shields.io/badge/Lecture_10-mentimenter-yellow)](https://www.menti.com/al8mce67e2hf)
+
+[![Lecture 10 code](https://img.shields.io/badge/Lecture_10-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/10)
+[![Lecture 10 reference](https://img.shields.io/badge/Lecture_10-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/10)
+[![Lecture 10 exercise](https://img.shields.io/badge/Lecture_10-exercise-pink)](./exercises/EXERCISES.md#exercise-10)
 
 In this lecture, we will start by talking about
 [a real life use case of map applications](https://www.aftenposten.no/norge/i/Jbwj6R/nytt-digitalt-verktoey-skal-revolusjonere-leteaksjoner-dette-vil-redde-mange-liv)
@@ -132,13 +149,11 @@ create a map where we can add out own points by
 This week's exercise is to draw objects on a map using OpenLayers `map.addInteraction(new Draw(...))` function.
 Experiment with different type of objects as well. Try and save the objects to `localStorage` and load them at startup.
 
-### Lecture 10: Points that move (2026-03-16)
+### Lecture 11: Points that move
 
-[![Lecture 10 Mentimeter](https://img.shields.io/badge/Lecture_10-mentimenter-yellow)](https://www.menti.com/al8mce67e2hf)
-
-[![Lecture 10 code](https://img.shields.io/badge/Lecture_10-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/10)
-[![Lecture 10 reference](https://img.shields.io/badge/Lecture_10-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/10)
-[![Lecture 10 exercise](https://img.shields.io/badge/Lecture_10-exercise-pink)](./exercises/EXERCISES.md#exercise-10)
+[![Lecture 11 code](https://img.shields.io/badge/Lecture_11-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/11)
+[![Lecture 11 reference](https://img.shields.io/badge/Lecture_11-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/11)
+[![Lecture 11 exercise](https://img.shields.io/badge/Lecture_11-exercise-pink)](./exercises/EXERCISES.md#exercise-11)
 
 In this lecture, we will create a map that shows public transit in Norway. As a bonus content, we will touch
 on [Vector Tile Layers](https://openlayers.org/en/latest/examples/mapbox-vector-layer.html)
@@ -260,6 +275,8 @@ npx husky init
 </html>
 ```
 
+Note: in this example, I don't include a `doctype` declaration, as this will require CSS to avoid the map from having height zero and therefore be invisible
+
 #### Minimal `src/main.tsx`
 
 (Notice that the file has a small syntax error on purpose to make sure you're awake)
@@ -325,6 +342,8 @@ export function Application() {
 
 Update `src/main.tsx` to render `<Application />` from `src/modules/app/application.tsx` instead of `<h1>Hello React</h1>`.
 
+Troubleshooting: If you don't see the map, see if `index.html` starts with a `doctype` declaration and try to remove this.
+
 ## Deploying your application to the internet
 
 You can either deploy using [GitHub pages](#a-deployment-to-github-pages) or [Heroku](#b-deploying-to-heroku).
@@ -363,9 +382,9 @@ on:
     # You probably only need `main`, the others are provided to work with the lectures
     branches: ["main", "reference/*", "lecture/*"]
 
-# Jobs defines one or more actions that GitHub should execute when we push changes 
+# Jobs defines one or more actions that GitHub should execute when we push changes
 jobs:
-  # The name "build" is our name for this job. It can be anything you like 
+  # The name "build" is our name for this job. It can be anything you like
   build:
     # What operating system should it run on?
     runs-on: ubuntu-latest
@@ -618,7 +637,6 @@ you must also create a Postgresql database on Heroku and import the data there.
 5. `npm pkg set scripts.db:heroku="npm run db:heroku:postgis && npm run db:schools:heroku"`
 6. `heroku run "npm run db:heroku"`
 
-
 ## Tools
 
 ### IntellJ shortcuts
@@ -628,9 +646,9 @@ you must also create a Postgresql database on Heroku and import the data there.
 These are some of the most versatile keyboard shortcuts in IntelliJ. There are many more, but learning these 12 will really speed up your code
 
 | Shortcut (Windows)   | Shortcut (Mac)      | Command                                    |
-|----------------------|---------------------|--------------------------------------------|
+| -------------------- | ------------------- | ------------------------------------------ |
 | alt-enter            | opt-enter           | Show content action (quick fix)            |
-| ctrl-alt-shift-t     | ctrl-shift-r        | Refactor this (show refactor menu)         |
+| ctrl-alt-shift-t     | ctrl-t              | Refactor this (show refactor menu)         |
 | alt-insert           | cmd-n               | New... (add some content)                  |
 | ctrl-w               | opt-up              | Expand selection                           |
 | shift-alt-f10        | ctrl-alt-r          | Run....                                    |
@@ -651,7 +669,7 @@ favorite refactorings like Extract method, Rename and Inline.
 <details>
 
 | Command      | Description                              | IntelliJ shortcut                         |
-|--------------|------------------------------------------|-------------------------------------------|
+| ------------ | ---------------------------------------- | ----------------------------------------- |
 | `git init`   | Creates a new local git repo in `.git/`  | VCS > Import into version control         |
 | `git add`    | Stage files to include in next commit    | (not needed)                              |
 | `git commit` | Store your local changes in git history  | ctrl-k / cmd-k                            |
