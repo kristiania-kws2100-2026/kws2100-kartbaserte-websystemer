@@ -8,8 +8,10 @@ import { useGeographic } from "ol/proj.js";
 // @ts-ignore
 import "ol/ol.css";
 import { Layer } from "ol/layer.js";
-import { WMTSCapabilities } from "ol/format.js";
+import { GeoJSON, WMTSCapabilities } from "ol/format.js";
 import { optionsFromCapabilities } from "ol/source/WMTS.js";
+import VectorLayer from "ol/layer/Vector.js";
+import VectorSource from "ol/source/Vector.js";
 
 // By calling the "useGeographic" function in OpenLayers, we tell that we want coordinates to be in degrees
 //  instead of meters, which is the default. Without this `center: [10.6, 59.9]` brings us to "null island"
@@ -29,6 +31,14 @@ fetch("https://cache.kartverket.no/v1/wmts/1.0.0/WMTSCapabilities.xml").then(
   },
 );
 
+// Source: https://www.oslo.kommune.no/statistikk/geografiske-inndelinger/
+const bydelerLayer = new VectorLayer({
+  source: new VectorSource({
+    format: new GeoJSON(),
+    url: "/kws2100-kartbaserte-websystemer/geojson/bydeler.geojson",
+  }),
+});
+
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
 
@@ -40,7 +50,10 @@ export function Application() {
   useEffect(() => map.setView(view), [view]);
 
   // By declaring the layers as React state, we can change them using code
-  const [layers, setLayers] = useState<Layer[]>([kartverketLayer]);
+  const [layers, setLayers] = useState<Layer[]>([
+    kartverketLayer,
+    bydelerLayer,
+  ]);
   // binding the layers to the map with a use effect ensures that when we call `setLayers`, the OpenLayers map is updated to use the new layers
   useEffect(() => map.setLayers(layers), [layers]);
 
