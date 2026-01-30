@@ -14,7 +14,7 @@ useGeographic();
 
 // Here we create a Map object. Make sure you `import { Map } from "ol"`. Otherwise, the standard Javascript
 //  map data structure will be used
-const view = new View({ center: [10.7, 59.9], zoom: 12 });
+const view = new View({ center: [10.8, 59.9], zoom: 12 });
 let map: Map;
 map = new Map({
   view,
@@ -33,7 +33,7 @@ export function Application() {
 
     navigator.geolocation.getCurrentPosition((e) => {
       const { latitude, longitude } = e.coords;
-      view.animate({ center: [longitude, latitude] });
+      view.animate({ center: [longitude, latitude], zoom: 14 });
     });
   }, []);
 
