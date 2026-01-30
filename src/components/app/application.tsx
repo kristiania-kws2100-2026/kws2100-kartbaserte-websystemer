@@ -12,6 +12,7 @@ import { GeoJSON, WMTSCapabilities } from "ol/format.js";
 import { optionsFromCapabilities } from "ol/source/WMTS.js";
 import VectorLayer from "ol/layer/Vector.js";
 import VectorSource from "ol/source/Vector.js";
+import { Circle, Fill, Stroke, Style } from "ol/style.js";
 
 // By calling the "useGeographic" function in OpenLayers, we tell that we want coordinates to be in degrees
 //  instead of meters, which is the default. Without this `center: [10.6, 59.9]` brings us to "null island"
@@ -37,12 +38,22 @@ const bydelerLayer = new VectorLayer({
     format: new GeoJSON(),
     url: "/kws2100-kartbaserte-websystemer/geojson/bydeler.geojson",
   }),
+  style: new Style({
+    stroke: new Stroke({ color: "black", width: 3 }),
+  }),
 });
 
 const skoleLayer = new VectorLayer({
   source: new VectorSource({
     format: new GeoJSON(),
     url: "/kws2100-kartbaserte-websystemer/geojson/skoler.geojson",
+  }),
+  style: new Style({
+    image: new Circle({
+      radius: 10,
+      fill: new Fill({ color: "blue" }),
+      stroke: new Stroke({ color: "white", width: 2 }),
+    }),
   }),
 });
 
