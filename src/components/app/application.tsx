@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Map, View } from "ol";
+import { type Feature, Map, MapBrowserEvent, View } from "ol";
 import TileLayer from "ol/layer/Tile.js";
 import { WMTS } from "ol/source.js";
 import { useGeographic } from "ol/proj.js";
@@ -13,7 +13,7 @@ import { optionsFromCapabilities } from "ol/source/WMTS.js";
 import VectorLayer from "ol/layer/Vector.js";
 import VectorSource from "ol/source/Vector.js";
 import { Stroke, Style } from "ol/style.js";
-import { skoleLayer } from "../layers/skoleLayer.js";
+import { activeSkoleStyle, skoleLayer } from "../layers/skoleLayer.js";
 
 // By calling the "useGeographic" function in OpenLayers, we tell that we want coordinates to be in degrees
 //  instead of meters, which is the default. Without this `center: [10.6, 59.9]` brings us to "null island"
@@ -54,6 +54,12 @@ export function Application() {
   // binding the view to the map with a use effect ensures that when we call `setView`, the OpenLayers map is updated to use the new view
   useEffect(() => map.setView(view), [view]);
 
+  const [activeSchool, setActiveSchool] = useState<Feature>();
+  useEffect(() => {
+    activeSchool?.setStyle(activeSkoleStyle);
+    return () => activeSchool?.setStyle(undefined);
+  }, [activeSchool]);
+
   // By declaring the layers as React state, we can change them using code
   const [layers, setLayers] = useState<Layer[]>([
     kartverketLayer,
@@ -73,6 +79,13 @@ export function Application() {
     navigator.geolocation.getCurrentPosition((e) => {
       const { latitude, longitude } = e.coords;
       view.animate({ center: [longitude, latitude], zoom: 14 });
+    });
+    map.on("pointermove", (e: MapBrowserEvent) => {
+      setActiveSchool(
+        map.getFeaturesAtPixel(e.pixel, {
+          layerFilter: (l) => l === skoleLayer,
+        })[0] as Feature,
+      );
     });
   }, []);
 
