@@ -39,6 +39,13 @@ const bydelerLayer = new VectorLayer({
   }),
 });
 
+const skoleLayer = new VectorLayer({
+  source: new VectorSource({
+    format: new GeoJSON(),
+    url: "/kws2100-kartbaserte-websystemer/geojson/skoler.geojson",
+  }),
+});
+
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
 
@@ -53,6 +60,7 @@ export function Application() {
   const [layers, setLayers] = useState<Layer[]>([
     kartverketLayer,
     bydelerLayer,
+    skoleLayer,
   ]);
   // binding the layers to the map with a use effect ensures that when we call `setLayers`, the OpenLayers map is updated to use the new layers
   useEffect(() => map.setLayers(layers), [layers]);
