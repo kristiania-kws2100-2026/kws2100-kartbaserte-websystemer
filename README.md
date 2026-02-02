@@ -86,11 +86,23 @@ In this lecture, we will review what we have learned so far:
 - Styling the objects on the map
 - Interacting with objects on the map
 
-### Lecture 6: Geographical databases (2026-02-09 - assignment handed out)
+### Lecture 6: Drawing points on the map (2026-02-09 - assignment handed out)
 
 [![Lecture 6 code](https://img.shields.io/badge/Lecture_6-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/06)
 [![Lecture 6 reference](https://img.shields.io/badge/Lecture_6-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/06)
 [![Lecture 6 exercise](https://img.shields.io/badge/Lecture_6-exercise-pink)](./exercises/EXERCISES.md#exercise-6)
+
+In this lecture, we will start by talking about
+[a real life use case of map applications](https://www.aftenposten.no/norge/i/Jbwj6R/nytt-digitalt-verktoey-skal-revolusjonere-leteaksjoner-dette-vil-redde-mange-liv)
+together will a [relevant news story](https://www.budstikka.no/savnet-kvinne-er-funnet/s/5-55-1920412). We will then
+create a map where we can add out own points by
+[drawing with the mouse](https://openlayers.org/en/latest/examples/draw-features-style.html).
+
+### Lecture 7: Geographical databases (2026-03-16)
+
+[![Lecture 7 code](https://img.shields.io/badge/Lecture_7-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/07)
+[![Lecture 7 reference](https://img.shields.io/badge/Lecture_7-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/07)
+[![Lecture 7 exercise](https://img.shields.io/badge/Lecture_7-exercise-pink)](./exercises/EXERCISES.md#exercise-7)
 
 In this lecture, we will provide our own datasource by importing datasets from Geonorge into PostGIS and creating a backend with them
 
@@ -98,20 +110,20 @@ In this lecture, we will provide our own datasource by importing datasets from G
 - [Statistiske enheter - grunnkretser](https://kartkatalog.geonorge.no/metadata/statistiske-enheter-grunnkretser/51d279f8-e2be-4f5e-9f72-1a53f7535ec1)
 - [Grunnskoler](https://kartkatalog.geonorge.no/metadata/grunnskoler/db4b872f-264d-434c-9574-57232f1e90d2)
 
-### Lecture 7: Deployment to Heroku AND tile vector layers (2026-02-23 assignment due this week)
+### Lecture 8: Deployment to Heroku AND tile vector layers (2026-02-23 assignment due this week)
 
-[![Lecture 7 code](https://img.shields.io/badge/Lecture_7-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/07)
-[![Lecture 7 reference](https://img.shields.io/badge/Lecture_7-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/07)
-[![Lecture 7 exercise](https://img.shields.io/badge/Lecture_7-exercise-pink)](./exercises/EXERCISES.md#exercise-7)
+[![Lecture 8 code](https://img.shields.io/badge/Lecture_8-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/08)
+[![Lecture 8 reference](https://img.shields.io/badge/Lecture_8-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/08)
+[![Lecture 8 exercise](https://img.shields.io/badge/Lecture_8-exercise-pink)](./exercises/EXERCISES.md#exercise-8)
 
 We will publish a basic React + [Hono](https://hono.dev/) application with TypeScript and Vite to [Heroku](https://heroku.com/) and add a map to the application.
 This lets us deploy with a geographic database
 
-### Lecture 8: Vector tile layers as data (2026-03-02)
+### Lecture 9: Vector tile layers as data (2026-03-02)
 
-[![Lecture 8 code](https://img.shields.io/badge/Lecture_8-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/08)
-[![Lecture 8 reference](https://img.shields.io/badge/Lecture_8-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/08)
-[![Class assignment](https://img.shields.io/badge/Lecture_8-exercise-pink)](./exercises/EXERCISES.md#exercise-8)
+[![Lecture 9 code](https://img.shields.io/badge/Lecture_9-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/09)
+[![Lecture 9 reference](https://img.shields.io/badge/Lecture_9-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/09)
+[![Lecture 9 exercise](https://img.shields.io/badge/Lecture_9-exercise-pink)](./exercises/EXERCISES.md#exercise-9)
 
 We will look at how to use the fact that we get data from the database to optimize how much data is sent to the
 client.
@@ -120,17 +132,7 @@ client.
 - [Statistiske enheter - grunnkretser](https://kartkatalog.geonorge.no/metadata/statistiske-enheter-grunnkretser/51d279f8-e2be-4f5e-9f72-1a53f7535ec1)
 - [Matrikkelen - adresse](https://kartkatalog.geonorge.no/metadata/matrikkelen-adresse/f7df7a18-b30f-4745-bd64-d0863812350c)
 
-### Lecture 9: Exploring vector objects (2026-03-09 - assignment graded)
-
-[![Lecture 9 code](https://img.shields.io/badge/Lecture_9-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/09)
-[![Lecture 9 reference](https://img.shields.io/badge/Lecture_9-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/09)
-[![Lecture 9 exercise](https://img.shields.io/badge/Lecture_9-exercise-pink)](./exercises/EXERCISES.md#exercise-8)
-
-In the last lecture, we worked with optimizing vector tile maps
-
-In this lecture, we will show how to use vector features as React objects and explore styling a bit more
-
-### Lecture 10: Drawing points on the map (2026-03-16)
+### Lecture 10: Exploring vector objects (2026-03-09 - assignment graded)
 
 [![Lecture 10 Mentimeter](https://img.shields.io/badge/Lecture_10-mentimenter-yellow)](https://www.menti.com/al8mce67e2hf)
 
@@ -138,16 +140,9 @@ In this lecture, we will show how to use vector features as React objects and ex
 [![Lecture 10 reference](https://img.shields.io/badge/Lecture_10-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/10)
 [![Lecture 10 exercise](https://img.shields.io/badge/Lecture_10-exercise-pink)](./exercises/EXERCISES.md#exercise-10)
 
-In this lecture, we will start by talking about
-[a real life use case of map applications](https://www.aftenposten.no/norge/i/Jbwj6R/nytt-digitalt-verktoey-skal-revolusjonere-leteaksjoner-dette-vil-redde-mange-liv)
-together will a [relevant news story](https://www.budstikka.no/savnet-kvinne-er-funnet/s/5-55-1920412). We will then
-create a map where we can add out own points by
-[drawing with the mouse](https://openlayers.org/en/latest/examples/draw-features-style.html).
+In the last lecture, we worked with optimizing vector tile maps
 
-### Exercise:
-
-This week's exercise is to draw objects on a map using OpenLayers `map.addInteraction(new Draw(...))` function.
-Experiment with different type of objects as well. Try and save the objects to `localStorage` and load them at startup.
+In this lecture, we will show how to use vector features as React objects and explore styling a bit more
 
 ### Lecture 11: Points that move
 
@@ -206,31 +201,14 @@ const vectorSource = new VectorSource({ features });
 
 </details>
 
-### Lecture 11: Review of PostGIS and Heroku (with slow-coding) - (2026-03-23)
-
-[![Lecture 11 code](https://img.shields.io/badge/Lecture_11-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/11)
-[![Lecture 11 reference](https://img.shields.io/badge/Lecture_11-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/11)
-[![Lecture 5 exercise](https://img.shields.io/badge/Lecture_5-exercise-pink)](./exercises/EXERCISES.md#exercise-5)
-[![Lecture 6 exercise](https://img.shields.io/badge/Lecture_6-exercise-pink)](./exercises/EXERCISES.md#exercise-6)
-
-In this lecture, we will review how to get data from PostgreSQL to the OpenLayers. We will also explore some more
-feature of PostGIS, including creating buffers around features in the database.
-
-The exercise will be a repeat of exercise 5 and 6, with slow coding.
-
-### Lecture 12: Getting ready for the exam (2026-04-13)
-
-[![Lecture 12 Mentimeter](https://img.shields.io/badge/Lecture_12-mentimenter-yellow)](https://www.menti.com/alksy5khqc66)
+### Lecture 12: Review of PostGIS and Heroku (with slow-coding) - (2026-03-23)
 
 [![Lecture 12 code](https://img.shields.io/badge/Lecture_12-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/12)
 [![Lecture 12 reference](https://img.shields.io/badge/Lecture_12-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/12)
-[![Lecture 12 exercise](https://img.shields.io/badge/Lecture_12-exercise-pink)](./exercises/exam-prep.md)
 
 This week's lecture, we will talk a [little about the exam](./exercises/exam-prep.md).
-We start then with a simple map and then discuss how to move forward based on the wishes
-of the audience, so the lecture has no reference code.
-
-For the exercise-time start on the last exercise that you haven't completed.
+In this lecture, we will review how to get data from PostgreSQL to the OpenLayers. We will also explore some more
+feature of PostGIS, including creating buffers around features in the database.
 
 ## Reference material
 
@@ -246,14 +224,14 @@ This list of commands:
 
 ```shell
 npm init -y
-npm pkg set type=module
 npm install -D vite
 npm install react react-dom
 npm pkg set scripts.dev=vite
 
 npm install -D typescript
-npm install -D @types/react @types/react-dom
 npx tsc --init
+npm pkg set type=module
+npm install -D @types/react @types/react-dom
 
 npm install -D prettier
 npx prettier --write .
@@ -308,7 +286,11 @@ import TileLayer from "ol/layer/Tile.js";
 import { OSM } from "ol/source.js";
 import { useGeographic } from "ol/proj.js";
 
-// Styling of OpenLayers components like zoom and pan controls
+// Styling of OpenLayers components like zoom and pan controls.
+// By default, TypeScript doesn't know how to validate CSS files, so we
+// add the next line to avoid compilation errors (for a better solution,
+// see the reference code for lecture 3)
+// @ts-ignore
 import "ol/ol.css";
 
 // By calling the "useGeographic" function in OpenLayers, we tell that we want coordinates to be in degrees
@@ -320,7 +302,7 @@ useGeographic();
 const map = new Map({
   // The map will be centered on a position in longitude (x-coordinate, east) and latitude (y-coordinate, north),
   //   with a certain zoom level
-  view: new View({ center: [10.8, 59.9], zoom: 13 }),
+  view: new View({ center: [10.7, 59.9], zoom: 12 }),
   // map tile images will be from the Open Street Map (OSM) tile layer
   layers: [new TileLayer({ source: new OSM() })],
 });
@@ -351,6 +333,14 @@ GitHub pages is the simplest option, but it cannot run a database. If you want t
 to use Heroku or a similar service
 
 ### A. Deployment to GitHub Pages
+
+### Define a `build` script in `package.json`
+
+```shell
+npm pkg set scripts.build="vite build"
+```
+
+Make sure that `.gitignore` is ignoring the `dist` directory.
 
 #### Minimal `vite.config.ts`
 
