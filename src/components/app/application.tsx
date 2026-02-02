@@ -9,8 +9,8 @@ import "ol/ol.css";
 import { Layer } from "ol/layer.js";
 import VectorLayer from "ol/layer/Vector.js";
 import { optionsFromCapabilities } from "ol/source/WMTS.js";
-import { GeoJSON, WMTSCapabilities } from "ol/format.js";
-import VectorSource from "ol/source/Vector.js";
+import { WMTSCapabilities } from "ol/format.js";
+import { bydelLayer } from "../layers/bydelLayer.js";
 
 useGeographic();
 
@@ -35,12 +35,6 @@ fetch("https://cache.kartverket.no/v1/wmts/1.0.0/WMTSCapabilities.xml").then(
   },
 );
 
-const bydelLayer = new VectorLayer({
-  source: new VectorSource({
-    url: "/kws2100-kartbaserte-websystemer/bydeler.geojson",
-    format: new GeoJSON(),
-  }),
-});
 const skoleLayer = new VectorLayer();
 
 export function Application() {
