@@ -9,7 +9,8 @@ import "ol/ol.css";
 import { Layer } from "ol/layer.js";
 import VectorLayer from "ol/layer/Vector.js";
 import { optionsFromCapabilities } from "ol/source/WMTS.js";
-import { WMTSCapabilities } from "ol/format.js";
+import { GeoJSON, WMTSCapabilities } from "ol/format.js";
+import VectorSource from "ol/source/Vector.js";
 
 useGeographic();
 
@@ -22,10 +23,11 @@ const kartverketLayer = new TileLayer();
 fetch("https://cache.kartverket.no/v1/wmts/1.0.0/WMTSCapabilities.xml").then(
   async (res) => {
     const parser = new WMTSCapabilities();
+    const capabilities = parser.read(await res.text());
     kartverketLayer.setSource(
       new WMTS(
-        optionsFromCapabilities(parser.read(await res.text()), {
-          layer: "toporaster",
+        optionsFromCapabilities(capabilities, {
+          layer: "topo",
           matrixSet: "webmercator",
         })!,
       )!,
@@ -33,13 +35,18 @@ fetch("https://cache.kartverket.no/v1/wmts/1.0.0/WMTSCapabilities.xml").then(
   },
 );
 
-const bydelLayer = new VectorLayer();
+const bydelLayer = new VectorLayer({
+  source: new VectorSource({
+    url: "/kws2100-kartbaserte-websystemer/bydeler.geojson",
+    format: new GeoJSON(),
+  }),
+});
 const skoleLayer = new VectorLayer();
 
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
 
-  const [layers, setLayers] = useState<Layer[]>([kartverketLayer]);
+  const [layers, setLayers] = useState<Layer[]>([kartverketLayer, bydelLayer]);
   useEffect(() => map.setLayers(layers), [layers]);
 
   useEffect(() => {
