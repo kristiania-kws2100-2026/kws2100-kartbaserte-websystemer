@@ -7,10 +7,10 @@ import { useGeographic } from "ol/proj.js";
 // @ts-ignore
 import "ol/ol.css";
 import { Layer } from "ol/layer.js";
-import VectorLayer from "ol/layer/Vector.js";
 import { optionsFromCapabilities } from "ol/source/WMTS.js";
 import { WMTSCapabilities } from "ol/format.js";
 import { bydelLayer } from "../layers/bydelLayer.js";
+import { skoleLayer } from "../layers/skoleLayer.js";
 
 useGeographic();
 
@@ -35,12 +35,14 @@ fetch("https://cache.kartverket.no/v1/wmts/1.0.0/WMTSCapabilities.xml").then(
   },
 );
 
-const skoleLayer = new VectorLayer();
-
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
 
-  const [layers, setLayers] = useState<Layer[]>([kartverketLayer, bydelLayer]);
+  const [layers, setLayers] = useState<Layer[]>([
+    kartverketLayer,
+    bydelLayer,
+    skoleLayer,
+  ]);
   useEffect(() => map.setLayers(layers), [layers]);
 
   useEffect(() => {
