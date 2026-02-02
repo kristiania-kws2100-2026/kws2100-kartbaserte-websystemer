@@ -73,8 +73,8 @@ projection. In the process, we will learn that the earth is indeed round.
 
 ### Lecture 5: Review (2026-02-02)
 
-[![Lecture 5 code](https://img.shields.io/badge/Lecture_5-lecture_code-blue)](https://github.com/kristiania-kws2100-2025/kws2100-kartbaserte-websystemer/tree/lecture/05)
-[![Lecture 5 reference](https://img.shields.io/badge/Lecture_5-reference_code-blue)](https://github.com/kristiania-kws2100-2025/kws2100-kartbaserte-websystemer/tree/reference/05)
+[![Lecture 5 code](https://img.shields.io/badge/Lecture_5-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/05)
+[![Lecture 5 reference](https://img.shields.io/badge/Lecture_5-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/05)
 [![Lecture 5 exercise](https://img.shields.io/badge/Lecture_5-exercise-pink)](./exercises/EXERCISES.md#exercise-5)
 
 In this lecture, we will review what we have learned so far:
