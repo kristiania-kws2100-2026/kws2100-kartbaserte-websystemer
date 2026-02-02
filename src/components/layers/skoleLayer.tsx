@@ -1,8 +1,7 @@
 import VectorLayer from "ol/layer/Vector.js";
 import VectorSource from "ol/source/Vector.js";
 import { GeoJSON } from "ol/format.js";
-import { Circle, Fill, Image, Stroke, Style } from "ol/style.js";
-import { Feature } from "ol";
+import { Circle, Fill, Stroke, Style, Text } from "ol/style.js";
 import type { FeatureLike } from "ol/Feature.js";
 
 interface SkoleProperties {
@@ -13,8 +12,6 @@ interface SkoleProperties {
 }
 
 function skoleStyle(feature: FeatureLike) {
-  console.log(feature);
-
   const props = feature.getProperties() as SkoleProperties;
 
   return new Style({
@@ -35,3 +32,25 @@ export const skoleLayer = new VectorLayer({
   }),
   style: skoleStyle,
 });
+export function activeSkoleStyle(feature: FeatureLike) {
+  const props = feature.getProperties() as SkoleProperties;
+
+  return [
+    new Style({
+      image: new Circle({
+        radius: 4 + props.antall_elever / 100,
+        stroke: new Stroke({ width: 5, color: "white" }),
+        fill: new Fill({
+          color: props.eierforhold === "Offentlig" ? "blue" : "purple",
+        }),
+      }),
+    }),
+    new Style({
+      text: new Text({
+        text: props.navn,
+        font: "30px sans-serif",
+        stroke: new Stroke({ color: "white", width: 3 }),
+      }),
+    }),
+  ];
+}
