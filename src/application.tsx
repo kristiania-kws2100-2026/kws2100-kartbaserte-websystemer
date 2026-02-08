@@ -14,7 +14,7 @@ import "ol/ol.css";
 import VectorLayer from "ol/layer/Vector.js";
 import VectorSource from "ol/source/Vector.js";
 import { Draw } from "ol/interaction.js";
-import { Fill, RegularShape, Style } from "ol/style.js";
+import { Fill, RegularShape, Style, Text } from "ol/style.js";
 import { GeoJSON } from "ol/format.js";
 import type { FeatureLike } from "ol/Feature.js";
 
@@ -30,13 +30,19 @@ const drawingLayer = new VectorLayer({
 
 function style(feature: FeatureLike) {
   const color = feature.getProperties()["color"] || "blue";
-  return new Style({
-    image: new RegularShape({
-      points: 4,
-      radius: 10,
-      fill: new Fill({ color }),
+  const label = feature.getProperties()["label"] as string;
+  return [
+    ...(label
+      ? [new Style({ text: new Text({ text: label, offsetY: 20 }) })]
+      : []),
+    new Style({
+      image: new RegularShape({
+        points: 4,
+        radius: 10,
+        fill: new Fill({ color }),
+      }),
     }),
-  });
+  ];
 }
 const features = localStorage.getItem("features");
 if (features) {
@@ -49,12 +55,19 @@ const map = new Map({
 });
 
 function SelectedFeatureDialog({ feature }: { feature: Feature | undefined }) {
-  const [color, setColor] = useState<string>();
+  const [color, setColor] = useState<string>("blue");
   useEffect(() => feature?.setProperties({ color }), [color]);
+
+  const [label, setLabel] = useState<string>("");
+  useEffect(() => feature?.setProperties({ label }), [label]);
 
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   useEffect(() => {
-    if (feature) dialogRef.current?.showModal();
+    if (feature) {
+      setColor(feature.getProperties()["color"] || "blue");
+      setLabel(feature.getProperties()["label"] || "");
+      dialogRef.current?.showModal();
+    }
   }, [feature]);
 
   function handleSubmit(e: SyntheticEvent) {
@@ -67,6 +80,10 @@ function SelectedFeatureDialog({ feature }: { feature: Feature | undefined }) {
       <h1>Selected feature</h1>
 
       <form onSubmit={handleSubmit}>
+        <p>
+          Label:{" "}
+          <input value={label} onChange={(e) => setLabel(e.target.value)} />
+        </p>
         <p>
           Color:{" "}
           <input
