@@ -9,6 +9,9 @@ import VectorLayer from "ol/layer/Vector.js";
 import VectorSource from "ol/source/Vector.js";
 import { Draw } from "ol/interaction.js";
 import { Fill, RegularShape, Style } from "ol/style.js";
+import { GeoJSON } from "ol/format.js";
+
+const geojson = new GeoJSON();
 
 useGeographic();
 
@@ -23,6 +26,11 @@ const drawingLayer = new VectorLayer({
     }),
   }),
 });
+const features = localStorage.getItem("features");
+if (features) {
+  drawingVectorSource.addFeatures(geojson.readFeatures(features));
+}
+
 const map = new Map({
   view: new View({ center: [10.7, 59.9], zoom: 12 }),
   layers: [new TileLayer({ source: new OSM() }), drawingLayer],
@@ -32,6 +40,12 @@ function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     map.setTarget(mapRef.current!);
+    drawingVectorSource.on("change", () => {
+      localStorage.setItem(
+        "features",
+        geojson.writeFeatures(drawingVectorSource.getFeatures()),
+      );
+    });
   }, []);
 
   function handleClick() {
