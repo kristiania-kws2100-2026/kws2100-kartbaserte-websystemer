@@ -440,7 +440,7 @@ user's preferences?
 
 ### Review what you've learned
 
-<details open>
+<details>
 
 Use the [reference material](../README.md#reference-material), the [lecture reference branch READMEs](../README.md#lectures) and other exercise to create a complete map application:
 
@@ -453,5 +453,15 @@ Use the [reference material](../README.md#reference-material), the [lecture refe
 - Add Norwegian primary schools to the map
 - Style the schools so their size reflects the number of students and the color reflects whether the school ownership
 - Display the name of the school when the user hovers over a school
+
+</details>
+
+## Exercise 6
+
+### Work on the assignment
+
+<details>
+
+During this lecture, you should instead work on the assignment.
 
 </details>

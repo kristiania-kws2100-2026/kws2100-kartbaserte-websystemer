@@ -98,7 +98,7 @@ together will a [relevant news story](https://www.budstikka.no/savnet-kvinne-er-
 create a map where we can add out own points by
 [drawing with the mouse](https://openlayers.org/en/latest/examples/draw-features-style.html).
 
-### Lecture 7: Geographical databases (2026-03-16)
+### Lecture 7: Geographical databases (2026-03-02 assignment due this week)
 
 [![Lecture 7 code](https://img.shields.io/badge/Lecture_7-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/07)
 [![Lecture 7 reference](https://img.shields.io/badge/Lecture_7-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/07)
@@ -110,7 +110,7 @@ In this lecture, we will provide our own datasource by importing datasets from G
 - [Statistiske enheter - grunnkretser](https://kartkatalog.geonorge.no/metadata/statistiske-enheter-grunnkretser/51d279f8-e2be-4f5e-9f72-1a53f7535ec1)
 - [Grunnskoler](https://kartkatalog.geonorge.no/metadata/grunnskoler/db4b872f-264d-434c-9574-57232f1e90d2)
 
-### Lecture 8: Deployment to Heroku AND tile vector layers (2026-02-23 assignment due this week)
+### Lecture 8: Deployment to Heroku AND tile vector layers (2026-03-09)
 
 [![Lecture 8 code](https://img.shields.io/badge/Lecture_8-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/08)
 [![Lecture 8 reference](https://img.shields.io/badge/Lecture_8-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/08)
@@ -119,7 +119,7 @@ In this lecture, we will provide our own datasource by importing datasets from G
 We will publish a basic React + [Hono](https://hono.dev/) application with TypeScript and Vite to [Heroku](https://heroku.com/) and add a map to the application.
 This lets us deploy with a geographic database
 
-### Lecture 9: Vector tile layers as data (2026-03-02)
+### Lecture 9: Vector tile layers as data (2026-03-16 - assignment graded)
 
 [![Lecture 9 code](https://img.shields.io/badge/Lecture_9-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/09)
 [![Lecture 9 reference](https://img.shields.io/badge/Lecture_9-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/09)
@@ -132,7 +132,7 @@ client.
 - [Statistiske enheter - grunnkretser](https://kartkatalog.geonorge.no/metadata/statistiske-enheter-grunnkretser/51d279f8-e2be-4f5e-9f72-1a53f7535ec1)
 - [Matrikkelen - adresse](https://kartkatalog.geonorge.no/metadata/matrikkelen-adresse/f7df7a18-b30f-4745-bd64-d0863812350c)
 
-### Lecture 10: Exploring vector objects (2026-03-09 - assignment graded)
+### Lecture 10: Exploring vector objects (2026-03-23)
 
 [![Lecture 10 Mentimeter](https://img.shields.io/badge/Lecture_10-mentimenter-yellow)](https://www.menti.com/al8mce67e2hf)
 
@@ -144,7 +144,7 @@ In the last lecture, we worked with optimizing vector tile maps
 
 In this lecture, we will show how to use vector features as React objects and explore styling a bit more
 
-### Lecture 11: Points that move
+### Lecture 11: Points that move (2026-03-30)
 
 [![Lecture 11 code](https://img.shields.io/badge/Lecture_11-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/11)
 [![Lecture 11 reference](https://img.shields.io/badge/Lecture_11-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/11)
@@ -201,7 +201,7 @@ const vectorSource = new VectorSource({ features });
 
 </details>
 
-### Lecture 12: Review of PostGIS and Heroku (with slow-coding) - (2026-03-23)
+### Lecture 12: Review of PostGIS and Heroku (with slow-coding) - (2026-04-13)
 
 [![Lecture 12 code](https://img.shields.io/badge/Lecture_12-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/12)
 [![Lecture 12 reference](https://img.shields.io/badge/Lecture_12-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/12)
