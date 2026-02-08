@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import { Map, View } from "ol";
+import React, { useEffect, useRef, useState } from "react";
+import { Feature, Map, MapBrowserEvent, View } from "ol";
 import TileLayer from "ol/layer/Tile.js";
 import { OSM } from "ol/source.js";
 import { useGeographic } from "ol/proj.js";
@@ -36,10 +36,23 @@ const map = new Map({
   layers: [new TileLayer({ source: new OSM() }), drawingLayer],
 });
 
+function SelectedFeatureDialog({ feature }: { feature: Feature | undefined }) {
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
+  useEffect(() => {
+    if (feature) dialogRef.current?.showModal();
+  }, [feature]);
+  return (
+    <dialog ref={dialogRef}>
+      <h1>Selected feature</h1>
+    </dialog>
+  );
+}
+
 function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     map.setTarget(mapRef.current!);
+    map.on("click", handleMapClick);
     drawingVectorSource.on("change", () => {
       localStorage.setItem(
         "features",
@@ -47,6 +60,12 @@ function Application() {
       );
     });
   }, []);
+
+  const [selectedFeature, setSelectedFeature] = useState<Feature>();
+
+  function handleMapClick(e: MapBrowserEvent) {
+    setSelectedFeature(map.getFeaturesAtPixel(e.pixel)[0] as Feature);
+  }
 
   function handleClick() {
     const draw = new Draw({ type: "Point", source: drawingVectorSource });
@@ -59,6 +78,7 @@ function Application() {
       <nav>
         <button onClick={handleClick}>Draw point</button>
       </nav>
+      <SelectedFeatureDialog feature={selectedFeature} />
       <div ref={mapRef}></div>
     </>
   );
