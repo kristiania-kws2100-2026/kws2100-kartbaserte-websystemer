@@ -1,0 +1,27 @@
+on:
+  push:
+    branches:
+      - main
+      - reference/*
+      - lecture/*
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22.x
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+      - uses: actions/upload-artifact@v6
+        with:
+          path: "./dist"
+      - uses: actions/deploy-pages@v4
+
+    permissions:
+      id-token: write
+      pages: write
+      contents: read
