@@ -28,12 +28,15 @@ export function Application() {
   }, []);
 
   function handleClick() {
-    map.addInteraction(
-      new Draw({
-        type: "Point",
-        source: drawingVectorSource,
-      }),
-    );
+    const draw = new Draw({
+      type: "Point",
+      source: drawingVectorSource,
+    });
+    map.addInteraction(draw);
+
+    drawingVectorSource.on("addfeature", () => {
+      map.removeInteraction(draw);
+    });
   }
 
   return (
