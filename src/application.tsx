@@ -9,6 +9,7 @@ import VectorLayer from "ol/layer/Vector.js";
 import VectorSource from "ol/source/Vector.js";
 import { Draw } from "ol/interaction.js";
 import { GeoJSON } from "ol/format.js";
+import { Fill, RegularShape, Stroke, Style } from "ol/style.js";
 
 const geoJson = new GeoJSON();
 
@@ -17,6 +18,17 @@ useGeographic();
 const drawingVectorSource = new VectorSource();
 const drawingLayer = new VectorLayer({
   source: drawingVectorSource,
+  style: new Style({
+    image: new RegularShape({
+      radius: 10,
+      points: 4,
+      fill: new Fill({ color: "blue" }),
+      stroke: new Stroke({
+        color: "white",
+        width: 3,
+      }),
+    }),
+  }),
 });
 const savedFeatures = localStorage.getItem("features");
 if (savedFeatures) {
