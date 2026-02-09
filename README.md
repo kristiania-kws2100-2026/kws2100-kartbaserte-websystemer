@@ -96,6 +96,7 @@ jobs:
     permissions:
       id-token: write
       pages: write
+      contents: read # to check out private repositories
 ```
 
 Turn on GitHub pages in your repository on GitHub: Under Settings > Pages, update Build and deployment > Source to be "GitHub Actions".
