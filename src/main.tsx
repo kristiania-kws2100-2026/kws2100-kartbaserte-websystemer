@@ -11,7 +11,7 @@ import VectorSource from "ol/source/Vector.js";
 import { GeoJSON } from "ol/format.js";
 import { register } from "ol/proj/proj4.js";
 import proj4 from "proj4";
-import { Circle, Fill, Stroke, Style } from "ol/style.js";
+import { Circle, Fill, Stroke, Style, Text } from "ol/style.js";
 
 proj4.defs(
   "EPSG:25833",
@@ -25,6 +25,21 @@ const kommuneLayer = new VectorLayer({
     url: "/geojson/kommuner.geojson",
     format: new GeoJSON(),
   }),
+  style: (f, resolution) => {
+    if (resolution < 150) {
+      return new Style({
+        text: new Text({
+          text: f.getProperties()["name"],
+          font: "25px bold sans-serif",
+          stroke: new Stroke({ width: 2, color: "white" }),
+        }),
+        stroke: new Stroke({ width: 3, color: "black" }),
+      });
+    }
+    return new Style({
+      stroke: new Stroke({ width: 3, color: "black" }),
+    });
+  },
 });
 const grunnskoleLayer = new VectorLayer({
   source: new VectorSource({
@@ -47,7 +62,7 @@ const grunnskoleLayer = new VectorLayer({
   },
 });
 const map = new Map({
-  view: new View({ center: [10.7, 59.9], zoom: 10 }),
+  view: new View({ center: [10.7, 59.9], zoom: 8 }),
   layers: [new TileLayer({ source: new OSM() }), kommuneLayer, grunnskoleLayer],
 });
 
