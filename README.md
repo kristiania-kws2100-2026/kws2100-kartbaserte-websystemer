@@ -186,9 +186,19 @@ Restart Vite and test it out by going to http://localhost:5173/api/grunnskoler
 
 We need to update `/api/grunnskoler` to actually return the information that we want, we then need the `grunnskoleLayer` to display these correctly.
 
+First - install the PostgreSQL library for Node:
+
+1. `cd server`
+2. `npm install pg`
+3. `npm install -D @types/pg`
+
 **Update the `/api/grunnskoler` route in `server/server.ts`:**
 
 ```ts
+import pg from "pg";
+
+const postgresql = new pg.Pool({ user: "postgres", password: "password" });
+
 app.get("/api/grunnskoler", async (c) => {
   const result = await postgresql.query(
     `select  skolenavn, eierforhold, antallelever, posisjon::json as geometry
