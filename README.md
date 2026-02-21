@@ -1,6 +1,6 @@
 # KWS2100 Geographic Information Web Systems
 
-[![Running website](https://img.shields.io/badge/Course-website-green)](https://kristiania-kws2100-2026.github.io/kws2100-kartbaserte-websystemer/)
+[![Screenshot](https://img.shields.io/badge/Lecture-website-green)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/07)
 
 Welcome to this course in Geographic Information Systems (GIS) for the web. In this course, we will use popular and
 powerful open-source software to explore geographic information systems on the web. The course will
@@ -107,7 +107,6 @@ create a map where we can add out own points by
 In this lecture, we will provide our own datasource by importing datasets from Geonorge into PostGIS and creating a backend with them
 
 - [Administrative enheter - fylker (2023)](https://kartkatalog.geonorge.no/metadata/administrative-enheter-fylker-historiske-data-2023/7284fe8e-fed6-4172-ae56-a7f7c9fd4759)
-- [Statistiske enheter - grunnkretser](https://kartkatalog.geonorge.no/metadata/statistiske-enheter-grunnkretser/51d279f8-e2be-4f5e-9f72-1a53f7535ec1)
 - [Grunnskoler](https://kartkatalog.geonorge.no/metadata/grunnskoler/db4b872f-264d-434c-9574-57232f1e90d2)
 
 ### Lecture 8: Deployment to Heroku AND tile vector layers (2026-03-09)

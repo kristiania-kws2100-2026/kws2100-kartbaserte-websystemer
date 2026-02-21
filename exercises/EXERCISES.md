@@ -465,3 +465,29 @@ Use the [reference material](../README.md#reference-material), the [lecture refe
 During this lecture, you should instead work on the assignment.
 
 </details>
+
+## Exercise 7
+
+### PostGIS
+
+<details open>
+
+If you haven't completed the assignment, feel free to use this exercise to work. If you have completed it, you should
+work on displaying data from a geographical database (PostGIS).
+
+The [reference notes for lecture 7](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/blob/reference/07/README.md) contains a detailed explanation.
+
+Here is an overview:
+
+1. Create an OpenLayers application (as normal)
+2. Install PostGIS using Docker Compose
+3. Import [schools](https://kartkatalog.geonorge.no/metadata/grunnskoler/db4b872f-264d-434c-9574-57232f1e90d2) and [historical countries](https://kartkatalog.geonorge.no/metadata/administrative-enheter-fylker-historiske-data-2023/7284fe8e-fed6-4172-ae56-a7f7c9fd4759) into PostGIS
+4. Connect to Postgis with IntelliJ to make sure you understand how to query the data
+5. Create a server application using Hono and make Vite proxy requests to the server
+6. Implement `/api/grunnskoler` to return the data you want
+7. Transform and display the data in OpenLayers
+
+Follow the [reference notes for lecture 7](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/blob/reference/07/README.md) for
+full instructions.
+
+</details>
