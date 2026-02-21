@@ -11,6 +11,7 @@ import VectorSource from "ol/source/Vector.js";
 import { GeoJSON } from "ol/format.js";
 import { register } from "ol/proj/proj4.js";
 import proj4 from "proj4";
+import { Circle, Fill, Stroke, Style } from "ol/style.js";
 
 proj4.defs(
   "EPSG:25833",
@@ -30,6 +31,20 @@ const grunnskoleLayer = new VectorLayer({
     url: "/api/grunnskoler",
     format: new GeoJSON({ dataProjection: "EPSG:25833" }),
   }),
+  style: (feature) => {
+    return new Style({
+      image: new Circle({
+        radius: 3 + feature.getProperties()["antallelever"] / 100,
+        fill: new Fill({
+          color:
+            feature.getProperties()["eierforhold"] === "Privat"
+              ? "purple"
+              : "blue",
+        }),
+        stroke: new Stroke({ width: 3, color: "white" }),
+      }),
+    });
+  },
 });
 const map = new Map({
   view: new View({ center: [10.7, 59.9], zoom: 10 }),
