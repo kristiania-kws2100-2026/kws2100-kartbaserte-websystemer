@@ -8,11 +8,9 @@ const app = new Hono();
 
 app.get("/api/grunnskoler", async (c) => {
   const result = await postgres.query(
-    `select skolenavn,
-            antallelever,
-            organisasjonsnummer,
-            posisjon::json geometry
-     from grunnskoler_1a0d38b7214c4b4fbd0bc9f3a77f3ad6.grunnskole`,
+    `select  skolenavn, eierforhold, antallelever, st_transform(posisjon, 4326)::json as geometry
+     from grunnskoler_1a0d38b7214c4b4fbd0bc9f3a77f3ad6.grunnskole s
+    `,
   );
   return c.json({
     type: "FeatureCollection",
