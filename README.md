@@ -1,12 +1,12 @@
 # KWS2100 Geographic Information Web Systems
 
-[![Screenshot](https://img.shields.io/badge/Lecture-website-green)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/07)
+[![Screenshot](https://img.shields.io/badge/Lecture-website-green)](https://kws2100-kartbaserte-websystemer.onrender.com/)
 
 Welcome to this course in Geographic Information Systems (GIS) for the web. In this course, we will use popular and
 powerful open-source software to explore geographic information systems on the web. The course will
 use [OpenLayers](https://openlayers.org/) as a web framework for information systems and [PostGIS](https://postgis.net/)
 as a geographical information database. We will build web applications with the React framework and use Express to
-create APIs on top of PostGIS. In order to run our databases on the web, we will deploy using Heroku.
+create APIs on top of PostGIS. In order to run our databases on the web, we will deploy using Render.com.
 
 ## Understanding the course
 
@@ -109,16 +109,16 @@ In this lecture, we will provide our own datasource by importing datasets from G
 - [Administrative enheter - fylker (2023)](https://kartkatalog.geonorge.no/metadata/administrative-enheter-fylker-historiske-data-2023/7284fe8e-fed6-4172-ae56-a7f7c9fd4759)
 - [Grunnskoler](https://kartkatalog.geonorge.no/metadata/grunnskoler/db4b872f-264d-434c-9574-57232f1e90d2)
 
-### Lecture 8: Deployment to Heroku AND tile vector layers (2026-03-09)
+### Lecture 8: Deployment to Render (2026-03-09)
 
 [![Lecture 8 code](https://img.shields.io/badge/Lecture_8-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/08)
 [![Lecture 8 reference](https://img.shields.io/badge/Lecture_8-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/08)
 [![Lecture 8 exercise](https://img.shields.io/badge/Lecture_8-exercise-pink)](./exercises/EXERCISES.md#exercise-8)
 
-We will publish a basic React + [Hono](https://hono.dev/) application with TypeScript and Vite to [Heroku](https://heroku.com/) and add a map to the application.
+We will publish a basic React + [Hono](https://hono.dev/) application with TypeScript and Vite to [Render](https://render.com) and add a map to the application.
 This lets us deploy with a geographic database
 
-### Lecture 9: Vector tile layers as data (2026-03-16 - assignment graded)
+### Lecture 9: Vector tile layers (2026-03-16 - assignment graded)
 
 [![Lecture 9 code](https://img.shields.io/badge/Lecture_9-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/09)
 [![Lecture 9 reference](https://img.shields.io/badge/Lecture_9-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/09)
@@ -131,7 +131,7 @@ client.
 - [Statistiske enheter - grunnkretser](https://kartkatalog.geonorge.no/metadata/statistiske-enheter-grunnkretser/51d279f8-e2be-4f5e-9f72-1a53f7535ec1)
 - [Matrikkelen - adresse](https://kartkatalog.geonorge.no/metadata/matrikkelen-adresse/f7df7a18-b30f-4745-bd64-d0863812350c)
 
-### Lecture 10: Exploring vector objects (2026-03-23)
+### Lecture 10: Geographical database queries (2026-03-23)
 
 [![Lecture 10 Mentimeter](https://img.shields.io/badge/Lecture_10-mentimenter-yellow)](https://www.menti.com/al8mce67e2hf)
 
@@ -139,9 +139,7 @@ client.
 [![Lecture 10 reference](https://img.shields.io/badge/Lecture_10-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/10)
 [![Lecture 10 exercise](https://img.shields.io/badge/Lecture_10-exercise-pink)](./exercises/EXERCISES.md#exercise-10)
 
-In the last lecture, we worked with optimizing vector tile maps
-
-In this lecture, we will show how to use vector features as React objects and explore styling a bit more
+In this lecture, we will show how we can use PostGIS to do more advanced queries on geographical data.
 
 ### Lecture 11: Points that move (2026-03-30)
 
@@ -200,7 +198,7 @@ const vectorSource = new VectorSource({ features });
 
 </details>
 
-### Lecture 12: Review of PostGIS and Heroku (with slow-coding) - (2026-04-13)
+### Lecture 12: Review of PostGIS and Render (with slow-coding) - (2026-04-13)
 
 [![Lecture 12 code](https://img.shields.io/badge/Lecture_12-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/12)
 [![Lecture 12 reference](https://img.shields.io/badge/Lecture_12-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/12)
@@ -327,9 +325,9 @@ Troubleshooting: If you don't see the map, see if `index.html` starts with a `do
 
 ## Deploying your application to the internet
 
-You can either deploy using [GitHub pages](#a-deployment-to-github-pages) or [Heroku](#b-deploying-to-heroku).
+You can either deploy using [GitHub pages](#a-deployment-to-github-pages) or [Render](#b-deploying-to-render).
 GitHub pages is the simplest option, but it cannot run a database. If you want to include a database, you need
-to use Heroku or a similar service
+to use Render or a similar service
 
 ### A. Deployment to GitHub Pages
 
@@ -406,27 +404,25 @@ When you have deployed, you can set your GitHub pages site to be the Website for
 
 </details>
 
-### B. Deploying to Heroku
+### B. Deploying to Render
 
-By running on Heroku, you can have a server-side application which accesses a database.
+By running on Render, you can have a server-side application which accesses a database.
 
 #### Creating a Hono Application
 
-This sets up your application to have a subdirectory for the server which should have node modules installed and be started by Heroku.
+This sets up your application to have a subdirectory for the server which should have node modules installed and be started by Render.
 
 This list of commands:
 
-1. Sets up the scripts to build and start the application on Heroku
+1. Sets up the scripts to build and start the application on Render
 2. Creates a directory for the server with a separate `package.json`
 3. Adds dependencies on [Hono](https://hono.dev/) and PostgreSQL to the server
 4. Creates the scripts to develop and run the server
 
 ```shell
-npm pkg set scripts.postinstall="cd server && npm install --include=dev"
+npm pkg set scripts.postinstall="cd server && npm install"
 npm pkg set scripts.build="vite build"
 npm pkg set scripts.start="cd server && npm start"
-
-npm install -D @types/node
 
 mkdir server
 cd server
@@ -448,23 +444,14 @@ import { serveStatic } from "@hono/node-server/serve-static";
 
 const app = new Hono();
 // `serveStatic` makes Hono serve the output from `vite build`
-app.use("*", serveStatic({ root: "../dist" }));
-
-// Heroku provides the port that the server should start on as an environment variable
-const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
-serve({ fetch: app.fetch, port });
+app.get("*", serveStatic({ root: "../dist" }));
 ```
 
-#### Deploying to Heroku
+#### Deploying to Render
 
-In order to deploy to Heroku you need to register an account with [Heroku](https://heroku.com). Read through the documentation about [Heroku for GitHub Students](https://www.heroku.com/github-students) so you understand how to avoid cloud bills.
+In order to deploy to Render you need to register an account with [Render](https://render.com).
 
-Download the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
-
-Now you need to commit your changes. You can then create a Heroku application and push your code to it.
-
-1. `heroku apps:create`
-2. `git push heroku`
+(Alternatively, you can use Heroku. Read through the documentation about [Heroku for GitHub Students](https://www.heroku.com/github-students) so you understand how to avoid cloud bills.
 
 ## Implementing layer API services with a Hono server and PostGis database
 
@@ -536,14 +523,13 @@ import { serve } from "@hono/node-server";
 import pg from "pg";
 import { serveStatic } from "@hono/node-server/serve-static";
 
-// When you run `heroku addons:create heroku-postgresql` (below),
-// Heroku will provide `DATABASE_URL` as an envionment variable.
+// When you add the Postgres database to the Web Service in the Render dashboard
+// Render will provide `DATABASE_URL` as an envionment variable.
 // If this doesn't exist, we assume we're running on localhost with docker-compose
-const connectionString = process.env.DATABASE_URL;
-const postgresql = connectionString
-  ? new pg.Pool({ connectionString, ssl: { rejectUnauthorized: false } })
-  : // If you choose a diffent password in `docker-compose.yaml` you must update here as well
-    new pg.Pool({ user: "postgres", password: "postgres" });
+const postgresql = new pg.Pool({
+  connectionString:
+    process.env.DATABASE_URL || "postgresql://postgres:@localhost",
+});
 
 const app = new Hono();
 
@@ -571,9 +557,7 @@ app.get("/api/skoler", async (c) => {
 });
 app.use("*", serveStatic({ root: "../dist" }));
 
-// Start on the port specified by the environment (when running on Heroku) or port 3000 by default
-const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
-serve({ fetch: app.fetch, port });
+serve(app);
 ```
 
 **Explaination: What does this `...properties` do?**
@@ -613,18 +597,6 @@ result.rows.map((row) => {
 This is advanced JavaScript syntax that can look confusing at first, but that reduces the visual and conceptual clutter when you have become familiar with it.
 
 </details>
-
-#### Setup database on Heroku
-
-The steps above imports the data from geonorge into the database on your workstation. But to access it when running on Heroku,
-you must also create a Postgresql database on Heroku and import the data there.
-
-1. `heroku addons:create heroku-postgresql`
-2. Wait for the database to be created
-3. `npm pkg set scripts.db:heroku:postgis="echo 'create extension postgis' | psql $DATABASE_URL"`
-4. `npm pkg set scripts.db:schools:heroku="npm run db:schools:download && psql $DATABASE_URL < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql"`
-5. `npm pkg set scripts.db:heroku="npm run db:heroku:postgis && npm run db:schools:heroku"`
-6. `heroku run "npm run db:heroku"`
 
 ## Tools
 
@@ -680,6 +652,6 @@ favorite refactorings like Extract method, Rename and Inline.
 - [TypeScript](https://www.typescriptlang.org/)
 - [Husky](https://typicode.github.io/husky/)
 - [Hono](https://hono.dev/)
-- [Heroku](https://devcenter.heroku.com/)
+- [Render](https://render.com)
 - [PostGIS](https://postgis.net/)
 - [Geonorge](https://www.geonorge.no/kartdata/datasett-i-geonorge/)

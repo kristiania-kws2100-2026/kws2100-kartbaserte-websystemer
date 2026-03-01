@@ -470,7 +470,7 @@ During this lecture, you should instead work on the assignment.
 
 ### PostGIS
 
-<details open>
+<details>
 
 If you haven't completed the assignment, feel free to use this exercise to work. If you have completed it, you should
 work on displaying data from a geographical database (PostGIS).
@@ -489,5 +489,32 @@ Here is an overview:
 
 Follow the [reference notes for lecture 7](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/blob/reference/07/README.md) for
 full instructions.
+
+</details>
+
+## Exercise 8
+
+### Deploy a 3-tier application to the web
+
+<details open>
+
+Before you start this exercise, you should complete [exercise 7](#exercise-7). In exercise 8, your
+task is to deploy the application you created in exercise 7 to the Platform-as-a-service (PaaS) service
+[Render](https://render.com)
+
+You need to upload your code to a GitHub repository.
+
+The [reference notes for lecture 8](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/blob/reference/08/README.md) contains a detailed explanation. Here is an overview:
+
+1. Set up your application to build the React code when you run `npm run build` and start Hono when you run `npm start`
+   - `npm set pkg scripts.build="vite build"`
+   - `npm set pkg scripts.postinstall="cd server && npm install"`
+   - `npm set pkg scripts.start="cd server && npm start"`
+   - `cd server` and `npm set pgk scripts.start="tsx server.ts"`
+2. Set up Hono to serve the React code by using `app.get("*", serveStatic({ root: "../dist" }));`
+3. Create an account on Render and create a project with a (free) Web Service connected to your database and a Postgres service
+4. Update `server/server.ts` to connect to PostgreSQL using `connectionString: process.env.DATABASE_URL`
+5. Create scripts to load the data from https://geonorge.no into Postgres
+6. On Render, temporary update the build command to run the loading scripts
 
 </details>
