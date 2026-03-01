@@ -3,7 +3,10 @@ import { serve } from "@hono/node-server";
 import pg from "pg";
 import { serveStatic } from "@hono/node-server/serve-static";
 
-const postgres = new pg.Pool({ user: "postgres" });
+const postgres = new pg.Pool({
+  connectionString:
+    process.env.DATABASE_URL || "postgresql://postgres:@localhost",
+});
 
 const app = new Hono();
 
