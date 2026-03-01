@@ -8,7 +8,7 @@
     "prepare": "husky",
     "dev": "vite",
     "psql": "docker exec -i postgis /usr/bin/psql --user postgres",
-    "db:load:server": "npm run db:grunnskoler:download && psql $DATABASE_URL < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sqlÃ",
+    "db:load:server": "npm run db:grunnskoler:download && psql $DATABASE_URL < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql",
     "db:grunnskoler:download": "download --out tmp/ --extract https://nedlasting.geonorge.no/geonorge/Befolkning/Grunnskoler/PostGIS/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.zip",
     "db:grunnskoler:import": "npm run psql < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql",
     "db:fylker2023:download": "download --extract --out tmp/ https://nedlasting.geonorge.no/geonorge/Basisdata/Fylker2023/PostGIS/Basisdata_0000_Norge_25833_Fylker2023_PostGIS.zip",
