@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { serve } from "@hono/node-server";
 import pg from "pg";
+import { serveStatic } from "@hono/node-server/serve-static";
 
 const postgres = new pg.Pool({ user: "postgres" });
 
@@ -28,3 +29,5 @@ app.get("/api/grunnskoler", async (c) => {
 });
 
 serve(app);
+
+app.use("*", serveStatic({ root: "../dist" }));
