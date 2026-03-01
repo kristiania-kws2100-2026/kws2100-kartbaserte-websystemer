@@ -33,4 +33,4 @@ app.get("/api/grunnskoler", async (c) => {
 
 serve(app);
 
-app.use("*", serveStatic({ root: "../dist" }));
+app.get("*", serveStatic({ root: "../dist" }));
