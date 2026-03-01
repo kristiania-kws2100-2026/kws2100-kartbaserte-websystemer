@@ -11,7 +11,10 @@
     "db:grunnskoler:download": "download --out tmp/ --extract https://nedlasting.geonorge.no/geonorge/Befolkning/Grunnskoler/PostGIS/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.zip",
     "db:grunnskoler:import": "npm run psql < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql",
     "db:fylker2023:download": "download --extract --out tmp/ https://nedlasting.geonorge.no/geonorge/Basisdata/Fylker2023/PostGIS/Basisdata_0000_Norge_25833_Fylker2023_PostGIS.zip",
-    "db:fylker2023:import": "npm run psql < tmp/Basisdata_0000_Norge_25833_Fylker_PostGIS.sql"
+    "db:fylker2023:import": "npm run psql < tmp/Basisdata_0000_Norge_25833_Fylker_PostGIS.sql",
+    "build": "vite build",
+    "postinstall": "cd server && npm install",
+    "start": "cd server && npm start"
   },
   "repository": {
     "type": "git",
