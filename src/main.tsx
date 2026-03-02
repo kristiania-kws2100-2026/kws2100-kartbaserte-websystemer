@@ -18,7 +18,12 @@ const kommuneLayer = new VectorLayer({
     format: new GeoJSON(),
   }),
 });
-const grunnskoleLayer = new VectorLayer();
+const grunnskoleLayer = new VectorLayer({
+  source: new VectorSource({
+    format: new GeoJSON(),
+    url: "/api/grunnskoler",
+  }),
+});
 const map = new Map({
   view: new View({ center: [10.7, 59.9], zoom: 8 }),
   layers: [new TileLayer({ source: new OSM() }), kommuneLayer, grunnskoleLayer],
