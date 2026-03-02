@@ -6,6 +6,7 @@
   "scripts": {
     "test": "tsc --noEmit && prettier --check .",
     "prepare": "husky",
+    "build": "vite build",
     "db:load": "npm run db:grunnskoler:download && npm run db:grunnskoler:load",
     "db:grunnskoler:download": "download --out tmp --extract https://nedlasting.geonorge.no/geonorge/Befolkning/Grunnskoler/PostGIS/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.zip",
     "db:grunnskoler:load": "npm run psql:docker < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql",
