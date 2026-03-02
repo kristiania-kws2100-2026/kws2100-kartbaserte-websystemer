@@ -2,13 +2,14 @@ import { Hono } from "hono";
 import { serve } from "@hono/node-server";
 
 import pg from "pg";
+import { serveStatic } from "@hono/node-server/serve-static";
 
 const postgres = new pg.Pool({
   user: "postgres",
 });
 
 const app = new Hono();
-app.get("/", (c) => c.text("Hello world"));
+app.get("*", serveStatic({ root: "../dist" }));
 app.get("/api/grunnskoler", async (c) => {
   const result = await postgres.query(`
     select skolenavn,
