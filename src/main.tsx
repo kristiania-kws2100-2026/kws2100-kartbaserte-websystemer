@@ -22,6 +22,7 @@ proj4.defs(
 register(proj4);
 
 useGeographic();
+const backgroundLayer = new TileLayer({ source: new OSM() });
 const kommuneLayer = new VectorTileLayer({
   source: new VectorTileSource({
     url: "/api/kommuner/{z}/{x}/{y}",
@@ -34,9 +35,15 @@ const grunnskoleLayer = new VectorLayer({
     url: "/api/grunnskoler",
   }),
 });
+const vegadresseLayer = new VectorTileLayer({
+  source: new VectorTileSource({
+    format: new MVT(),
+    url: "/api/vegadresse/{z}/{x}/{y}",
+  }),
+});
 const map = new Map({
-  view: new View({ center: [11.07, 59.94], zoom: 13 }),
-  layers: [new TileLayer({ source: new OSM() }), kommuneLayer, grunnskoleLayer],
+  view: new View({ center: [10.74, 59.91], zoom: 16 }),
+  layers: [backgroundLayer, kommuneLayer, grunnskoleLayer, vegadresseLayer],
 });
 
 function Application() {
