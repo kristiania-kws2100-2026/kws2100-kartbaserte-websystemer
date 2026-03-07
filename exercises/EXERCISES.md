@@ -518,3 +518,51 @@ The [reference notes for lecture 8](https://github.com/kristiania-kws2100-2026/k
 6. On Render, temporary update the build command to run the loading scripts
 
 </details>
+
+## Exercise 9
+
+### Vector tile layers
+
+<details>
+
+Before you start this exerise, you should complete [exercise 7](#exercise-7) and optionally [exercise 8](#exercise-8).
+In exercise 9, you tasks is to implement a vector tile layer using the Mapbox Vector Tile (MVT) format.
+
+The first layer we ever displayed is a _raster_ tile layer. This means that as the user zooms and pans, OpenLayers
+requests new tiles for the area displayed on the screen. When we used OpenStreetMap, these tiles were individual
+images (PNGs). Vector tile layers does the same, but with geometric data (points and polygons)
+
+We can use this to solve a problem that has troubled us for a while: When looking at kommuner, we have the choice
+between returning very detailed polygons to the user. These polygons are big, so the user requires a long time to
+load then. Alternatively, we should return simplified polygons with fewer surrounding points. But when the user zooms
+in, the borders no longer match the exact borders.
+
+The ideal situation would be to simplify the points to a level that's appropriate what the user is currently looking at.
+PostGIS lets us do this using the built-in `ST_AsMVT`-function (where MVT means Mapbox Vector Tile).
+
+1. Create a map with a kommune layer (as in [exercise 1](#exercise-1))
+2. When you zoom in, you may notice that the kommune borders don't quite match the borders on the background tiles.
+   If you look at the network tab of the browser developer view, you will also see that much data is loaded
+3. Implement a server and database for loading schools (or any data) as in [exercise 7](#exercise-7)
+4. Replace the kommuneLayer with a `VectorTileLayer`:
+   ```tsx
+   const kommuneLayer = new VectorTileLayer({
+     source: new VectorTileSource({
+       url: "/api/kommuner/{z}/{x}/{y}",
+       format: new MVT(),
+     }),
+   });
+   ```
+5. Implement the `app.get("/api/kommuner/:z/:x/:y")` API. See [notes for lecture 9](https://github.com/kristiania-kws2100-2024/kristiania-kws2100-2024.github.io/tree/reference/09)
+   for details
+
+When you have implemented this, you may try to implement a layer that displays house address points when the user zooms in.
+[The notes for lecture 9](https://github.com/kristiania-kws2100-2024/kristiania-kws2100-2024.github.io/tree/reference/09)
+explains how.
+
+Here are some ways you can extend this:
+
+- Deploy the solution with the data to https://render.com
+- Display an overlay when the user clicks an address on the map.
+
+</details>

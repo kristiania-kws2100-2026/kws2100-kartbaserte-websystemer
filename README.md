@@ -1,6 +1,6 @@
 # KWS2100 Geographic Information Web Systems
 
-[![Screenshot](https://img.shields.io/badge/Lecture-website-green)](https://kws2100-kartbaserte-websystemer.onrender.com/)
+[![Running website](https://img.shields.io/badge/Course-website-green)](https://kws2100-kartbaserte-websystemer.onrender.com/)
 
 Welcome to this course in Geographic Information Systems (GIS) for the web. In this course, we will use popular and
 powerful open-source software to explore geographic information systems on the web. The course will
@@ -128,7 +128,6 @@ We will look at how to use the fact that we get data from the database to optimi
 client.
 
 - [Administrative enheter - kommuner](https://kartkatalog.geonorge.no/metadata/administrative-enheter-kommuner/041f1e6e-bdbc-4091-b48f-8a5990f3cc5b)
-- [Statistiske enheter - grunnkretser](https://kartkatalog.geonorge.no/metadata/statistiske-enheter-grunnkretser/51d279f8-e2be-4f5e-9f72-1a53f7535ec1)
 - [Matrikkelen - adresse](https://kartkatalog.geonorge.no/metadata/matrikkelen-adresse/f7df7a18-b30f-4745-bd64-d0863812350c)
 
 ### Lecture 10: Geographical database queries (2026-03-23)
@@ -140,6 +139,10 @@ client.
 [![Lecture 10 exercise](https://img.shields.io/badge/Lecture_10-exercise-pink)](./exercises/EXERCISES.md#exercise-10)
 
 In this lecture, we will show how we can use PostGIS to do more advanced queries on geographical data.
+
+- [Grunnskoler](https://kartkatalog.geonorge.no/metadata/grunnskoler/db4b872f-264d-434c-9574-57232f1e90d2)
+- [Statistiske enheter - grunnkretser](https://kartkatalog.geonorge.no/metadata/statistiske-enheter-grunnkretser/51d279f8-e2be-4f5e-9f72-1a53f7535ec1)
+- [Matrikkelen - adresse](https://kartkatalog.geonorge.no/metadata/matrikkelen-adresse/f7df7a18-b30f-4745-bd64-d0863812350c)
 
 ### Lecture 11: Points that move (2026-03-30)
 
