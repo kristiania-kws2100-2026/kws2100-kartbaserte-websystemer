@@ -12,6 +12,14 @@ import VectorSource from "ol/source/Vector.js";
 import { GeoJSON, MVT } from "ol/format.js";
 import VectorTileLayer from "ol/layer/VectorTile.js";
 import VectorTileSource from "ol/source/VectorTile.js";
+import proj4 from "proj4";
+import { register } from "ol/proj/proj4.js";
+
+proj4.defs(
+  "EPSG:25833",
+  "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+);
+register(proj4);
 
 useGeographic();
 const kommuneLayer = new VectorTileLayer({
@@ -22,12 +30,12 @@ const kommuneLayer = new VectorTileLayer({
 });
 const grunnskoleLayer = new VectorLayer({
   source: new VectorSource({
-    format: new GeoJSON(),
+    format: new GeoJSON({ dataProjection: "EPSG:25833" }),
     url: "/api/grunnskoler",
   }),
 });
 const map = new Map({
-  view: new View({ center: [11.07, 59.94], zoom: 15 }),
+  view: new View({ center: [11.07, 59.94], zoom: 13 }),
   layers: [new TileLayer({ source: new OSM() }), kommuneLayer, grunnskoleLayer],
 });
 

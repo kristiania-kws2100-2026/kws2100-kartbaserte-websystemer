@@ -24,7 +24,7 @@ app.get("/api/grunnskoler", async (c) => {
   const result = await postgres.query(`
     select skolenavn,
            antallelever,
-           st_transform(posisjon, 4326)::json geometry
+           posisjon::json geometry
     from grunnskoler_26f23a96d4914f1dbde464c9bd921e8c.grunnskole
   `);
   return c.json(toFeatureCollection(result.rows));
