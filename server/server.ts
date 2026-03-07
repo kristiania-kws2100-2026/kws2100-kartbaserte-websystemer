@@ -38,5 +38,18 @@ app.get("/api/kommuner", async (c) => {
   `);
   return c.json(toFeatureCollection(result.rows));
 });
+app.get("/api/kommuner/:z/:x/:y", async (c) => {
+  const { x, y, z } = c.req.param();
+  const result = await postgres.query(
+    `select kommunenummer,
+            kommunenavn,
+            st_transform(st_simplify(omrade, 1), 4326)::json geometry
+     from kommuner_627ee106072240e99d2b21ec4717bf01.kommune
+     where st_transform(omrade, 3857) && st_tileenvelope($1, $2, $3)
+    `,
+    [z, x, y],
+  );
+  return c.json(toFeatureCollection(result.rows));
+});
 
 serve(app);

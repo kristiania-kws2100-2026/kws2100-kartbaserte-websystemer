@@ -10,11 +10,13 @@ import "ol/ol.css";
 import VectorLayer from "ol/layer/Vector.js";
 import VectorSource from "ol/source/Vector.js";
 import { GeoJSON } from "ol/format.js";
+import VectorTileLayer from "ol/layer/VectorTile.js";
+import VectorTileSource from "ol/source/VectorTile.js";
 
 useGeographic();
-const kommuneLayer = new VectorLayer({
-  source: new VectorSource({
-    url: "/api/kommuner",
+const kommuneLayer = new VectorTileLayer({
+  source: new VectorTileSource({
+    url: "/api/kommuner/{z}/{x}/{y}",
     format: new GeoJSON(),
   }),
 });
