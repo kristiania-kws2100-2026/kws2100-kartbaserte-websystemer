@@ -31,7 +31,7 @@ app.get("/api/kommuner", async (c) => {
   const result = await postgres.query(`
     select kommunenummer,
            kommunenavn,
-           st_transform(omrade, 4326)::json geometry
+           st_transform(st_simplify(omrade, 50), 4326)::json geometry
     from kommuner_627ee106072240e99d2b21ec4717bf01.kommune
   `);
   return c.json({
