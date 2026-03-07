@@ -41,12 +41,12 @@ app.get("/api/kommuner", async (c) => {
 app.get("/api/kommuner/:z/:x/:y", async (c) => {
   const { x, y, z } = c.req.param();
   const result = await postgres.query(
-    `with mvtgeom as (select kommunenummer,
-                             kommunenavn,
-                             st_asmvtgeom(omrade_3857, st_tileenvelope($1, $2, $3))
-                      from kommune
-                      where omrade_3857 && st_tileenvelope($1, $2, $3))
-    select st_asmvt(mvtgeom.*) from mvtgeom
+    `with mvtgeom
+            as (select kommunenummer, kommunenavn, st_asmvtgeom(omrade_3857, st_tileenvelope($1, $2, $3))
+                from kommune
+                where omrade_3857 && st_tileenvelope($1, $2, $3))
+     select st_asmvt(mvtgeom.*)
+     from mvtgeom
     `,
     [z, x, y],
   );
