@@ -1,12 +1,10 @@
 import { createRoot } from "react-dom/client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Map, MapBrowserEvent, Overlay, View } from "ol";
 import { useGeographic } from "ol/proj.js";
 import TileLayer from "ol/layer/Tile.js";
 import { OSM } from "ol/source.js";
 
-// @ts-ignore
-import "ol/ol.css";
 import VectorLayer from "ol/layer/Vector.js";
 import VectorSource from "ol/source/Vector.js";
 import { GeoJSON, MVT } from "ol/format.js";
@@ -16,6 +14,9 @@ import proj4 from "proj4";
 import { register } from "ol/proj/proj4.js";
 import type { FeatureLike } from "ol/Feature.js";
 
+// @ts-ignore
+import "ol/ol.css";
+
 proj4.defs(
   "EPSG:25833",
   "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
@@ -24,10 +25,16 @@ register(proj4);
 
 useGeographic();
 const backgroundLayer = new TileLayer({ source: new OSM() });
-const kommuneLayer = new VectorTileLayer({
+const kommuneTileLayer = new VectorTileLayer({
   source: new VectorTileSource({
     url: "/api/kommuner/{z}/{x}/{y}",
     format: new MVT(),
+  }),
+});
+const kommuneGeoJSONLayer = new VectorLayer({
+  source: new VectorSource({
+    url: "/geojson/kommuner.geojson",
+    format: new GeoJSON(),
   }),
 });
 const grunnskoleLayer = new VectorLayer({
@@ -44,14 +51,26 @@ const vegadresseLayer = new VectorTileLayer({
 });
 const map = new Map({
   view: new View({ center: [11.06, 59.95], zoom: 15 }),
-  layers: [backgroundLayer, kommuneLayer, grunnskoleLayer, vegadresseLayer],
+  layers: [],
 });
 const overlay = new Overlay({ positioning: "top-center" });
 
 function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
+  const [kommuneFromDatabase, setKommuneFromDatabase] = useState(false);
   const [selectedFeatures, setSelectedFeatures] = useState<FeatureLike[]>([]);
+
+  const kommuneLayer = useMemo(
+    () => (kommuneFromDatabase ? kommuneTileLayer : kommuneGeoJSONLayer),
+    [kommuneFromDatabase],
+  );
+  const layers = useMemo(
+    () => [backgroundLayer, kommuneLayer, grunnskoleLayer, vegadresseLayer],
+    [kommuneLayer],
+  );
+  useEffect(() => map.setLayers(layers), [layers]);
+
   useEffect(() => {
     map.setTarget(mapRef.current!);
     overlay.setElement(overlayRef.current!);
@@ -65,14 +84,24 @@ function Application() {
     });
   }, []);
   return (
-    <div ref={mapRef}>
-      <div ref={overlayRef}>
-        <h2>Valgt adresse:</h2>
-        {selectedFeatures
-          .map((a) => a.getProperties())
-          .map(({ id, adressetekst }) => (
-            <li key={id}>{adressetekst}</li>
-          ))}
+    <div>
+      <label>
+        <input
+          type={"checkbox"}
+          checked={kommuneFromDatabase}
+          onChange={(e) => setKommuneFromDatabase(e.target.checked)}
+        />
+        Bruk kommuner fra database
+      </label>
+      <div ref={mapRef}>
+        <div ref={overlayRef}>
+          <h2>Valgt adresse:</h2>
+          {selectedFeatures
+            .map((a) => a.getProperties())
+            .map(({ id, adressetekst }) => (
+              <li key={id}>{adressetekst}</li>
+            ))}
+        </div>
       </div>
     </div>
   );
