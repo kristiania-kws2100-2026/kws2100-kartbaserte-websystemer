@@ -34,7 +34,7 @@ app.get("/api/kommuner", async (c) => {
     select kommunenummer,
            kommunenavn,
            st_transform(st_simplify(omrade, 50), 4326)::json geometry
-    from kommuner_627ee106072240e99d2b21ec4717bf01.kommune
+    from kommune
   `);
   return c.json(toFeatureCollection(result.rows));
 });
@@ -43,9 +43,9 @@ app.get("/api/kommuner/:z/:x/:y", async (c) => {
   const result = await postgres.query(
     `with mvtgeom as (select kommunenummer,
                              kommunenavn,
-                             st_asmvtgeom(st_transform(omrade, 3857), st_tileenvelope($1, $2, $3))
-                      from kommuner_627ee106072240e99d2b21ec4717bf01.kommune
-                      where st_transform(omrade, 3857) && st_tileenvelope($1, $2, $3))
+                             st_asmvtgeom(omrade_3857, st_tileenvelope($1, $2, $3))
+                      from kommune
+                      where omrade_3857 && st_tileenvelope($1, $2, $3))
     select st_asmvt(mvtgeom.*) from mvtgeom
     `,
     [z, x, y],
