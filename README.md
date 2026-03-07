@@ -138,7 +138,10 @@ client.
 [![Lecture 10 reference](https://img.shields.io/badge/Lecture_10-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/10)
 [![Lecture 10 exercise](https://img.shields.io/badge/Lecture_10-exercise-pink)](./exercises/EXERCISES.md#exercise-10)
 
-In this lecture, we will show how we can use PostGIS to do more advanced queries on geographical data.
+In this lecture, we will show how we can use PostGIS to do more advanced queries on geographical data. In this example, we create
+a heat map reflecting what percentage of houses are located close to a school:
+
+![School heat map](images/st_dwithin.png)
 
 - [Grunnskoler](https://kartkatalog.geonorge.no/metadata/grunnskoler/db4b872f-264d-434c-9574-57232f1e90d2)
 - [Statistiske enheter - grunnkretser](https://kartkatalog.geonorge.no/metadata/statistiske-enheter-grunnkretser/51d279f8-e2be-4f5e-9f72-1a53f7535ec1)
