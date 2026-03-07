@@ -41,15 +41,18 @@ app.get("/api/kommuner", async (c) => {
 app.get("/api/kommuner/:z/:x/:y", async (c) => {
   const { x, y, z } = c.req.param();
   const result = await postgres.query(
-    `select kommunenummer,
-            kommunenavn,
-            st_transform(st_simplify(omrade, 1), 4326)::json geometry
-     from kommuner_627ee106072240e99d2b21ec4717bf01.kommune
-     where st_transform(omrade, 3857) && st_tileenvelope($1, $2, $3)
+    `with mvtgeom as (select kommunenummer,
+                             kommunenavn,
+                             st_asmvtgeom(st_transform(omrade, 3857), st_tileenvelope($1, $2, $3))
+                      from kommuner_627ee106072240e99d2b21ec4717bf01.kommune
+                      where st_transform(omrade, 3857) && st_tileenvelope($1, $2, $3))
+    select st_asmvt(mvtgeom.*) from mvtgeom
     `,
     [z, x, y],
   );
-  return c.json(toFeatureCollection(result.rows));
+  return c.body(result.rows[0].st_asmvt, 200, {
+    "Content-Type": "application/vnd.mapbox-vector-tile",
+  });
 });
 
 serve(app);
