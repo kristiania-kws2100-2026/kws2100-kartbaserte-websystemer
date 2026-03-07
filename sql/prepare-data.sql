@@ -17,7 +17,7 @@ select adresseid,
        representasjonspunkt,
        st_transform(representasjonspunkt, 4326) representasjonspunkt_4326,
        st_transform(representasjonspunkt, 3857) representasjonspunkt_3857
-from matrikkelenadresse_af2184bd5ec443fe9796578813b45a76.vegadresse;
+from matrikkelenadresse_d5bcd604e92f413aa72644c284cbfcff.vegadresse;
 
 create index vegadresse_representasjonspunkt_3857_idx
     on vegadresse using GIST (representasjonspunkt_3857);

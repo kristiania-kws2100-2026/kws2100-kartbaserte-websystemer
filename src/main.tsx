@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client";
-import { useEffect, useRef } from "react";
-import { Map, View } from "ol";
+import { useEffect, useRef, useState } from "react";
+import { Map, MapBrowserEvent, Overlay, View } from "ol";
 import { useGeographic } from "ol/proj.js";
 import TileLayer from "ol/layer/Tile.js";
 import { OSM } from "ol/source.js";
@@ -14,6 +14,7 @@ import VectorTileLayer from "ol/layer/VectorTile.js";
 import VectorTileSource from "ol/source/VectorTile.js";
 import proj4 from "proj4";
 import { register } from "ol/proj/proj4.js";
+import type { FeatureLike } from "ol/Feature.js";
 
 proj4.defs(
   "EPSG:25833",
@@ -42,14 +43,39 @@ const vegadresseLayer = new VectorTileLayer({
   }),
 });
 const map = new Map({
-  view: new View({ center: [10.74, 59.91], zoom: 16 }),
+  view: new View({ center: [11.06, 59.95], zoom: 15 }),
   layers: [backgroundLayer, kommuneLayer, grunnskoleLayer, vegadresseLayer],
 });
+const overlay = new Overlay({ positioning: "top-center" });
 
 function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
-  useEffect(() => map.setTarget(mapRef.current!), []);
-  return <div ref={mapRef}></div>;
+  const overlayRef = useRef<HTMLDivElement | null>(null);
+  const [selectedFeatures, setSelectedFeatures] = useState<FeatureLike[]>([]);
+  useEffect(() => {
+    map.setTarget(mapRef.current!);
+    overlay.setElement(overlayRef.current!);
+    map.addOverlay(overlay);
+    map.on("click", (e: MapBrowserEvent) => {
+      const features = map.getFeaturesAtPixel(e.pixel, {
+        layerFilter: (l) => l === vegadresseLayer,
+      });
+      setSelectedFeatures(features);
+      overlay.setPosition(features.length > 0 ? e.coordinate : undefined);
+    });
+  }, []);
+  return (
+    <div ref={mapRef}>
+      <div ref={overlayRef}>
+        <h2>Valgt adresse:</h2>
+        {selectedFeatures
+          .map((a) => a.getProperties())
+          .map(({ id, adressetekst }) => (
+            <li key={id}>{adressetekst}</li>
+          ))}
+      </div>
+    </div>
+  );
 }
 
 createRoot(document.getElementById("app")!).render(<Application />);
