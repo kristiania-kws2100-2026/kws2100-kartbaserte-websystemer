@@ -30,5 +30,19 @@ app.get("/api/grunnskoler", async (c) => {
     })),
   });
 });
+app.get("/api/kommuner", async (c) => {
+  const result = await postgres.query(`
+    select kommunenummer, kommunenavn, st_transform(omrade, 4326)::json geometry
+    from kommuner_627ee106072240e99d2b21ec4717bf01.kommune
+  `);
+  return c.json({
+    type: "FeatureCollection",
+    features: result.rows.map(({ geometry, ...properties }) => ({
+      type: "Feature",
+      properties,
+      geometry,
+    })),
+  });
+});
 
 serve(app);
