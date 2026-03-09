@@ -8,8 +8,18 @@ import "ol/ol.css";
 import VectorLayer from "ol/layer/Vector.js";
 import VectorSource from "ol/source/Vector.js";
 import { GeoJSON } from "ol/format.js";
+import { Fill, Stroke, Style } from "ol/style.js";
 
 useGeographic();
+
+function getColor(percent: number) {
+  if (percent == 0) return `rgba(0, 255, 0, 0.75)`;
+
+  percent = Math.min(1, Math.max(0, percent));
+  const red = Math.floor(192 * percent);
+  const green = Math.floor(192 * (1 - percent));
+  return `rgba(${red}, ${green}, 0, ${0.75})`;
+}
 
 const map = new Map({
   layers: [
@@ -19,6 +29,13 @@ const map = new Map({
         url: "/api/grunnkrets",
         format: new GeoJSON(),
       }),
+      style: (feature) =>
+        new Style({
+          stroke: new Stroke({ color: "black", width: 2 }),
+          fill: new Fill({
+            color: getColor(feature.getProperties().antall_adresser / 2000),
+          }),
+        }),
     }),
   ],
   view: new View({ center: [10.7, 59.9], zoom: 11 }),

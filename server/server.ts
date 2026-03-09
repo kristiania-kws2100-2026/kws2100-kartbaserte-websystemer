@@ -27,7 +27,14 @@ function toFeatureCollection(rows: FeatureRow[]) {
 
 app.get("/api/grunnkrets", async (c) => {
   const result = await postgres.query(
-    "select omrade_4326::json geometry, grunnkretsnummer, grunnkretsnavn from grunnkrets",
+    `
+      select omrade_4326::json as geometry,
+             grunnkretsnummer,
+             grunnkretsnavn,
+             (select count(*) from vegadresse where st_within(representasjonspunkt_4326, omrade_4326))
+                         as antall_adresser
+      from grunnkrets
+    `,
   );
   return c.json(toFeatureCollection(result.rows));
 });
