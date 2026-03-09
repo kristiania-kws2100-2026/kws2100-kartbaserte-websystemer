@@ -51,6 +51,17 @@ app.get("/api/kommuner/:z/:x/:y", async (c) => {
 });
 app.get("/api/vegadresse/:z/:x/:y", async (c) => {
   const { x, y, z } = c.req.param();
+
+  if (parseInt(z) < 15) {
+    // return an empty mapbox vector tile response
+    const result = await postgres.query(
+      `SELECT ST_AsMVT(tile, 'layer_name', 4096, 'geom') FROM (SELECT NULL::geometry AS geom WHERE FALSE) AS tile`,
+    );
+    return c.body(result.rows[0].st_asmvt, 200, {
+      "Content-Type": "application/vnd.mapbox-vector-tile",
+    });
+  }
+
   const result = await postgres.query(
     `
     with mvt as (select adresseid,
