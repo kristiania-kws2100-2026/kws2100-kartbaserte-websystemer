@@ -5,10 +5,10 @@ import { useGeographic } from "ol/proj.js";
 import { useEffect, useRef } from "react";
 
 import "ol/ol.css";
-import VectorLayer from "ol/layer/Vector.js";
-import VectorSource from "ol/source/Vector.js";
-import { GeoJSON } from "ol/format.js";
+import { MVT } from "ol/format.js";
 import { Fill, Stroke, Style } from "ol/style.js";
+import VectorTileLayer from "ol/layer/VectorTile.js";
+import VectorTileSource from "ol/source/VectorTile.js";
 
 useGeographic();
 
@@ -24,10 +24,10 @@ function getColor(percent: number) {
 const map = new Map({
   layers: [
     new TileLayer({ source: new OSM() }),
-    new VectorLayer({
-      source: new VectorSource({
-        url: "/api/grunnkrets",
-        format: new GeoJSON(),
+    new VectorTileLayer({
+      source: new VectorTileSource({
+        url: "/api/grunnkrets/{z}/{x}/{y}",
+        format: new MVT(),
       }),
       style: (feature) =>
         new Style({
