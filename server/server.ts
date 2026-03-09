@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { serve } from "@hono/node-server";
 
 import pg from "pg";
+import { serveStatic } from "@hono/node-server/serve-static";
 
 type FeatureRow = object & { geometry: { coordinates: any } & object };
 
@@ -25,5 +26,6 @@ app.get("/api/grunnkrets", async (c) => {
   );
   return c.json(toFeatureCollection(result.rows));
 });
+app.get("*", serveStatic({ root: "../dist" }));
 
 serve(app);

@@ -9,6 +9,7 @@
     "dev": "concurrently npm:dev:client npm:dev:server",
     "dev:client": "vite",
     "dev:server": "cd server && npm run dev",
+    "build": "vite build",
     "test": "tsc --noEmit && prettier --check .",
     "server:db:load": "psql $DATABASE_URL < sql/initialize.sql && npm run server:db:load:data && psql $DATABASE_URL < sql/prepare-data.sql",
     "server:db:load:data": "npm run db:grunnkretser:download && npm run server:db:grunnkretser:import",
