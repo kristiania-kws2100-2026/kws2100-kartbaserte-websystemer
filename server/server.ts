@@ -4,7 +4,9 @@ import { serve } from "@hono/node-server";
 import pg from "pg";
 import { serveStatic } from "@hono/node-server/serve-static";
 
-type FeatureRow = object & { geometry: { coordinates: any } & object };
+type FeatureRow = object & {
+  geometry: { coordinates: any; type: string } & object;
+};
 
 const postgres = new pg.Pool({
   connectionString:
@@ -13,8 +15,11 @@ const postgres = new pg.Pool({
 
 const app = new Hono();
 
-function toFeature({ geometry: { coordinates }, ...properties }: FeatureRow) {
-  return { type: "Feature", geometry: { coordinates }, properties };
+function toFeature({
+  geometry: { type, coordinates },
+  ...properties
+}: FeatureRow) {
+  return { type: "Feature", geometry: { type, coordinates }, properties };
 }
 function toFeatureCollection(rows: FeatureRow[]) {
   return { type: "FeatureCollection", features: rows.map(toFeature) };
