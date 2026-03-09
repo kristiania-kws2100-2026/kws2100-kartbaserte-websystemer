@@ -11,24 +11,35 @@ const postgres = new pg.Pool({ connectionString });
 
 const app = new Hono();
 app.get("*", serveStatic({ root: "../dist" }));
+
+function toGeoJSON(rows: (object & { geometry: object })[]) {
+  return {
+    type: "FeatureCollection",
+    features: rows.map(({ geometry, ...properties }) => ({
+      type: "Feature",
+      properties,
+      geometry,
+    })),
+  };
+}
+
 app.get("/api/grunnskoler", async (c) => {
   const result = await postgres.query(`
     select skolenavn,
            antallelever,
-           st_transform(posisjon, 4326)::json posisjon
+           st_transform(posisjon, 4326)::json geometry
     from grunnskoler_26f23a96d4914f1dbde464c9bd921e8c.grunnskole
   `);
-  return c.json({
-    type: "FeatureCollection",
-    features: result.rows.map(({ skolenavn, antallelever, posisjon }) => ({
-      type: "Feature",
-      properties: {
-        skolenavn,
-        antallelever,
-      },
-      geometry: posisjon,
-    })),
-  });
+  return c.json(toGeoJSON(result.rows));
+});
+app.get("/api/kommuner", async (c) => {
+  const result = await postgres.query(`
+    select kommunenavn,
+           kommunenummer,
+           st_transform(omrade, 4326)::json geometry
+    from kommuner_627ee106072240e99d2b21ec4717bf01.kommune
+  `);
+  return c.json(toGeoJSON(result.rows));
 });
 
 serve(app);

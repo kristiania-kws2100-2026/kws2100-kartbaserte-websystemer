@@ -14,7 +14,7 @@ import { GeoJSON } from "ol/format.js";
 useGeographic();
 const kommuneLayer = new VectorLayer({
   source: new VectorSource({
-    url: "/geojson/kommuner.geojson",
+    url: "/api/kommuner",
     format: new GeoJSON(),
   }),
 });
