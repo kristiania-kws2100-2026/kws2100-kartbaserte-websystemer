@@ -25,7 +25,7 @@ const grunnskoleLayer = new VectorLayer({
   }),
 });
 const map = new Map({
-  view: new View({ center: [10.7, 59.9], zoom: 8 }),
+  view: new View({ center: [11.05, 59.95], zoom: 14 }),
   layers: [new TileLayer({ source: new OSM() }), kommuneLayer, grunnskoleLayer],
 });
 
