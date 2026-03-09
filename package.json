@@ -8,7 +8,7 @@
     "dev": "npm run dev:server",
     "dev:server": "cd server && npm run dev",
     "test": "tsc --noEmit && prettier --check .",
-    "server:db:load": "npm run server:db:load:data && psql $DATABASE_URL < sql/prepare-data.sql",
+    "server:db:load": "psql $DATABASE_URL < sql/initialize.sql && npm run server:db:load:data && psql $DATABASE_URL < sql/prepare-data.sql",
     "server:db:load:data": "npm run db:grunnkretser:download && npm run server:db:grunnkretser:import",
     "db:load": "npm run db:load:data && npm run docker:psql < sql/prepare-data.sql",
     "db:load:data": "npm run db:grunnkretser:download && npm run db:grunnkretser:import",
