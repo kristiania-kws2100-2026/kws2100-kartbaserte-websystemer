@@ -17,7 +17,7 @@
     "db:load": "npm run db:download && npm run local:db:import",
     "local:db:import": "npm run docker:psql < sql/initialize.sql && npm run local:db:import:data && npm run docker:psql < sql/prepare-data.sql",
     "local:db:import:data": "npm run docker:psql < tmp/Basisdata_03_Oslo_25832_Grunnkretser_PostGIS.sql && npm run docker:psql < tmp/Basisdata_03_Oslo_25832_MatrikkelenAdresse_PostGIS.sql && npm run docker:psql < tmp/Befolkning_03_Oslo_25832_Grunnskoler_PostGIS.sql",
-    "db:download": "npm run db:download:matrikkelen && npm run db:download:grunnkretser",
+    "db:download": "npm run db:download:grunnkretser && npm run db:download:grunnskoler && npm run db:download:matrikkelen",
     "db:download:matrikkelen": "download -o tmp --extract https://nedlasting.geonorge.no/geonorge/Basisdata/MatrikkelenAdresse/PostGIS/Basisdata_03_Oslo_25832_MatrikkelenAdresse_PostGIS.zip",
     "db:download:grunnkretser": "download -o tmp --extract https://nedlasting.geonorge.no/geonorge/Basisdata/Grunnkretser/PostGIS/Basisdata_03_Oslo_25832_Grunnkretser_PostGIS.zip",
     "db:download:grunnskoler": "download -o tmp --extract https://nedlasting.geonorge.no/geonorge/Befolkning/Grunnskoler/PostGIS/Befolkning_03_Oslo_25832_Grunnskoler_PostGIS.zip",
