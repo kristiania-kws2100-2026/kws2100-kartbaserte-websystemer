@@ -15,7 +15,9 @@
     "db:grunnskoler:load": "npm run psql:docker < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql",
     "db:grunnskoler:load:server": "psql $DATABASE_URL < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql",
     "psql:docker": "docker exec -i kws2100_database psql --user postgres",
-    "dev": "vite",
+    "dev": "concurrently npm:dev:client npm:dev:server",
+    "dev:client": "vite",
+    "dev:server": "cd server && npm run dev",
     "postinstall": "cd server && npm install"
   },
   "repository": {
@@ -32,6 +34,7 @@
   "devDependencies": {
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "concurrently": "^9.2.1",
     "download-cli": "^1.1.1",
     "husky": "^9.1.7",
     "prettier": "^3.8.1",

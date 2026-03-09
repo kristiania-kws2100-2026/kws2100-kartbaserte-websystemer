@@ -16,7 +16,7 @@ app.get("/api/grunnskoler", async (c) => {
     select skolenavn,
            antallelever,
            st_transform(posisjon, 4326)::json posisjon
-    from grunnskoler_519889439f4c490fab3f18303772a702.grunnskole
+    from grunnskoler_26f23a96d4914f1dbde464c9bd921e8c.grunnskole
   `);
   return c.json({
     type: "FeatureCollection",
