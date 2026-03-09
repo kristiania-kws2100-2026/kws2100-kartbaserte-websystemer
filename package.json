@@ -16,7 +16,8 @@
     "db:grunnkretser:import": "npm run docker:psql < tmp/Basisdata_03_Oslo_25832_Grunnkretser_PostGIS.sql",
     "server:db:grunnkretser:import": "psql $DATABASE_URL < tmp/Basisdata_03_Oslo_25832_Grunnkretser_PostGIS.sql",
     "docker:psql": "docker exec -i lecture10 psql --user postgres",
-    "prepare": "husky"
+    "prepare": "husky",
+    "postinstall": "cd server && npm install"
   },
   "repository": {
     "type": "git",
