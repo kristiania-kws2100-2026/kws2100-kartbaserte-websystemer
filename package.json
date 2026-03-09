@@ -4,12 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npm run dev:server",
+    "dev:server": "cd server && npm run dev",
+    "test": "tsc --noEmit && prettier --check .",
     "db:load": "npm run db:grunnkretser:download && npm run db:grunnkretser:import && npm run db:prepare-data",
     "db:grunnkretser:download": "download -o tmp --extract https://nedlasting.geonorge.no/geonorge/Basisdata/Grunnkretser/PostGIS/Basisdata_03_Oslo_25832_Grunnkretser_PostGIS.zip",
     "db:grunnkretser:import": "npm run docker:psql < tmp/Basisdata_03_Oslo_25832_Grunnkretser_PostGIS.sql",
     "db:prepare-data": "npm run docker:psql < sql/prepare-data.sql",
-    "docker:psql": "docker exec -i lecture10 psql --user postgres"
+    "docker:psql": "docker exec -i lecture10 psql --user postgres",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -23,6 +26,9 @@
   },
   "homepage": "https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer#readme",
   "devDependencies": {
-    "download-cli": "^1.1.1"
+    "download-cli": "^1.1.1",
+    "husky": "^9.1.7",
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3"
   }
 }
