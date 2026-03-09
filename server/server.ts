@@ -38,9 +38,9 @@ app.get("/api/kommuner/:z/:x/:y", async (c) => {
     `
     select kommunenavn,
            kommunenummer,
-           st_transform(omrade, 4326)::json geometry
-    from kommuner_627ee106072240e99d2b21ec4717bf01.kommune
-    where st_transform(omrade, 3857) && st_tileenvelope($1, $2, $3)
+           omrade_4326::json geometry
+    from kommune
+    where omrade_3857 && st_tileenvelope($1, $2, $3)
   `,
     [z, x, y],
   );
