@@ -1,0 +1,28 @@
+{
+  "name": "kws2100-kartbaserte-websystemer-practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db:load": "npm run db:grunnkretser:download && npm run db:grunnkretser:import && npm run db:prepare-data",
+    "db:grunnkretser:download": "download -o tmp --extract https://nedlasting.geonorge.no/geonorge/Basisdata/Grunnkretser/PostGIS/Basisdata_03_Oslo_25832_Grunnkretser_PostGIS.zip",
+    "db:grunnkretser:import": "npm run docker:psql < tmp/Basisdata_03_Oslo_25832_Grunnkretser_PostGIS.sql",
+    "db:prepare-data": "npm run docker:psql < sql/prepare-data.sql",
+    "docker:psql": "docker exec -i lecture10 psql --user postgres"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/issues"
+  },
+  "homepage": "https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer#readme",
+  "devDependencies": {
+    "download-cli": "^1.1.1"
+  }
+}
