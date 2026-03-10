@@ -55,7 +55,7 @@ with data
                                               on st_dwithin(representasjonspunkt_25832, posisjon_25832, 500)
                      where st_within(representasjonspunkt_4326, omrade_4326)
                        and skolenavn is null)
-                        as antall_med_skole_over_500m
+                        as antall_med_skole_over_750m
              from grunnkrets)
-select data.*, antall_med_skole_over_500m::float / antall_adresser andel_med_skole_over_500m
+select data.*, (antall_med_skole_over_750m::float / antall_adresser) andel_med_skole_over_750m
 from data where antall_adresser > 0;

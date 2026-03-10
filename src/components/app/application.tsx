@@ -5,10 +5,12 @@ import { useGeographic } from "ol/proj.js";
 import { useEffect, useRef } from "react";
 
 import "ol/ol.css";
-import { MVT } from "ol/format.js";
+import { GeoJSON, MVT } from "ol/format.js";
 import { Fill, Stroke, Style } from "ol/style.js";
 import VectorTileLayer from "ol/layer/VectorTile.js";
 import VectorTileSource from "ol/source/VectorTile.js";
+import VectorLayer from "ol/layer/Vector.js";
+import VectorSource from "ol/source/Vector.js";
 
 useGeographic();
 
@@ -18,7 +20,7 @@ function getColor(percent: number) {
   percent = Math.min(1, Math.max(0, percent));
   const red = Math.floor(192 * percent);
   const green = Math.floor(192 * (1 - percent));
-  return `rgba(${red}, ${green}, 0, ${0.75})`;
+  return `rgba(${red}, ${green}, 0, ${0.5})`;
 }
 
 const map = new Map({
@@ -33,9 +35,15 @@ const map = new Map({
         new Style({
           stroke: new Stroke({ color: "black", width: 2 }),
           fill: new Fill({
-            color: getColor(feature.getProperties().antall_adresser / 2000),
+            color: getColor(feature.getProperties().andel_med_skole_over_750m),
           }),
         }),
+    }),
+    new VectorLayer({
+      source: new VectorSource({
+        url: "/api/grunnskole",
+        format: new GeoJSON(),
+      }),
     }),
   ],
   view: new View({ center: [10.7, 59.9], zoom: 11 }),
