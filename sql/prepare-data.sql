@@ -21,7 +21,7 @@ select adresseid,
        adressetekst,
        st_transform(representasjonspunkt, 25832) representasjonspunkt_25832,
        st_transform(representasjonspunkt, 4326) representasjonspunkt_4326
-from matrikkelenadresse_af2184bd5ec443fe9796578813b45a76.vegadresse;
+from matrikkelenadresse_f9082daf35784fad9a537c51fc86f0b1.vegadresse;
 create index representasjonspunkt_25832 on vegadresse using gist(representasjonspunkt_25832);
 create index representasjonspunkt_4326 on vegadresse using gist(representasjonspunkt_4326);
 
@@ -33,7 +33,7 @@ as
            antallelever,
            st_transform(posisjon, 25832) posisjon_25832,
            st_transform(posisjon, 4326) posisjon_4326
-from grunnskoler_975aa91a5d8e4069a0eaebe131408ff8.grunnskole;
+from grunnskoler_80a2440531a34deaba27601707d11f25.grunnskole;
 create index posisjon_25832 on grunnskole using gist(posisjon_25832);
 create index posisjon_4326 on grunnskole using gist(posisjon_4326);
 
