@@ -13,4 +13,4 @@ select adresseid,
        adressetekst,
        representasjonspunkt,
        st_transform(representasjonspunkt, 3857) representasjonspunkt_3857
-from matrikkelenadresse_d5bcd604e92f413aa72644c284cbfcff.vegadresse;
+from matrikkelenadresse_7f8a9e12c663474c8bb142653c35c3bd.vegadresse;

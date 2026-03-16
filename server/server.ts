@@ -28,7 +28,7 @@ app.get("/api/grunnskoler", async (c) => {
     select skolenavn,
            antallelever,
            st_transform(posisjon, 4326)::json geometry
-    from grunnskoler_26f23a96d4914f1dbde464c9bd921e8c.grunnskole
+    from grunnskoler_e39212a4d48d4cf284c6f63f254a3d42.grunnskole
   `);
   return c.json(toGeoJSON(result.rows));
 });
