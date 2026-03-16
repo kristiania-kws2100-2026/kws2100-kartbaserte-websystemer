@@ -548,8 +548,6 @@ app.get("/api/skoler", async (c) => {
   // Returns the result as a standardized GeoJSON `FeatureCollection`
   return c.json({
     type: "FeatureCollection",
-    // tells the client that we're using latitude and longitude. This must match the `st_transform` in the query
-    crs: { type: "name", properties: { name: "ESPG:4326" } },
     features: result.rows.map(
       // Returns GeoJSON features where each feature has the geometry from the SQL
       //  and includes all additional columns in the query as properties
