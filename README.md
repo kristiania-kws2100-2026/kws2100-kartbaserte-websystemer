@@ -132,8 +132,6 @@ client.
 
 ### Lecture 10: Geographical database queries (2026-03-23)
 
-[![Lecture 10 Mentimeter](https://img.shields.io/badge/Lecture_10-mentimenter-yellow)](https://www.menti.com/al8mce67e2hf)
-
 [![Lecture 10 code](https://img.shields.io/badge/Lecture_10-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/10)
 [![Lecture 10 reference](https://img.shields.io/badge/Lecture_10-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/10)
 [![Lecture 10 exercise](https://img.shields.io/badge/Lecture_10-exercise-pink)](./exercises/EXERCISES.md#exercise-10)
