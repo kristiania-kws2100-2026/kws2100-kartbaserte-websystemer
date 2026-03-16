@@ -29,6 +29,12 @@ app.get("/api/skolerapport", async (c) => {
                             grunnkretsnavn,
                             (select count(*) from vegadresse a where st_contains(g.omrade, a.representasjonspunkt))
                               as                             antall_adresser,
+                            (select count(*)
+                             from vegadresse a
+                                    left outer join grunnskole s
+                                                    on st_dwithin(a.representasjonspunkt_25832, s.posisjon_25832, 500)
+                             where st_contains(g.omrade, a.representasjonspunkt) and s.organisasjonsnummer is null)
+                              as                             antall_with_no_school_within_750m,
                             st_transform(omrade, 4326)::json geometry
                      from grunnkretser_1bf5c617d90e489f99cd7b8052ee5aab.grunnkrets g)
     select *
