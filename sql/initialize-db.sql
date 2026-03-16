@@ -1,0 +1,4 @@
+drop schema grunnkretser_1bf5c617d90e489f99cd7b8052ee5aab cascade;
+drop schema grunnskoler_e39212a4d48d4cf284c6f63f254a3d42 cascade;
+drop schema kommuner_627ee106072240e99d2b21ec4717bf01 cascade;
+drop schema matrikkelenadresse_7f8a9e12c663474c8bb142653c35c3bd cascade;

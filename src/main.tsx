@@ -7,36 +7,24 @@ import { OSM } from "ol/source.js";
 
 // @ts-ignore
 import "ol/ol.css";
+import type { FeatureLike } from "ol/Feature.js";
 import VectorLayer from "ol/layer/Vector.js";
 import VectorSource from "ol/source/Vector.js";
-import { GeoJSON, MVT } from "ol/format.js";
-import VectorTileLayer from "ol/layer/VectorTile.js";
-import VectorTileSource from "ol/source/VectorTile.js";
-import type { FeatureLike } from "ol/Feature.js";
+import { GeoJSON } from "ol/format.js";
 
 useGeographic();
-const kommuneLayer = new VectorTileLayer({
-  source: new VectorTileSource({
-    url: "/api/kommuner/{z}/{x}/{y}",
-    format: new MVT(),
-  }),
-});
-const grunnskoleLayer = new VectorLayer({
-  source: new VectorSource({
-    format: new GeoJSON(),
-    url: "/api/grunnskoler",
-  }),
-});
-const vegadresseLayer = new VectorTileLayer({
-  source: new VectorTileSource({
-    url: "/api/vegadresse/{z}/{x}/{y}",
-    format: new MVT(),
-  }),
-});
 const backgroundLayer = new TileLayer({ source: new OSM() });
 const map = new Map({
-  view: new View({ center: [11.05, 59.95], zoom: 14 }),
-  layers: [backgroundLayer, kommuneLayer, grunnskoleLayer, vegadresseLayer],
+  view: new View({ center: [10.7, 59.9], zoom: 11 }),
+  layers: [
+    backgroundLayer,
+    new VectorLayer({
+      source: new VectorSource({
+        url: "/api/skolerapport",
+        format: new GeoJSON(),
+      }),
+    }),
+  ],
 });
 const overlay = new Overlay({
   positioning: "top-center",
@@ -50,15 +38,6 @@ function Application() {
   );
   useEffect(() => {
     map.setTarget(mapRef.current!);
-    map.on("click", (e: MapBrowserEvent) => {
-      const featuresAtPixel = map.getFeaturesAtPixel(e.pixel, {
-        layerFilter: (l) => l === vegadresseLayer,
-      });
-      setSelectedVegadresser(featuresAtPixel);
-      overlay.setPosition(
-        featuresAtPixel.length > 0 ? e.coordinate : undefined,
-      );
-    });
     overlay.setElement(overlayRef.current!);
     map.addOverlay(overlay);
   }, []);
