@@ -25,10 +25,14 @@ function toGeoJSON(rows: (object & { geometry: object })[]) {
 
 app.get("/api/skolerapport", async (c) => {
   const result = await postgres.query(`
-    select grunnkretsnummer,
-           grunnkretsnavn,
-           st_transform(omrade, 4326)::json geometry
-    from grunnkretser_1bf5c617d90e489f99cd7b8052ee5aab.grunnkrets
+    with rapport as (select grunnkretsnummer,
+                            grunnkretsnavn,
+                            (select count(*) from vegadresse a where st_contains(g.omrade, a.representasjonspunkt))
+                              as                             antall_adresser,
+                            st_transform(omrade, 4326)::json geometry
+                     from grunnkretser_1bf5c617d90e489f99cd7b8052ee5aab.grunnkrets g)
+    select *
+    from rapport
   `);
   return c.json(toGeoJSON(result.rows));
 });
