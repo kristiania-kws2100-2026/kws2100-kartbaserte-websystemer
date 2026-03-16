@@ -436,6 +436,7 @@ npm install hono @hono/node-server pg
 npm install --save-dev tsx @types/pg
 npm pkg set scripts.dev="tsx --watch server.ts"
 npm pkg set scripts.start="tsx server.ts"
+npm pgk set type=module
 
 ```
 
@@ -449,6 +450,7 @@ import { serveStatic } from "@hono/node-server/serve-static";
 const app = new Hono();
 // `serveStatic` makes Hono serve the output from `vite build`
 app.get("*", serveStatic({ root: "../dist" }));
+serve(app);
 ```
 
 #### Deploying to Render
