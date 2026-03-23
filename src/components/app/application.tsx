@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import { useGeographic } from "ol/proj.js";
 
 import "ol/ol.css";
+import { FeedMessage } from "../../../generated/gtfs-realtime.js";
 
 useGeographic();
 
@@ -18,3 +19,13 @@ export function Application() {
   useEffect(() => map.setTarget(mapRef.current!), []);
   return <div ref={mapRef}></div>;
 }
+
+async function fetchData() {
+  const res = await fetch(
+    "https://api.entur.io/realtime/v1/gtfs-rt/vehicle-positions",
+  );
+  const message = FeedMessage.decode(new Uint8Array(await res.arrayBuffer()));
+  console.log(message);
+}
+
+await fetchData();

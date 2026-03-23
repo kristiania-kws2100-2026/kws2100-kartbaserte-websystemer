@@ -7,7 +7,8 @@
   "scripts": {
     "test": "tsc --noEmit && prettier --check .",
     "dev": "vite",
-    "prepare": "husky"
+    "prepare": "husky",
+    "protoc:win": ".\\tmp\\protoc.exe --plugin=.\\node_modules\\.bin\\protoc-gen-ts_proto --ts_proto_out=generated/ gtfs-realtime.proto"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
   "dependencies": {
     "ol": "^10.8.0",
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react-dom": "^19.2.4",
+    "ts-proto": "^2.11.5"
   }
 }
