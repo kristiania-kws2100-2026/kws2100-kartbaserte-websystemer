@@ -4,6 +4,8 @@ import { OSM } from "ol/source.js";
 import { useEffect, useRef } from "react";
 import { useGeographic } from "ol/proj.js";
 
+import "ol/ol.css";
+
 useGeographic();
 
 const map = new Map({
