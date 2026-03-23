@@ -38,7 +38,12 @@ const map = new Map({
 
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
-  useEffect(() => map.setTarget(mapRef.current!), []);
+  useEffect(() => {
+    map.setTarget(mapRef.current!);
+    setInterval(() => {
+      loadVehicles();
+    }, 10_000);
+  }, []);
   return <div ref={mapRef}></div>;
 }
 
