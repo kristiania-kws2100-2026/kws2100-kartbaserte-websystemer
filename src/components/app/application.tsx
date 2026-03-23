@@ -15,16 +15,17 @@ import type { FeatureLike } from "ol/Feature.js";
 useGeographic();
 
 const vehicleLayer = new VectorLayer({
-  style: (feature) => {
+  style: (feature, resolution) => {
+    if (resolution > 1000) return new Style();
+    console.log(resolution);
     const ruteNr: string = feature.getProperties().ruteNr;
-    console.log(ruteNr);
     let color = "blue";
     if (ruteNr.startsWith("VY")) {
       color = "red";
     }
     return new Style({
       image: new RegularShape({
-        radius: 10,
+        radius: Math.min(1000 / resolution, 15),
         points: 4,
         fill: new Fill({ color }),
         stroke: new Stroke({ color: "white" }),
