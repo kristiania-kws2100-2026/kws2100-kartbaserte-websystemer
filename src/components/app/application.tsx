@@ -1,4 +1,4 @@
-import { Feature, Map, MapBrowserEvent, View } from "ol";
+import { Feature, Map, MapBrowserEvent, Overlay, View } from "ol";
 import TileLayer from "ol/layer/Tile.js";
 import { OSM } from "ol/source.js";
 import VectorLayer from "ol/layer/Vector.js";
@@ -11,6 +11,8 @@ import { Point } from "ol/geom.js";
 import VectorSource from "ol/source/Vector.js";
 import { Fill, RegularShape, Stroke, Style } from "ol/style.js";
 import type { FeatureLike } from "ol/Feature.js";
+
+import "./application.css";
 
 useGeographic();
 
@@ -37,9 +39,13 @@ const map = new Map({
   layers: [new TileLayer({ source: new OSM() }), vehicleLayer],
   view: new View({ center: [10.7, 59.9], zoom: 10 }),
 });
+const overlay = new Overlay({
+  positioning: "top-center",
+});
 
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
+  const overlayRef = useRef<HTMLDivElement | null>(null);
   const [selectedFeatures, setSelectedFeatures] = useState<FeatureLike[]>([]);
   useEffect(() => {
     map.setTarget(mapRef.current!);
@@ -49,19 +55,22 @@ export function Application() {
     map.on("click", (e: MapBrowserEvent) => {
       const features = map.getFeaturesAtPixel(e.pixel);
       setSelectedFeatures(features);
+      overlay.setPosition(e.coordinate);
     });
+    overlay.setElement(overlayRef.current!);
+    map.addOverlay(overlay);
   }, []);
   return (
     <div ref={mapRef}>
-      <div>
+      <div ref={overlayRef}>
         Selected vehicles:{" "}
-        <div>
+        <ul>
           {selectedFeatures
             .map((p) => p.getProperties())
             .map(({ geometry, ...properties }) => (
-              <pre>{JSON.stringify(properties)}</pre>
+              <li>{properties.ruteNr}</li>
             ))}
-        </div>
+        </ul>
       </div>
     </div>
   );
