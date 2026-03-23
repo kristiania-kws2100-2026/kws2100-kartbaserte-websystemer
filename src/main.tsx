@@ -17,12 +17,14 @@ useGeographic();
 const backgroundLayer = new TileLayer({ source: new OSM() });
 
 function getColor(properties: any) {
-  console.log(properties);
+  const antall_with_no_school_within_750m = parseInt(
+    properties.antall_with_no_school_within_750m,
+  );
   const antall_adresser = parseInt(properties.antall_adresser);
   if (antall_adresser < 20) {
     return "rgba(255, 255, 255, 0.5)";
   }
-  const percentage = antall_adresser / 900.0;
+  const percentage = antall_with_no_school_within_750m / antall_adresser;
   return `rgba(${192 * percentage}, ${192 * (1 - percentage)}, 0, 0.5)`;
 }
 
