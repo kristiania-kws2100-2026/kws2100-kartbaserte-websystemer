@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "tsc --noEmit",
+    "test": "tsc --noEmit && prettier --check .",
     "dev": "vite",
     "prepare": "husky"
   },
@@ -24,6 +24,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "husky": "^9.1.7",
+    "prettier": "^3.8.1",
     "typescript": "^5.9.3",
     "vite": "^8.0.1"
   },
