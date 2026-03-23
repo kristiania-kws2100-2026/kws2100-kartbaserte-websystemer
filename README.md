@@ -1,6 +1,7 @@
 # KWS2100 Geographic Information Web Systems
 
-[![Running website](https://img.shields.io/badge/Course-website-green)](https://kws2100-kartbaserte-websystemer.onrender.com/)
+[![Running website on GH pages](https://img.shields.io/badge/Course-website-green)](kristiania-kws2100-2026.github.io/kws2100-kartbaserte-websystemer/)
+[![Running website on render](https://img.shields.io/badge/Course-website-green)](https://kws2100-kartbaserte-websystemer.onrender.com/)
 
 Welcome to this course in Geographic Information Systems (GIS) for the web. In this course, we will use popular and
 powerful open-source software to explore geographic information systems on the web. The course will
@@ -151,56 +152,19 @@ a heat map reflecting what percentage of houses are located close to a school:
 [![Lecture 11 reference](https://img.shields.io/badge/Lecture_11-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/11)
 [![Lecture 11 exercise](https://img.shields.io/badge/Lecture_11-exercise-pink)](./exercises/EXERCISES.md#exercise-11)
 
-In this lecture, we will create a map that shows public transit in Norway. As a bonus content, we will touch
-on [Vector Tile Layers](https://openlayers.org/en/latest/examples/mapbox-vector-layer.html)
-with [Mapbox styles](https://mapbox.com).
+In this lecture, we will create a map that shows public transit in Norway.
 
 ENTUR is a public sector agency that provides [APIs for Norwegian public transport](https://developer.entur.org/). Among
 these, there is [an API to fetch vehicle positions](https://developer.entur.org/pages-real-time-intro), using the open
 standard [gtfs-realtime (General Transit Feed Specification)](https://gtfs.org/), which is based on the transport
 protocol [protobuf](https://protobuf.dev/). We will use
-the [protoc - protobuf compiler](https://github.com/protocolbuffers/protobuf/releases) tool with the
+the [protoc - protobuf compiler](https://github.com/protoc olbuffers/protobuf/releases) tool with the
 [ts-proto TypeScript library](https://github.com/stephenh/ts-proto) to transform the
 [gtfs-realtime.proto API specification](https://github.com/google/transit/blob/master/gtfs-realtime/proto/gtfs-realtime.proto)
 into TypeScript.
 
 gtfs-realtime provides a fairly low level interface to the vehicle data, and we will need to work to make this into
 something that OpenLayers will be happy to consume.
-
-#### How to read data from ENTUR
-
-<details>
-
-1. Download [`protoc`](https://github.com/protocolbuffers/protobuf/releases) and store it locally (but `.gitignored` - it's pretty big)
-2. `npm install ts-proto` for TypeScript bindings
-3. Download the [gtfs-realtime.proto spec](https://github.com/google/transit/blob/master/gtfs-realtime/proto/gtfs-realtime.proto)
-4. Run `protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=generated/ --ts_proto_opt=esModuleInterop=true ./gtfs-realtime.proto`
-   - Note: ⚠ On Windows, you have to replace `protoc-gen-ts_proto` with `protoc-gen-ts_proto.cmd`, so the full command is
-     `protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto.cmd --ts_proto_out=generated/ --ts_proto_opt=esModuleInterop=true ./gtfs-realtime.proto`
-   - Note: You may want to add a `script` in `package.json` for this
-5. Read the binary data from ENTUR: `const res = await fetch("https://api.entur.io/realtime/v1/gtfs-rt/vehicle-positions")`
-6. Parse the data using the generated spec: `FeedMessage.decode(new Uint8Array(await res.arrayBuffer()))`
-7. Create features using `vehicle.position.longitude` and `vehicle.position.latitude` from `Feedmessage.entity`
-
-Complete code:
-
-```typescript
-const res = await fetch(
-  "https://api.entur.io/realtime/v1/gtfs-rt/vehicle-positions",
-);
-const features = FeedMessage.decode(new Uint8Array(await res.arrayBuffer()))
-  .entity.map((e) => e.vehicle)
-  .filter((e) => !!e)
-  .map((vehicle) => {
-    const position = vehicle?.position!;
-    const { latitude, longitude } = position;
-    // Here you may want to include other properties in the Feature
-    return new Feature({ geometry: new Point([longitude, latitude]) });
-  });
-const vectorSource = new VectorSource({ features });
-```
-
-</details>
 
 ### Lecture 12: Review of PostGIS and Render (with slow-coding) - (2026-04-13)
 
@@ -381,7 +345,7 @@ jobs:
     runs-on: ubuntu-latest
     # The list of actions to execute in this job
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-node@v4
         with: { node-version: 22.x, cache: "npm" }
       # "npm ci" is almost the same as "npm install". As `node_modules` is `.gitignore`-d,

@@ -658,3 +658,20 @@ Here are some additional tasks
 - Return the data as Vector Tiles to avoid loading unnecessary data, as in [exercise 9](#exercise-9)
 
 </details>
+
+## Exercise 11
+
+### Points that move
+
+<details open>
+
+1. Using the notes from [notes for lecture 9](https://github.com/kristiania-kws2100-2024/kristiania-kws2100-2024.github.io/tree/reference/11), create a map with public transportation in Norway.
+2. Try to use [MapboxVectorLayer](https://openlayers.org/en/latest/examples/mapbox-vector-layer.html) to show the background map from a vector source
+
+- `npm install ol-mapbox-style`
+- `const backgroundLayer = new MapboxVectorLayer({ styleUrl: "mapbox://styles/mapbox/bright-v9" });`
+- To deploy to GitHub pages, you need to sign up and create an accessToken for your GitHub pages domain
+
+3. Create and retain React State objects from the ENTUR Feed with a history of positions. Create two Vector Layers from the vehicles: The Point-based one with the current position and a VectorSource with LineStrings for the historical positions of the vehicles0
+
+</details>
