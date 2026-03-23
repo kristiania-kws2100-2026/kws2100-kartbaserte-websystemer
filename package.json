@@ -7,6 +7,7 @@
   "scripts": {
     "test": "tsc --noEmit && prettier --check .",
     "dev": "vite",
+    "build": "vite build",
     "prepare": "husky",
     "protoc:win": ".\\tmp\\protoc.exe --plugin=.\\node_modules\\.bin\\protoc-gen-ts_proto --ts_proto_out=generated/ gtfs-realtime.proto"
   },
