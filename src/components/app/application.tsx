@@ -1,17 +1,19 @@
-import { Feature, Map, MapBrowserEvent, View } from "ol";
+import { Feature, Map, MapBrowserEvent, Overlay, View } from "ol";
 import TileLayer from "ol/layer/Tile.js";
 import { OSM } from "ol/source.js";
 import { useEffect, useRef, useState } from "react";
 import { useGeographic } from "ol/proj.js";
 
-import "ol/ol.css";
 import { FeedMessage } from "../../../generated/gtfs-realtime.js";
 import VectorLayer from "ol/layer/Vector.js";
-import { Pointer } from "ol/interaction.js";
 import { Point } from "ol/geom.js";
 import VectorSource from "ol/source/Vector.js";
 import type { FeatureLike } from "ol/Feature.js";
 import { Fill, RegularShape, Stroke, Style } from "ol/style.js";
+
+import "ol/ol.css";
+
+import "./application.css";
 
 useGeographic();
 
@@ -30,9 +32,11 @@ const map = new Map({
   layers: [new TileLayer({ source: new OSM() }), vehicleLayer],
   view: new View({ center: [10.7, 59.9], zoom: 10 }),
 });
+const overlay = new Overlay({ positioning: "top-center" });
 
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
+  const overlayRef = useRef<HTMLDivElement | null>(null);
   const [selectedFeatures, setSelectedFeatures] = useState<FeatureLike[]>([]);
   useEffect(() => {
     map.setTarget(mapRef.current!);
@@ -42,17 +46,22 @@ export function Application() {
     map.on("click", (e: MapBrowserEvent) => {
       const features = map.getFeaturesAtPixel(e.pixel, {});
       setSelectedFeatures(features);
+      overlay.setPosition(e.coordinate);
     });
+    map.addOverlay(overlay);
+    overlay.setElement(overlayRef.current!);
   }, []);
   return (
     <div ref={mapRef}>
-      <div>
+      <div ref={overlayRef}>
         Selected vehicles:{" "}
-        {selectedFeatures
-          .map((f) => f.getProperties())
-          .map(({ geometry, ...properties }) => (
-            <pre>{JSON.stringify(properties)}</pre>
-          ))}
+        <ul>
+          {selectedFeatures
+            .map((f) => f.getProperties())
+            .map(({ routeId }) => (
+              <li>{routeId}</li>
+            ))}
+        </ul>
       </div>
     </div>
   );
