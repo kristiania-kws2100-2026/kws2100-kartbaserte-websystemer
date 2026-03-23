@@ -1,8 +1,8 @@
-import { Feature, Map, View } from "ol";
+import { Feature, Map, MapBrowserEvent, View } from "ol";
 import TileLayer from "ol/layer/Tile.js";
 import { OSM } from "ol/source.js";
 import VectorLayer from "ol/layer/Vector.js";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGeographic } from "ol/proj.js";
 
 import "ol/ol.css";
@@ -10,6 +10,7 @@ import { FeedMessage } from "../../../generated/gtfs-realtime.js";
 import { Point } from "ol/geom.js";
 import VectorSource from "ol/source/Vector.js";
 import { Fill, RegularShape, Stroke, Style } from "ol/style.js";
+import type { FeatureLike } from "ol/Feature.js";
 
 useGeographic();
 
@@ -23,7 +24,7 @@ const vehicleLayer = new VectorLayer({
     }
     return new Style({
       image: new RegularShape({
-        radius: 8,
+        radius: 10,
         points: 4,
         fill: new Fill({ color }),
         stroke: new Stroke({ color: "white" }),
@@ -38,13 +39,31 @@ const map = new Map({
 
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
+  const [selectedFeatures, setSelectedFeatures] = useState<FeatureLike[]>([]);
   useEffect(() => {
     map.setTarget(mapRef.current!);
     setInterval(() => {
       loadVehicles();
     }, 10_000);
+    map.on("click", (e: MapBrowserEvent) => {
+      const features = map.getFeaturesAtPixel(e.pixel);
+      setSelectedFeatures(features);
+    });
   }, []);
-  return <div ref={mapRef}></div>;
+  return (
+    <div ref={mapRef}>
+      <div>
+        Selected vehicles:{" "}
+        <div>
+          {selectedFeatures
+            .map((p) => p.getProperties())
+            .map(({ geometry, ...properties }) => (
+              <pre>{JSON.stringify(properties)}</pre>
+            ))}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 async function loadVehicles() {
@@ -52,7 +71,6 @@ async function loadVehicles() {
     "https://api.entur.io/realtime/v1/gtfs-rt/vehicle-positions",
   );
   const message = FeedMessage.decode(Uint8Array.from(await res.bytes()));
-  console.log(message.entity);
   const features = message.entity.map((e) => {
     const { routeId } = e.vehicle?.trip!;
     const { latitude, longitude } = e.vehicle?.position!;
