@@ -663,7 +663,7 @@ Here are some additional tasks
 
 ### Points that move
 
-<details open>
+<details>
 
 1. Using the notes from [notes for lecture 9](https://github.com/kristiania-kws2100-2024/kristiania-kws2100-2024.github.io/tree/reference/11), create a map with public transportation in Norway.
 2. Try to use [MapboxVectorLayer](https://openlayers.org/en/latest/examples/mapbox-vector-layer.html) to show the background map from a vector source
@@ -673,5 +673,16 @@ Here are some additional tasks
 - To deploy to GitHub pages, you need to sign up and create an accessToken for your GitHub pages domain
 
 3. Create and retain React State objects from the ENTUR Feed with a history of positions. Create two Vector Layers from the vehicles: The Point-based one with the current position and a VectorSource with LineStrings for the historical positions of the vehicles0
+
+</details>
+
+## Exercise 12
+
+### Geographical database rehashed
+
+<details open>
+
+1. Using the notes from [notes for lecture 12](https://github.com/kristiania-kws2100-2024/kristiania-kws2100-2024.github.io/tree/reference/12) to deploy a map to Render with schools.
+2. Using the reference application as a starting point, add a Vector Tile Layer that loads address points when you zoom in at a sufficient detail
 
 </details>
