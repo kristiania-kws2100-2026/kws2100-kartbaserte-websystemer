@@ -1,7 +1,7 @@
 # KWS2100 Geographic Information Web Systems
 
 [![Running website on GH pages](https://img.shields.io/badge/Course-website-green)](https://kristiania-kws2100-2026.github.io/kws2100-kartbaserte-websystemer/)
-[![Running website on render](https://img.shields.io/badge/Course-server-green)](https://kws2100-kartbaserte-websystemer.onrender.com/)
+[![Running website on render](https://img.shields.io/badge/Course-server-green)](https://kws2100-kartbaserte-websystemer-cx74.onrender.com/)
 
 Welcome to this course in Geographic Information Systems (GIS) for the web. In this course, we will use popular and
 powerful open-source software to explore geographic information systems on the web. The course will
@@ -28,7 +28,7 @@ The lectures will be recorded and the recordings will be available to students i
 [![Lecture 1 exercise](https://img.shields.io/badge/Lecture_1-exercise-pink)](./exercises/EXERCISES.md#exercise-1)
 
 We will create a React application that will display a simple map with a background layer
-from [Open Street Map](https://www.openstreetmap.org/) and a [vector layer](https://github.com/robhop/fylker-og-kommuner/blob/main/Fylker-M.geojson). The reference branch documents how
+from [OpenStreetMap](https://www.openstreetmap.org/) and a [vector layer](https://github.com/robhop/fylker-og-kommuner/blob/main/Fylker-M.geojson). The reference branch documents how
 to style polygon and point features, how to deploy to GitHub Pages and how to implement
 OpenLayers handler for hover and click.
 
@@ -69,7 +69,7 @@ projection. In the process, we will learn that the earth is indeed round.
 
 #### Reference:
 
-- [UTM 32V i Store Norske Leksikon](https://snl.no/UTM)
+- [UTM 32V in Store Norske Leksikon](https://snl.no/UTM)
 - [Map Men: Why Every Map is Wrong](https://www.youtube.com/watch?v=jtBV3GgQLg8) (silly, but educational)
 
 ### Lecture 5: Review (2026-02-02)
@@ -171,9 +171,8 @@ something that OpenLayers will be happy to consume.
 [![Lecture 12 code](https://img.shields.io/badge/Lecture_12-lecture_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/lecture/12)
 [![Lecture 12 reference](https://img.shields.io/badge/Lecture_12-reference_code-blue)](https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/tree/reference/12)
 
-This week's lecture, we will talk a [little about the exam](./exercises/exam-prep.md).
-In this lecture, we will review how to get data from PostgreSQL to the OpenLayers. We will also explore some more
-feature of PostGIS, including creating buffers around features in the database.
+In this lecture, we will review how to get data from PostgreSQL to the OpenLayers on the Render service.
+The reference code contain exercise instructions.
 
 ## Reference material
 
@@ -421,7 +420,7 @@ serve(app);
 
 In order to deploy to Render you need to register an account with [Render](https://render.com).
 
-(Alternatively, you can use Heroku. Read through the documentation about [Heroku for GitHub Students](https://www.heroku.com/github-students) so you understand how to avoid cloud bills.
+(Alternatively, you can use Heroku. Read through the documentation about [Heroku for GitHub Students](https://www.heroku.com/github-students) so you understand how to avoid cloud bills)
 
 ## Implementing layer API services with a Hono server and PostGis database
 
@@ -449,18 +448,26 @@ Start the Postgis server in Docker by running `docker compose up` (or `docker co
 Downloading and importing data into Postgis can be useful scripts to include in your package.json. Here is an example using schools:
 
 1. We want to execute "download" as a command with npm: `npm install download-cli`
-2. Getting schools involves downloading and then importing the data: `npm pkg set scripts.db:schools="npm run db:schools:download && npm run db:schools:import"`
-3. Download the schools from Kartverket: `npm pkg set scripts.db:schools:download="download --extract --out tmp/ https://nedlasting.geonorge.no/geonorge/Befolkning/Grunnskoler/PostGIS/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.zip"` (replace the URL for other data sets)
-4. Install into Postgis using docker: `npm pkg set scripts.db:schools:import="docker exec -i /postgis /usr/bin/psql --user postgres < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql"` (replace file name when downloading another data set)
-5. Import the data using `npm run db:schools` (running the command multiple times will result in an error since the data already exists)
+2. Getting schools involves downloading and then importing the data: `npm pkg set scripts.db:load:docker="npm run db:grunnskoler:download && npm run db:grunnskoler:load:docker"`
+3. Download the schools from Kartverket: `npm pkg set scripts.db:grunnskoler:download="download --extract --out tmp/ https://nedlasting.geonorge.no/geonorge/Befolkning/Grunnskoler/PostGIS/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.zip"` (replace the URL for other data sets)
+4. Load into Postgis using docker: `npm pkg set scripts.db:grunnskoler:load:docker="npm run db:psql:docker < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql"` (replace file name when downloading another data set)
+5. Define executing psql with docker: `npm pkg set scripts.db:psql:docker="docker exec -i /postgis /usr/bin/psql --user postgres`
+6. Import the data using `npm run db:load:docker` (running the command multiple times will result in an error since the data already exists)
+7. Define a script for setting up postgis and load the data on the server: `npm pkg set scripts.db:load:docker="npm run db:init:server && npm run db:grunnskoler:download && npm run db:grunnskoler:load:server"`
+8. Define initializing postgis on the server: `npm pkg set scripts.db:init:server="echo create extension if not exists postgis | psql $DATABASE_URL"`
+9. Load into Postgis on the server: `psql $DATABASE_URL < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql` (replace file name when downloading another data set)
 
 **Here is a complete summary for downloading the schools:**
 
 ```shell
 npm install download-cli
-npm pkg set scripts.db:schools="npm run db:schools:download && npm run db:schools:import"
-npm pkg set scripts.db:schools:download="download --extract --out tmp/ https://nedlasting.geonorge.no/geonorge/Befolkning/Grunnskoler/PostGIS/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.zip"
-npm pkg set scripts.db:schools:import="docker exec -i /postgis /usr/bin/psql --user postgres < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql"
+npm pkg set scripts.db:load:docker="npm run db:grunnskoler:download && npm run db:grunnskoler:load:docker"
+npm pkg set scripts.db:grunnskoler:download="download --extract --out tmp/ https://nedlasting.geonorge.no/geonorge/Befolkning/Grunnskoler/PostGIS/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.zip"
+npm pkg set scripts.db:grunnskoler:load:docker="npm run db:psql:docker < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql"
+npm pkg set scripts.db:psql:docker="docker exec -i /postgis /usr/bin/psql --user postgres
+npm pkg set scripts.db:load:server="npm run db:init:server && npm run db:grunnskoler:download && npm run db:grunnskoler:load:server"
+npm pkg set scripts.db:init:server="echo create extension if not exists postgis | psql $DATABASE_URL"
+npm pkg set scripts.db:grunnskoler:load:server="psql $DATABASE_URL < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql"
 
 ```
 
@@ -568,14 +575,14 @@ This is advanced JavaScript syntax that can look confusing at first, but that re
 
 ## Tools
 
-### IntellJ shortcuts
+### IntelliJ shortcuts
 
 <details>
 
 These are some of the most versatile keyboard shortcuts in IntelliJ. There are many more, but learning these 12 will really speed up your code
 
 | Shortcut (Windows)   | Shortcut (Mac)      | Command                                    |
-| -------------------- | ------------------- | ------------------------------------------ |
+|----------------------|---------------------|--------------------------------------------|
 | alt-enter            | opt-enter           | Show content action (quick fix)            |
 | ctrl-alt-shift-t     | ctrl-t              | Refactor this (show refactor menu)         |
 | alt-insert           | cmd-n               | New... (add some content)                  |
@@ -598,7 +605,7 @@ favorite refactorings like Extract method, Rename and Inline.
 <details>
 
 | Command      | Description                              | IntelliJ shortcut                         |
-| ------------ | ---------------------------------------- | ----------------------------------------- |
+|--------------|------------------------------------------|-------------------------------------------|
 | `git init`   | Creates a new local git repo in `.git/`  | VCS > Import into version control         |
 | `git add`    | Stage files to include in next commit    | (not needed)                              |
 | `git commit` | Store your local changes in git history  | ctrl-k / cmd-k                            |
