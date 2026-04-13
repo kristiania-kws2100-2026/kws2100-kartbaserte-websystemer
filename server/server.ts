@@ -3,11 +3,12 @@ import { serve } from "@hono/node-server";
 import pg from "pg";
 import { serveStatic } from "@hono/node-server/serve-static";
 
+const app = new Hono();
+
 const connectionString =
   process.env.DATABASE_URL || "psql://postgres@localhost";
 const db = new pg.Pool({ connectionString });
 
-const app = new Hono();
 app.get("/api/grunnskole", async (c) => {
   const result = await db.query(`
     select skolenavn, organisasjonsnummer, antallelever, st_transform(posisjon, 4326)::json geometry
