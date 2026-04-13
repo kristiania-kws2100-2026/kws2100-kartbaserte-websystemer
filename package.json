@@ -7,7 +7,10 @@
     "db:load:docker": "npm run db:grunnskoler:download && npm run db:grunnskoler:load:docker",
     "db:grunnskoler:download": "download --extract --out tmp https://nedlasting.geonorge.no/geonorge/Befolkning/Grunnskoler/PostGIS/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.zip",
     "db:grunnskoler:load:docker": "npm run db:pg:docker < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql",
-    "db:pg:docker": "docker exec -i kws2100 /usr/bin/psql --user postgres"
+    "db:pg:docker": "docker exec -i kws2100 /usr/bin/psql --user postgres",
+    "start": "cd server && npm start",
+    "build": "vite build",
+    "postinstall": "cd server && npm install"
   },
   "repository": {
     "type": "git",
