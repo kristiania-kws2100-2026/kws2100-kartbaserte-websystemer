@@ -464,7 +464,7 @@ npm install download-cli
 npm pkg set scripts.db:load:docker="npm run db:grunnskoler:download && npm run db:grunnskoler:load:docker"
 npm pkg set scripts.db:grunnskoler:download="download --extract --out tmp/ https://nedlasting.geonorge.no/geonorge/Befolkning/Grunnskoler/PostGIS/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.zip"
 npm pkg set scripts.db:grunnskoler:load:docker="npm run db:psql:docker < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql"
-npm pkg set scripts.db:psql:docker="docker exec -i /postgis /usr/bin/psql --user postgres
+npm pkg set scripts.db:psql:docker="docker exec -i /postgis /usr/bin/psql --user postgres"
 npm pkg set scripts.db:load:server="npm run db:init:server && npm run db:grunnskoler:download && npm run db:grunnskoler:load:server"
 npm pkg set scripts.db:init:server="echo create extension if not exists postgis | psql $DATABASE_URL"
 npm pkg set scripts.db:grunnskoler:load:server="psql $DATABASE_URL < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql"
