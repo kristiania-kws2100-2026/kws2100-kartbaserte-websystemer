@@ -7,7 +7,11 @@
   "scripts": {
     "test": "tsc --noEmit && prettier --check .",
     "dev": "vite",
-    "prepare": "husky"
+    "prepare": "husky",
+    "db:load:docker": "npm run db:grunnskole:download && npm run db:grunnskole:load:docker",
+    "db:grunnskole:download": "download --extract --out tmp https://nedlasting.geonorge.no/geonorge/Befolkning/Grunnskoler/PostGIS/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.zip",
+    "db:grunnskole:load:docker": "npm run db:psql:docker < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql",
+    "db:psql:docker": "docker exec -i kws2100 /usr/bin/psql --user postgres"
   },
   "repository": {
     "type": "git",
@@ -23,6 +27,7 @@
   "devDependencies": {
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "download-cli": "^1.1.1",
     "husky": "^9.1.7",
     "prettier": "^3.8.2",
     "typescript": "^6.0.2",
