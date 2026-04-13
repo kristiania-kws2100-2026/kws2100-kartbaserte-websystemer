@@ -1,27 +1,22 @@
 {
-  "name": "kws2100-kartbaserte-websystemer-practice",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "kws2100-kartbaserte-websystemer",
   "scripts": {
     "test": "tsc --noemit && prettier --check .",
     "dev": "vite",
-    "prepare": "husky"
+    "prepare": "husky",
+    "db:load:docker": "npm run db:grunnskoler:download && npm run db:grunnskoler:load:docker",
+    "db:grunnskoler:download": "download --extract --out tmp https://nedlasting.geonorge.no/geonorge/Befolkning/Grunnskoler/PostGIS/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.zip",
+    "db:grunnskoler:load:docker": "npm run db:pg:docker < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql",
+    "db:pg:docker": "docker exec -i kws2100 /usr/bin/psql --user postgres"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer/issues"
-  },
-  "homepage": "https://github.com/kristiania-kws2100-2026/kws2100-kartbaserte-websystemer#readme",
   "devDependencies": {
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "download-cli": "^1.1.1",
     "prettier": "^3.8.2",
     "typescript": "^6.0.2",
     "vite": "^8.0.8"

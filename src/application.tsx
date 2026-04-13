@@ -17,7 +17,10 @@ const map = new Map({
   layers: [
     new TileLayer({ source: new OSM() }),
     new VectorLayer({
-      source: new VectorSource({ url: "/api/kommuner", format: new GeoJSON() }),
+      source: new VectorSource({
+        url: "/api/grunnskole",
+        format: new GeoJSON(),
+      }),
     }),
     new VectorTileLayer({
       source: new VectorTileSource({
