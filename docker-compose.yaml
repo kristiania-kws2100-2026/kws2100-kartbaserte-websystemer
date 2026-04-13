@@ -1,0 +1,9 @@
+services:
+  kws2100_db:
+    image: postgis/postgis
+    container_name: kws2100
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
