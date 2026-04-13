@@ -1,3 +1,4 @@
 import { createRoot } from "react-dom/client";
+import { Application } from "./application.js";
 
-createRoot(document.getElementById("app")!).render(<h1>My Map</h1>);
+createRoot(document.getElementById("app")!).render(<Application />);
