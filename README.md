@@ -399,7 +399,7 @@ npm install hono @hono/node-server pg
 npm install --save-dev tsx @types/pg
 npm pkg set scripts.dev="tsx --watch server.ts"
 npm pkg set scripts.start="tsx server.ts"
-npm pgk set type=module
+npm pkg set type=module
 
 ```
 
