@@ -5,7 +5,8 @@ import { serveStatic } from "@hono/node-server/serve-static";
 
 const app = new Hono();
 
-const connectionString = "psql://postgres@localhost";
+const connectionString =
+  process.env.DATABASE_URL || "psql://postgres@localhost";
 const db = new pg.Pool({ connectionString });
 
 app.get("/api/grunnskole", async (c) => {
