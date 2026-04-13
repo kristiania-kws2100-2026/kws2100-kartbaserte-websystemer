@@ -4,7 +4,7 @@ import VectorSource from "ol/source/Vector.js";
 import VectorTileLayer from "ol/layer/VectorTile.js";
 import VectorTileSource from "ol/source/VectorTile.js";
 import type { FeatureLike } from "ol/Feature.js";
-import { GeoJSON } from "ol/format.js";
+import { GeoJSON, MVT } from "ol/format.js";
 import { Map, MapBrowserEvent, Overlay, View } from "ol";
 import { OSM } from "ol/source.js";
 import { useEffect, useRef, useState } from "react";
@@ -26,8 +26,8 @@ const map = new Map({
     }),
     new VectorTileLayer({
       source: new VectorTileSource({
-        url: "/api/adresser",
-        format: new GeoJSON(),
+        url: "/api/adresser/{z}/{x}/{y}",
+        format: new MVT(),
       }),
     }),
   ],

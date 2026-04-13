@@ -22,6 +22,11 @@ app.get("/api/grunnskole", async (c) => {
     })),
   });
 });
+app.get("/api/adresser/:z/:x/:y", (c) => {
+  const { z, x, y } = c.req.param();
+  console.log("/api/addresser", { x, y, z });
+  return c.newResponse("Not implemented", 500);
+});
 
 app.use("*", serveStatic({ root: "../dist" }));
 
