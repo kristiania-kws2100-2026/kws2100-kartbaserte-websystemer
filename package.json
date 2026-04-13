@@ -7,7 +7,10 @@
   "scripts": {
     "test": "tsc --noEmit && prettier --check .",
     "dev": "vite",
+    "start": "cd server && npm start",
+    "build": "vite build",
     "prepare": "husky",
+    "postinstall": "cd server && npm install",
     "db:load:docker": "npm run db:grunnskole:download && npm run db:grunnskole:load:docker",
     "db:grunnskole:download": "download --extract --out tmp https://nedlasting.geonorge.no/geonorge/Befolkning/Grunnskoler/PostGIS/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.zip",
     "db:grunnskole:load:docker": "npm run db:psql:docker < tmp/Befolkning_0000_Norge_25833_Grunnskoler_PostGIS.sql",
