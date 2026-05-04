@@ -36,6 +36,27 @@ const MVT_CONTENT_TYPE = {
   "Content-Type": "application/vnd.mapbox-vector-tile",
 };
 
+app.post("/api/adresser", async (c) => {
+  const geometry = await c.req.json();
+  console.log(JSON.stringify(geometry));
+  const result = await db.query(
+    `
+    select *
+    from vegadresse
+    where st_within(
+            representasjonspunkt_4326,
+            ST_geomfromgeojson($1)
+          )
+    limit 1001
+  `,
+    [geometry],
+  );
+  if (result.rowCount && result.rowCount > 1000) {
+    return c.json({ error: "too many rows" });
+  }
+  return c.json({ adresser: result.rows });
+});
+
 app.get("/api/adresser/:z/:x/:y", async (c) => {
   const { x, y, z } = c.req.param();
   const zoom = parseInt(z);

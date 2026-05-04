@@ -1,5 +1,15 @@
+* {
+  margin: unset;
+}
+
 .ol-overlay-container {
   background-color: white;
   padding: 0.25rem;
   border-radius: 0.5rem;
+}
+
+#app {
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr;
 }
