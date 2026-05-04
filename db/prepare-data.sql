@@ -32,3 +32,5 @@ from matrikkelenadresse_7747f3cba3fe4f07ba70800c1b75240a.vegadresse a;
 
 create index vegadresse_representasjonspunkt_3857_idx
     on vegadresse using GIST (representasjonspunkt_3857);
+create index vegadresse_representasjonspunkt_4326_idx
+    on vegadresse using GIST (representasjonspunkt_4326);
