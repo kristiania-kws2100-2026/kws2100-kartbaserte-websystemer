@@ -15,6 +15,12 @@ import "./application.css";
 
 useGeographic();
 
+const adresseLayer = new VectorTileLayer({
+  source: new VectorTileSource({
+    url: "/api/adresser/{z}/{x}/{y}",
+    format: new MVT(),
+  }),
+});
 const map = new Map({
   layers: [
     new TileLayer({ source: new OSM() }),
@@ -24,12 +30,7 @@ const map = new Map({
         format: new GeoJSON(),
       }),
     }),
-    new VectorTileLayer({
-      source: new VectorTileSource({
-        url: "/api/adresser/{z}/{x}/{y}",
-        format: new MVT(),
-      }),
-    }),
+    adresseLayer,
   ],
   view: new View({ center: [10.7, 59.9], zoom: 12 }),
 });
@@ -37,10 +38,22 @@ const overlay = new Overlay({
   positioning: "top-center",
 });
 
+type AdresseFeature = {
+  properties: {
+    adressetekst: string;
+    adresseid: number;
+    adressenavn: string;
+    bokstav: string | undefined;
+    nummer: number | undefined;
+    bruksenheter_json: string[];
+    antall_bruksenhet: number;
+  };
+} & FeatureLike;
+
 export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
-  const [selectedGrunnskoler, setSelectedGrunnskoler] = useState<FeatureLike[]>(
+  const [selectedAdresser, setSelectedAdresser] = useState<AdresseFeature[]>(
     [],
   );
 
@@ -50,8 +63,10 @@ export function Application() {
     map.addOverlay(overlay);
 
     map.on("click", (e: MapBrowserEvent) => {
-      const features = map.getFeaturesAtPixel(e.pixel);
-      setSelectedGrunnskoler(features);
+      const features = map.getFeaturesAtPixel(e.pixel, {
+        layerFilter: (l) => l === adresseLayer,
+      });
+      setSelectedAdresser(features as AdresseFeature[]);
       overlay.setPosition(features.length > 0 ? e.coordinate : undefined);
     });
   });
@@ -59,9 +74,12 @@ export function Application() {
   return (
     <div ref={mapRef}>
       <div ref={overlayRef}>
-        Selected school:{" "}
-        {selectedGrunnskoler.map((s) => (
-          <div>{s.getProperties()["skolenavn"]}</div>
+        Adresse:{" "}
+        {selectedAdresser.map((s) => (
+          <div>
+            {s.getProperties().adressenavn} (
+            {s.getProperties().antall_bruksenhet} bruksenheter)
+          </div>
         ))}
       </div>
     </div>
