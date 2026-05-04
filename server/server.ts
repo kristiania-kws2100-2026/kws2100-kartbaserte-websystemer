@@ -1,9 +1,11 @@
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { serve } from "@hono/node-server";
 import pg from "pg";
 import { serveStatic } from "@hono/node-server/serve-static";
 
 const app = new Hono();
+app.use("/api/*", cors());
 
 const connectionString =
   process.env.DATABASE_URL || "psql://postgres@localhost";
