@@ -93,4 +93,4 @@ app.get("/api/adresser/:z/:x/:y", async (c) => {
 
 app.use("*", serveStatic({ root: "../dist" }));
 
-serve(app);
+serve({ fetch: app.fetch, port: 8080 });
