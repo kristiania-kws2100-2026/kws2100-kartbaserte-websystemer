@@ -25,6 +25,7 @@
     "db:stemmekretser:load:server": "psql $DATABASE_URL < tmp/Basisdata_0000_Norge_25835_StemmekretserMed2024Inndeling_PostGIS.sql",
     "db:psql:docker": "docker exec -i kws2100 /usr/bin/psql --user postgres",
     "start": "cd server && npm start",
+    "prestart": "npm run build",
     "build": "vite build",
     "postinstall": "cd server && npm install"
   },
