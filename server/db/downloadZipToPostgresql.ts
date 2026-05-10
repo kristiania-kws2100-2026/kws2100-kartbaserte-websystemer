@@ -26,7 +26,7 @@ export async function downloadZipToPostgresql(
   );
   if (rows.length > 1) throw Error("whops!");
 
-  const tmpDir = process.env.TMP || "/tmp";
+  const tmpDir = process.env.TMP || "./tmp";
   const file = `${tmpDir}/${prefix}.zip`;
   console.log(`Downloading ${file}`);
   const res = await fetch(url, { headers: { "If-None-Match": rows[0]?.etag } });
@@ -55,10 +55,10 @@ export async function downloadZipToPostgresql(
   const result: Promise<unknown>[] = [];
   zipFile.forEach((entry) => {
     console.log(file + ": " + entry.entryName);
-    zipFile.extractEntryTo(entry, `${tmpDir} || "/tmp/.`);
+    zipFile.extractEntryTo(entry, `${tmpDir} || "./tmp/.`);
     const command =
       os.platform() === "win32"
-        ? `cmd /c "docker exec -i kws2100 /usr/bin/psql --user postgres < ${tmpDir} || "/tmp/${entry.entryName}"`
+        ? `cmd /c "docker exec -i kws2100 /usr/bin/psql --user postgres < ${tmpDir} || "./tmp/${entry.entryName}"`
         : `/usr/bin/psql ${connectionString} < ${tmpDir}/${entry.entryName}`;
     console.log("executing " + command);
     const proc = exec(command);
