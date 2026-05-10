@@ -4,6 +4,9 @@ import stream from "stream/promises";
 import AdmZip from "adm-zip";
 import { exec } from "child_process";
 import os from "os";
+import { join } from "node:path";
+import { tmpdir } from "node:os";
+
 export async function downloadZipToPostgresql(
   conn: pg.PoolClient,
   prefix: string,
@@ -26,7 +29,7 @@ export async function downloadZipToPostgresql(
   );
   if (rows.length > 1) throw Error("whops!");
 
-  const tmpDir = process.env.TMP || "./tmp";
+  const tmpDir = fs.mkdtempSync(join(tmpdir(), "load-" + prefix));
   const file = `${tmpDir}/${prefix}.zip`;
   console.log(`Downloading ${file}`);
   const res = await fetch(url, { headers: { "If-None-Match": rows[0]?.etag } });
@@ -99,4 +102,15 @@ export async function setupSysadm(conn: pg.PoolClient) {
       create schema if not exists staging;
     `,
   );
+}
+
+export async function getSchemaName(conn: pg.PoolClient, prefix: string) {
+  const { rows } = await conn.query(
+    `select schema_name from information_schema.schemata where schema_name like $1`,
+    [prefix + "%"],
+  );
+  if (rows.length !== 1) {
+    throw Error(`${rows.length} schemas matching ${prefix}%`);
+  }
+  return rows[0].schema_name;
 }
