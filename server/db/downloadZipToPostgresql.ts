@@ -8,6 +8,7 @@ export async function downloadZipToPostgresql(
   conn: pg.PoolClient,
   prefix: string,
   url: string,
+  connectionString: string,
 ) {
   const existingSchemas = (
     await conn.query(
@@ -54,20 +55,21 @@ export async function downloadZipToPostgresql(
   const result: Promise<unknown>[] = [];
   zipFile.forEach((entry) => {
     console.log(file + ": " + entry.entryName);
-    const proc = exec(
+    zipFile.extractEntryTo(entry, "./tmp/.");
+    const command =
       os.platform() === "win32"
-        ? "docker exec -i kws2100 /usr/bin/psql --user postgres"
-        : `/usr/bin/psql ${process.env.DATABASE_URL}`,
-    );
+        ? `cmd /c "docker exec -i kws2100 /usr/bin/psql --user postgres < ./tmp/${entry.entryName}"`
+        : `/usr/bin/psql ${connectionString} < ./tmp/${entry.entryName}`;
+    console.log("executing " + command);
+    const proc = exec(command);
     proc.stdout?.on("data", (data) => console.log(data));
     const promise = new Promise<void>((resolve, reject) => {
       proc.on("exit", (exitCode) => {
+        fs.unlinkSync(`./tmp/${entry.entryName}`);
         if (exitCode === 0) return resolve();
         reject(new Error("psql failed with " + exitCode));
       });
     });
-    proc.stdin!.write(entry.getData());
-    proc.stdin!.end();
     result.push(promise);
   });
   await Promise.all(result);

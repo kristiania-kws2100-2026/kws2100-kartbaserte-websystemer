@@ -6,20 +6,24 @@ import {
 
 export function setupDatabase(db: pg.Pool) {
   db.connect()
-    .then((conn) => runDatabaseSetup(conn).then(() => conn.release()))
+    .then((conn) =>
+      runDatabaseSetup(conn, db.options.connectionString!).then(() =>
+        conn.release(),
+      ),
+    )
     .then(() => {});
 }
 
-async function runDatabaseSetup(conn: pg.PoolClient) {
+async function runDatabaseSetup(conn: pg.PoolClient, connectionString: string) {
   await setupSysadm(conn);
-  await loadData(conn);
+  await loadData(conn, connectionString);
   await postTransform(conn);
   console.log("Load complete");
 }
 
-async function loadData(conn: pg.PoolClient) {
+async function loadData(conn: pg.PoolClient, connectionString: string) {
   async function download(prefix: string, url: string) {
-    return downloadZipToPostgresql(conn, prefix, url);
+    return downloadZipToPostgresql(conn, prefix, url, connectionString);
   }
   async function determineSchema(prefix: string) {
     const { rows } = await conn.query(
