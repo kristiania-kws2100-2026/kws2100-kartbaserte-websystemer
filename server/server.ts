@@ -3,6 +3,7 @@ import { cors } from "hono/cors";
 import { serve } from "@hono/node-server";
 import pg from "pg";
 import { serveStatic } from "@hono/node-server/serve-static";
+import { setupDatabase } from "./db/setupDatabase.js";
 
 const app = new Hono();
 app.use("/api/*", cors());
@@ -10,6 +11,8 @@ app.use("/api/*", cors());
 const connectionString =
   process.env.DATABASE_URL || "psql://postgres@localhost";
 const db = new pg.Pool({ connectionString });
+
+setupDatabase(db);
 
 type FeatureRow = object & { geometry: { type: string; coordinates: object } };
 

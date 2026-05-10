@@ -13,10 +13,12 @@
   "license": "ISC",
   "dependencies": {
     "@hono/node-server": "^1.19.14",
-    "hono": "^4.12.12",
+    "adm-zip": "^0.5.17",
+    "hono": "^4.12.18",
     "pg": "^8.20.0"
   },
   "devDependencies": {
+    "@types/adm-zip": "^0.5.8",
     "@types/pg": "^8.20.0",
     "tsx": "^4.21.0"
   },
