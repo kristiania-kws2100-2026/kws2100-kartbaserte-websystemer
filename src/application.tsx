@@ -3,7 +3,6 @@ import VectorLayer from "ol/layer/Vector.js";
 import VectorSource from "ol/source/Vector.js";
 import VectorTileLayer from "ol/layer/VectorTile.js";
 import VectorTileSource from "ol/source/VectorTile.js";
-import type { FeatureLike } from "ol/Feature.js";
 import { GeoJSON, MVT } from "ol/format.js";
 import { Map, MapBrowserEvent, Overlay, View } from "ol";
 import { OSM } from "ol/source.js";
@@ -14,7 +13,8 @@ import "ol/ol.css";
 import "./application.css";
 import { Draw } from "ol/interaction.js";
 import type { DrawEvent } from "ol/interaction/Draw.js";
-import { Fill, Style } from "ol/style.js";
+import type { RodeFeature, RodeProperties } from "./rodeFeature.js";
+import { rodeStyle } from "./rodeLayer.js";
 
 useGeographic();
 
@@ -33,7 +33,10 @@ const schoolLayer = new VectorLayer({
 });
 const drawnAreaSource = new VectorSource();
 
-const rodeLayer = new VectorLayer({ source: drawnAreaSource });
+const rodeLayer = new VectorLayer({
+  source: drawnAreaSource,
+  style: rodeStyle,
+});
 const backgroundLayer = new TileLayer({ source: new OSM() });
 const map = new Map({
   layers: [backgroundLayer, schoolLayer, adresseLayer, rodeLayer],
@@ -42,18 +45,6 @@ const map = new Map({
 const overlay = new Overlay({
   positioning: "top-center",
 });
-
-type RodeFeature = {
-  properties:
-    | {
-        adresser: {
-          adresseid: number;
-          adressenavn: string;
-          antall_bruksenheter: number;
-        }[];
-      }
-    | { error: string };
-} & FeatureLike;
 
 const drawInteraction = new Draw({
   type: "Polygon",
@@ -84,25 +75,21 @@ export function Application() {
 
     drawnAreaSource.on("addfeature", async (f: DrawEvent) => {
       map.removeInteraction(drawInteraction);
-      console.log(f);
+      const feature = f.feature as RodeFeature;
+      if ("loading" in feature.getProperties()) return;
+      feature.setProperties({ loading: true });
+      console.log(feature);
       const res = await fetch("/api/adresser", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: new GeoJSON().writeGeometry(f.feature.getGeometry()!),
+        body: new GeoJSON().writeGeometry(feature.getGeometry()!),
       });
       if (res.ok) {
-        f.feature.setStyle(
-          new Style({
-            fill: new Fill({ color: "green" }),
-          }),
-        );
-        f.feature.setProperties(await res.json());
+        feature.setProperties({ ...(await res.json()), loading: false });
+        feature.changed();
       } else {
-        f.feature.setStyle(
-          new Style({
-            fill: new Fill({ color: "red" }),
-          }),
-        );
+        feature.setProperties({ error: await res.text(), loading: false });
+        feature.changed();
       }
     });
   });
@@ -116,16 +103,17 @@ export function Application() {
         <div ref={overlayRef}>
           Adresse:{" "}
           {selectedRoder
-            .map((f) => f.getProperties())
-            .map((props) => (
-              <div>
-                {"error" in props ? (
-                  <>{props.error}</>
-                ) : (
-                  <>{props.adresser.length} adresser</>
-                )}
-              </div>
-            ))}
+            .map((f) => f.getProperties() as RodeProperties)
+            .filter((props) => !("loading" in props))
+            .map((props) =>
+              "adresser" in props ? (
+                <div>{props.adresser.length} adresser</div>
+              ) : "error" in props ? (
+                <div>{props.error}</div>
+              ) : (
+                <></>
+              ),
+            )}
         </div>
       </div>
     </>
