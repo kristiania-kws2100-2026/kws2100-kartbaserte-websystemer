@@ -26,7 +26,7 @@ export async function downloadZipToPostgresql(
   );
   if (rows.length > 1) throw Error("whops!");
 
-  const file = `./tmp/${prefix}.zip`;
+  const file = `${process.env.TMP}/${prefix}.zip`;
   console.log(`Downloading ${file}`);
   const res = await fetch(url, { headers: { "If-None-Match": rows[0]?.etag } });
   if (res.status === 304) {
@@ -36,7 +36,6 @@ export async function downloadZipToPostgresql(
   if (!res.ok) {
     throw Error(`Failed to download ${url}: ${res.status}`);
   }
-  if (!fs.existsSync("./tmp")) fs.mkdirSync("./tmp");
   await stream.pipeline(
     res.body!,
     fs.createWriteStream(file, { autoClose: true }),
@@ -55,17 +54,17 @@ export async function downloadZipToPostgresql(
   const result: Promise<unknown>[] = [];
   zipFile.forEach((entry) => {
     console.log(file + ": " + entry.entryName);
-    zipFile.extractEntryTo(entry, "./tmp/.");
+    zipFile.extractEntryTo(entry, `${process.env.TMP}/.`);
     const command =
       os.platform() === "win32"
-        ? `cmd /c "docker exec -i kws2100 /usr/bin/psql --user postgres < ./tmp/${entry.entryName}"`
-        : `/usr/bin/psql ${connectionString} < ./tmp/${entry.entryName}`;
+        ? `cmd /c "docker exec -i kws2100 /usr/bin/psql --user postgres < ${process.env.TMP}/${entry.entryName}"`
+        : `/usr/bin/psql ${connectionString} < ${process.env.TMP}/${entry.entryName}`;
     console.log("executing " + command);
     const proc = exec(command);
     proc.stdout?.on("data", (data) => console.log(data));
     const promise = new Promise<void>((resolve, reject) => {
       proc.on("exit", (exitCode) => {
-        fs.unlinkSync(`./tmp/${entry.entryName}`);
+        fs.unlinkSync(`${process.env.TMP}/${entry.entryName}`);
         if (exitCode === 0) return resolve();
         reject(new Error("psql failed with " + exitCode));
       });
