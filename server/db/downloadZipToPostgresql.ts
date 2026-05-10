@@ -12,6 +12,7 @@ export async function downloadZipToPostgresql(
   prefix: string,
   url: string,
   connectionString: string,
+  key: string = prefix,
 ) {
   const existingSchemas = (
     await conn.query(
@@ -19,20 +20,21 @@ export async function downloadZipToPostgresql(
       [prefix + "%"],
     )
   ).rows.map((r) => r.schema_name);
-  if (existingSchemas.length === 0) {
-    await conn.query("delete from sysadm.downloads where key = $1", [prefix]);
-  }
-
   const { rows } = await conn.query(
     "select * from sysadm.downloads where key = $1 and lastLoad is not null",
-    [prefix],
+    [key],
   );
   if (rows.length > 1) throw Error("whops!");
 
-  const tmpDir = fs.mkdtempSync(join(tmpdir(), "load-" + prefix));
-  const file = `${tmpDir}/${prefix}.zip`;
-  console.log(`Downloading ${file}`);
-  const res = await fetch(url, { headers: { "If-None-Match": rows[0]?.etag } });
+  await conn.query(
+    "insert into sysadm.downloads (key) values ($1) on conflict do nothing",
+    [key],
+  );
+  const tmpDir = fs.mkdtempSync(join(tmpdir(), "load-" + key));
+  const file = `${tmpDir}/${key}.zip`;
+  const etag = rows[0]?.etag;
+  console.log(`Downloading ${file} with etag ${etag}`);
+  const res = await fetch(url, { headers: { "If-None-Match": etag } });
   if (res.status === 304) {
     console.log(`${file} is up-to-date: ${url}`);
     return false;
@@ -48,10 +50,9 @@ export async function downloadZipToPostgresql(
     console.log(`drop schema ${schema} cascade`);
     await conn.query(`drop schema ${schema} cascade`);
   }
-  await conn.query("delete from sysadm.downloads where key = $1", [prefix]);
   await conn.query(
-    "insert into sysadm.downloads (key, etag, lastdownload) values ($1, $2, $3)",
-    [prefix, res.headers.get("etag"), new Date()],
+    "update sysadm.downloads set etag = $2, lastdownload = $3 where key = $1",
+    [key, res.headers.get("etag"), new Date()],
   );
 
   const zipFile = new AdmZip(file);
@@ -78,7 +79,7 @@ export async function downloadZipToPostgresql(
   await Promise.all(result);
   await conn.query(
     "update sysadm.downloads set lastLoad = now() where key = $1",
-    [prefix],
+    [key],
   );
   fs.unlinkSync(file);
   return true;

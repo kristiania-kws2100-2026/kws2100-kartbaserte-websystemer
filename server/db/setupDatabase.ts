@@ -1,8 +1,10 @@
 import pg from "pg";
 import {
   downloadZipToPostgresql,
+  getSchemaName,
   setupSysadm,
 } from "./downloadZipToPostgresql.js";
+import { loadMatrikkelen } from "./loadMatrikkelen.js";
 
 export function setupDatabase(db: pg.Pool) {
   db.connect()
@@ -17,7 +19,6 @@ export function setupDatabase(db: pg.Pool) {
 async function runDatabaseSetup(conn: pg.PoolClient, connectionString: string) {
   await setupSysadm(conn);
   await loadData(conn, connectionString);
-  await postTransform(conn);
   console.log("Load complete");
 }
 
@@ -26,14 +27,7 @@ async function loadData(conn: pg.PoolClient, connectionString: string) {
     return downloadZipToPostgresql(conn, prefix, url, connectionString);
   }
   async function determineSchema(prefix: string) {
-    const { rows } = await conn.query(
-      `select schema_name from information_schema.schemata where schema_name like $1`,
-      [prefix + "%"],
-    );
-    if (rows.length !== 1) {
-      throw Error(`${rows.length} schemas matching ${prefix}%`);
-    }
-    return rows[0].schema_name;
+    return getSchemaName(conn, prefix);
   }
 
   async function loadStemmekretser() {
@@ -85,59 +79,10 @@ async function loadData(conn: pg.PoolClient, connectionString: string) {
       );
     }
   }
-  async function loadMatrikkelen() {
-    const tables = await conn.query(
-      `select count(*)
-       from information_schema.tables
-       where table_schema = 'public'
-         and table_name = 'vegadresse'`,
-    );
-    if (
-      (await download(
-        "matrikkelenadresse",
-        "https://nedlasting.geonorge.no/geonorge/Basisdata/MatrikkelenAdresse/PostGIS/Basisdata_03_Oslo_25832_MatrikkelenAdresse_PostGIS.zip",
-      )) ||
-      tables.rows[0]?.count < 1
-    ) {
-      const schema = await determineSchema("matrikkelenadresse");
-      const sqlStatements = [
-        "drop table if exists staging.vegadresse",
-        `
-        create table staging.vegadresse
-        as
-        select adresseid,
-               adressetekst,
-               adressenavn,
-               bokstav,
-               nummer,
-               representasjonspunkt,
-               st_transform(representasjonspunkt, 4326) representasjonspunkt_4326,
-               st_transform(representasjonspunkt, 3857) representasjonspunkt_3857
-        from ${schema}.vegadresse
-        `,
-        `create index if not exists bruksenhet on ${schema}.vegadresse_bruksenhetsnummertekst(vegadresse_fk)`,
-        `create index if not exists vegadress on ${schema}.vegadresse(adresseid)`,
-        "create index vegadresse_representasjonspunkt_3857_idx on staging.vegadresse using GIST (representasjonspunkt_3857)",
-        "create index vegadresse_representasjonspunkt_4326_idx on staging.vegadresse using GIST (representasjonspunkt_4326)",
-        "alter table staging.vegadresse add antall_bruksenhet int",
-        `update staging.vegadresse a set antall_bruksenhet = (select count(*) from ${schema}.vegadresse_bruksenhetsnummertekst b where b.vegadresse_fk = a.adresseid)`,
-        "alter table staging.vegadresse add bruksenheter_json jsonb",
-        `update staging.vegadresse a set bruksenheter_json = (SELECT json_agg(bruksenhetsnummertekst) from ${schema}.vegadresse_bruksenhetsnummertekst b where b.vegadresse_fk = a.adresseid)`,
-        "drop table if exists public.vegadresse",
-        "alter table staging.vegadresse set schema public",
-      ];
-      for (const sql of sqlStatements) {
-        console.log(new Date() + " Executing " + sql);
-        await conn.query(sql);
-      }
-    }
-  }
 
   return Promise.all([
     loadStemmekretser(),
-    loadMatrikkelen(),
+    loadMatrikkelen(conn, connectionString),
     loadGrunnskoler(),
   ]);
 }
-
-async function postTransform(conn: pg.PoolClient) {}
