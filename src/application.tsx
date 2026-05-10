@@ -104,7 +104,6 @@ export function Application() {
           Adresse:{" "}
           {selectedRoder
             .map((f) => f.getProperties() as RodeProperties)
-            .filter((props) => !("loading" in props))
             .map((props) =>
               "adresser" in props ? (
                 <div>{props.adresser.length} adresser</div>
