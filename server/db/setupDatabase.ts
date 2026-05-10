@@ -91,7 +91,7 @@ async function loadData(conn: pg.PoolClient) {
     if (
       (await download(
         "matrikkelenadresse",
-        "https://nedlasting.geonorge.no/geonorge/Basisdata/MatrikkelenAdresse/PostGIS/Basisdata_03_Oslo_25832_MatrikkelenAdresse_PostGIS.zip",
+        "https://nedlasting.geonorge.no/geonorge/Basisdata/MatrikkelenAdresse/PostGIS/Basisdata_0000_Norge_25833_MatrikkelenAdresse_PostGIS.zip",
       )) ||
       tables.rows[0]?.count < 1
     ) {
