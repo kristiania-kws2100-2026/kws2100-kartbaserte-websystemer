@@ -111,6 +111,8 @@ async function loadData(conn: pg.PoolClient) {
                st_transform(representasjonspunkt, 3857) representasjonspunkt_3857
         from ${schema}.vegadresse
         `,
+        `create index if not exists bruksenhet on ${schema}.vegadresse_bruksenhetsnummertekst(vegadresse_fk)`,
+        `create index if not exists vegadress on ${schema}.vegadresse(adresseid)`,
         "create index vegadresse_representasjonspunkt_3857_idx on staging.vegadresse using GIST (representasjonspunkt_3857)",
         "create index vegadresse_representasjonspunkt_4326_idx on staging.vegadresse using GIST (representasjonspunkt_4326)",
         "alter table staging.vegadresse add antall_bruksenhet int",
