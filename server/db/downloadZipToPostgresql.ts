@@ -54,20 +54,20 @@ export async function downloadZipToPostgresql(
   const result: Promise<unknown>[] = [];
   zipFile.forEach((entry) => {
     console.log(file + ": " + entry.entryName);
-    const process = exec(
+    const proc = exec(
       os.platform() === "win32"
         ? "docker exec -i kws2100 /usr/bin/psql --user postgres"
-        : "psql",
+        : `/usr/bin/psql ${process.env.DATABASE_URL}`,
     );
-    process.stdout?.on("data", (data) => console.log(data));
+    proc.stdout?.on("data", (data) => console.log(data));
     const promise = new Promise<void>((resolve, reject) => {
-      process.on("exit", (exitCode) => {
+      proc.on("exit", (exitCode) => {
         if (exitCode === 0) return resolve();
         reject(new Error("psql failed with " + exitCode));
       });
     });
-    process.stdin!.write(entry.getData());
-    process.stdin!.end();
+    proc.stdin!.write(entry.getData());
+    proc.stdin!.end();
     result.push(promise);
   });
   await Promise.all(result);
