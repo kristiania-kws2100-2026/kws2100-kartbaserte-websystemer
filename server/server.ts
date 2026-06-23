@@ -56,7 +56,7 @@ app.post("/api/adresser", async (c) => {
   `,
     [geometry],
   );
-  if (result.rowCount && result.rowCount > 1000) {
+  if (result.rowCount && result.rowCount > 2000) {
     return c.json({ error: "too many rows" });
   }
   return c.json({ adresser: result.rows });
